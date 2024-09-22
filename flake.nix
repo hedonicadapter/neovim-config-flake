@@ -407,7 +407,7 @@
 
         {
           plugin = staline-nvim;
-          config = toLua (import ./modules/nvim/plugins/staline.lua.nix {inherit outputs;});
+          config = toLua (import ./modules/nvim/plugins/staline.lua.nix);
         }
 
         {
@@ -547,10 +547,10 @@
         cp -r ${./modules/nvim/lua}/* $out/.config/nvim/lua/
 
         # Write customCursorLine.lua
-        echo "${import ./modules/nvim/plugins/reactive/customCursorLine.lua.nix {inherit outputs;}}" > $out/.config/nvim/lua/reactive/presets/customCursorLine.lua
+        echo "${import ./modules/nvim/plugins/reactive/customCursorLine.lua.nix}" > $out/.config/nvim/lua/reactive/presets/customCursorLine.lua
 
         # Write options.lua
-        echo "${import ./modules/nvim/lua/options.lua.nix {inherit outputs;}}" > $out/.config/nvim/lua/options.lua
+        echo "${import ./modules/nvim/lua/options.lua.nix}" > $out/.config/nvim/lua/options.lua
       '';
     };
   };
