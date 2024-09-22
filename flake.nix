@@ -537,5 +537,21 @@
         ${builtins.readFile ./modules/nvim/init.lua}
       '';
     };
+
+    packages.default = nixpkgs.pkgs.stdenv.mkDerivation {
+      pname = "neovim-config";
+      version = "1.0";
+
+      installPhase = ''
+        mkdir -p $out/.config/nvim/lua
+        cp -r ${./modules/nvim/lua}/* $out/.config/nvim/lua/
+
+        # Write customCursorLine.lua
+        echo "${import ./modules/nvim/plugins/reactive/customCursorLine.lua.nix {inherit outputs;}}" > $out/.config/nvim/lua/reactive/presets/customCursorLine.lua
+
+        # Write options.lua
+        echo "${import ./modules/nvim/lua/options.lua.nix {inherit outputs;}}" > $out/.config/nvim/lua/options.lua
+      '';
+    };
   };
 }
