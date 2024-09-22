@@ -409,7 +409,7 @@
 
         {
           plugin = staline-nvim;
-          config = import ./modules/nvim/plugins/staline.lua.nix;
+          config = import ./nvim/plugins/staline.lua.nix;
         }
 
         {
