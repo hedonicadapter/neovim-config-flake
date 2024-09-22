@@ -407,7 +407,7 @@
 
         {
           plugin = staline-nvim;
-          config = toLua (import ./nvim/plugins/staline.lua.nix);
+          config = import ./modules/nvim/plugins/staline.lua.nix;
         }
 
         {
