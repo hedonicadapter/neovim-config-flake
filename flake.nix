@@ -135,7 +135,7 @@
         }
         {
           plugin = nvim-lspconfig;
-          config = toLuaFile ./modules/nvim/plugins/lsp.lua;
+          config = toLuaFile ./nvim/plugins/lsp.lua;
         }
         {
           plugin = pkgs.awesomeNeovimPlugins.garbage-day-nvim;
@@ -250,7 +250,7 @@
         cmp-buffer
         {
           plugin = nvim-cmp;
-          config = toLuaFile ./modules/nvim/plugins/cmp.lua;
+          config = toLuaFile ./nvim/plugins/cmp.lua;
         }
 
         nui-nvim
@@ -307,7 +307,7 @@
 
         {
           plugin = telescope-nvim;
-          config = toLuaFile ./modules/nvim/plugins/telescope.lua;
+          config = toLuaFile ./nvim/plugins/telescope.lua;
         }
 
         telescope-undo-nvim
@@ -344,12 +344,12 @@
             p.tree-sitter-tsx
             p.tree-sitter-terraform
           ]);
-          config = toLuaFile ./modules/nvim/plugins/treesitter.lua;
+          config = toLuaFile ./nvim/plugins/treesitter.lua;
         }
 
         {
           plugin = nvim-treesitter-textobjects;
-          config = toLuaFile ./modules/nvim/plugins/treesitter-textobjects.lua;
+          config = toLuaFile ./nvim/plugins/treesitter-textobjects.lua;
         }
 
         {
@@ -361,7 +361,7 @@
 
         {
           plugin = nvim-colorizer-lua;
-          config = toLuaFile ./modules/nvim/plugins/colorizer.lua;
+          config = toLuaFile ./nvim/plugins/colorizer.lua;
         }
 
         {
@@ -397,22 +397,22 @@
 
         {
           plugin = toggleterm-nvim;
-          config = toLuaFile ./modules/nvim/plugins/toggleterm.lua;
+          config = toLuaFile ./nvim/plugins/toggleterm.lua;
         }
 
         {
           plugin = nvim-cokeline;
-          config = toLuaFile ./modules/nvim/plugins/cokeline/cokeline.lua;
+          config = toLuaFile ./nvim/plugins/cokeline/cokeline.lua;
         }
 
         {
           plugin = staline-nvim;
-          config = toLua (import ./modules/nvim/plugins/staline.lua.nix);
+          config = toLua (import ./nvim/plugins/staline.lua.nix);
         }
 
         {
           plugin = mini-nvim;
-          config = toLuaFile ./modules/nvim/plugins/mini.lua;
+          config = toLuaFile ./nvim/plugins/mini.lua;
         }
 
         {
@@ -451,7 +451,7 @@
 
         {
           plugin = twilight-nvim;
-          config = toLuaFile ./modules/nvim/plugins/twilight.lua;
+          config = toLuaFile ./nvim/plugins/twilight.lua;
         }
 
         nvim-web-devicons
@@ -534,7 +534,7 @@
       extraLuaConfig = ''
         ${luaColors}
         ${luaColorsOpaque}
-        ${builtins.readFile ./modules/nvim/init.lua}
+        ${builtins.readFile ./nvim/init.lua}
       '';
     };
 
@@ -544,13 +544,13 @@
 
       installPhase = ''
         mkdir -p $out/.config/nvim/lua
-        cp -r ${./modules/nvim/lua}/* $out/.config/nvim/lua/
+        cp -r ${./nvim/lua}/* $out/.config/nvim/lua/
 
         # Write customCursorLine.lua
-        echo "${import ./modules/nvim/plugins/reactive/customCursorLine.lua.nix}" > $out/.config/nvim/lua/reactive/presets/customCursorLine.lua
+        echo "${import ./nvim/plugins/reactive/customCursorLine.lua.nix}" > $out/.config/nvim/lua/reactive/presets/customCursorLine.lua
 
         # Write options.lua
-        echo "${import ./modules/nvim/lua/options.lua.nix}" > $out/.config/nvim/lua/options.lua
+        echo "${import ./nvim/lua/options.lua.nix}" > $out/.config/nvim/lua/options.lua
       '';
     };
   };
