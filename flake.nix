@@ -28,9 +28,11 @@
     awesome-neovim-plugins,
     ...
   } @ inputs: let
-    system = "x86_64-linux";
+    systems = ["x86_64-linux"];
+    forAllSystems = nixpkgs.lib.genAttrs systems;
+
     pkgs = import nixpkgs {
-      inherit system;
+      inherit systems;
       overlays = [
         inputs.neovim-nightly-overlay.overlays.default
         inputs.nur.overlay
@@ -538,20 +540,22 @@
       '';
     };
 
-    packages.default = nixpkgs.pkgs.stdenv.mkDerivation {
-      pname = "neovim-config";
-      version = "1.0";
+    packages = forAllSystems (system: {
+      neovim-config = pkgs.stdenv.mkDerivation {
+        pname = "neovim-config";
+        version = "1.0";
 
-      installPhase = ''
-        mkdir -p $out/.config/nvim/lua
-        cp -r ${./nvim/lua}/* $out/.config/nvim/lua/
+        installPhase = ''
+          mkdir -p $out/.config/nvim/lua
+          cp -r ${./nvim/lua}/* $out/.config/nvim/lua/
 
-        # Write customCursorLine.lua
-        echo "${import ./nvim/plugins/reactive/customCursorLine.lua.nix}" > $out/.config/nvim/lua/reactive/presets/customCursorLine.lua
+          # Write customCursorLine.lua
+          echo "${import ./nvim/plugins/reactive/customCursorLine.lua.nix}" > $out/.config/nvim/lua/reactive/presets/customCursorLine.lua
 
-        # Write options.lua
-        echo "${import ./nvim/lua/options.lua.nix}" > $out/.config/nvim/lua/options.lua
-      '';
-    };
+          # Write options.lua
+          echo "${import ./nvim/lua/options.lua.nix}" > $out/.config/nvim/lua/options.lua
+        '';
+      };
+    });
   };
 }
