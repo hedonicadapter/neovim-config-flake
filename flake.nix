@@ -34,7 +34,6 @@
     pkgs = import nixpkgs {
       inherit systems;
       overlays = [
-        inputs.neovim-nightly-overlay.overlays.default
         inputs.nur.overlay
         inputs.awesome-neovim-plugins.overlays.default
         inputs.nixneovimplugins.overlays.default
@@ -56,7 +55,7 @@
     luaColorsOpaque = builtins.concatStringsSep "\n" (builtins.attrValues (builtins.mapAttrs (name: value: "vim.g['colors_${name}_opaque'] = ${builtins.toJSON value}") colors.outputs.colors_opaque));
   in {
     neovimConfig = {
-      package = pkgs.neovim-nightly;
+      package = inputs.neovim-nightly-overlay.packages.${pkgs.system}.default;
 
       plugins = with pkgs.vimPlugins; [
         roslyn-nvim
