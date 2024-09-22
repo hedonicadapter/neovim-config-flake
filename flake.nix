@@ -64,7 +64,7 @@
           plugin = auto-session;
           config = toLua ''
             require('auto-session').setup({
-              auto_session_suppress_dirs = { "${config.home.homeDirectory}", "~/", "~/Documents/coding", "~/Downloads", "/"},
+              auto_session_suppress_dirs = { "~/", "~/Documents/coding", "~/Downloads", "/"},
               log_level = "error",
               auto_restore_enabled = false,
               auto_save_enabled = true,
