@@ -487,9 +487,90 @@
         {
           plugin = pkgs.vimExtraPlugins.reactive-nvim;
           config = toLua ''
-            require('reactive').setup({
-              load = { 'customCursorLine' }
-            })
+            require('reactive').add_preset {
+              name = "customCursorLine",
+              init = function()
+                vim.opt.cursorline = true
+              end,
+              modes = {
+                no = {
+                  operators = {
+                    -- switch case
+                    [{ "gu", "gU", "g~", "~" }] = {
+                      winhl = {
+                        CursorLine = { bg = "${outputs.darken outputs.colors_opaque.black 0.5}" },
+                        CursorLineNr = { fg = "${outputs.darken outputs.colors_opaque.beige 0.5}", bg = "${outputs.darken outputs.colors_opaque.black 0.5}" },
+                      },
+                    },
+                    -- change
+                    c = {
+                      winhl = {
+                        CursorLine = { bg = "${outputs.darken outputs.colors_opaque.yellow 0.5}" },
+                        CursorLineNr = { fg = "${outputs.darken outputs.colors_opaque.yellow 0.5}", bg = "${outputs.darken outputs.colors_opaque.yellow 0.5}" },
+                      },
+                    },
+                    -- yank
+                    y = {
+                      winhl = {
+                        CursorLine = { bg = "${outputs.darken outputs.colors_opaque.burgundy 0.5}" },
+                        CursorLineNr = { fg = "${outputs.darken outputs.colors_opaque.burgundy 0.5}", bg = "${outputs.darken outputs.colors_opaque.burgundy 0.5}" },
+                      },
+                    },
+                  },
+                },
+                i = {
+                  winhl = {
+                    CursorLine = { bg = "${outputs.darken outputs.colors_opaque.green 0.5}" },
+                    CursorLineNr = { fg = "${outputs.darken outputs.colors_opaque.green 0.5}", bg = "${outputs.darken outputs.colors_opaque.green 0.5}" },
+                  },
+                  hl = {
+                    Cursor = { bg = "${outputs.darken outputs.colors_opaque.green 0.5}" },
+                  },
+                },
+                c = {
+                  winhl = {
+                    CursorLine = { bg = "${outputs.darken outputs.colors_opaque.orange 0.5}" },
+                    CursorLineNr = { fg = "${outputs.darken outputs.colors_opaque.orange 0.5}", bg = "${outputs.darken outputs.colors_opaque.orange 0.5}" },
+                  },
+                },
+                n = {
+                  winhl = {
+                    CursorLine = { bg = "${outputs.darken outputs.colors_opaque.white_dim 0.5}" },
+                    CursorLineNr = { fg = "${outputs.darken outputs.colors_opaque.white_dim 0.5}", bg = "${outputs.darken outputs.colors_opaque.white_dim 0.5}" },
+                  },
+                  hl = {
+                    Cursor = { bg = "${outputs.darken outputs.colors_opaque.white_dim 0.5}" },
+                  },
+                },
+                -- visual
+                [{ "v", "V", "\x16" }] = {
+                  winhl = {
+                    CursorLineNr = { fg = "${outputs.darken outputs.colors_opaque.blue 0.5}" },
+                    Visual = { bg = "${outputs.darken outputs.colors_opaque.blue 0.5}" },
+                  },
+                  hl = {
+                    Cursor = { bg = "${outputs.darken outputs.colors_opaque.cyan 0.5}" },
+                  },
+                },
+                -- select
+                [{ "s", "S", "\x13" }] = {
+                  winhl = {
+                    CursorLineNr = { fg = "${outputs.darken outputs.colors_opaque.blue 0.5}" },
+                    Visual = { bg = "${outputs.darken outputs.colors_opaque.blue 0.5}" },
+                  },
+                },
+                -- replace
+                R = {
+                  winhl = {
+                    CursorLine = { bg = "${outputs.darken outputs.colors_opaque.red 0.5}" },
+                    CursorLineNr = { fg = "${outputs.darken outputs.colors_opaque.red 0.5}", bg = "${outputs.darken outputs.colors_opaque.red 0.5}" },
+                  },
+                },
+              },
+            }
+              require('reactive').setup({
+                load = { 'customCursorLine' }
+              })
           '';
         }
 
@@ -535,26 +616,25 @@
       extraLuaConfig = ''
         ${luaColors}
         ${luaColorsOpaque}
+
+        ${builtins.readFile ./nvim/lua/plugins/toggle-print.lua}
+        ${builtins.readFile ./nvim/lua/utils.lua}
+        ${import ./nvim/lua/options.lua.nix}
+        ${builtins.readFile ./nvim/lua/keymaps.lua}
         ${builtins.readFile ./nvim/init.lua}
+
+        ${builtins.readFile ./nvim/plugins/cokeline.lua}
+        ${builtins.readFile ./nvim/plugins/cmp.lua}
+        ${builtins.readFile ./nvim/plugins/colorizer.lua}
+        ${builtins.readFile ./nvim/plugins/lsp.lua}
+        ${builtins.readFile ./nvim/plugins/mini.lua}
+        ${builtins.readFile ./nvim/plugins/staline.lua.nix}
+        ${builtins.readFile ./nvim/plugins/telescope.lua}
+        ${builtins.readFile ./nvim/plugins/toggleterm.lua}
+        ${builtins.readFile ./nvim/plugins/treesitter-textobjects.lua}
+        ${builtins.readFile ./nvim/plugins/treesitter.lua}
+        ${builtins.readFile ./nvim/plugins/twilight.lua}
       '';
     };
-
-    packages = forAllSystems (system: {
-      neovim-config = pkgs.stdenv.mkDerivation {
-        pname = "neovim-config";
-        version = "1.0";
-
-        installPhase = ''
-          mkdir -p ~/.config/nvim/lua
-          cp -r ${./nvim}/* ~/.config/nvim
-
-          # Write customCursorLine.lua
-          echo "${import ./nvim/plugins/reactive/customCursorLine.lua.nix}" > ~/.config/nvim/lua/reactive/presets/customCursorLine.lua
-
-          # Write options.lua
-          echo "${import ./nvim/lua/options.lua.nix}" > ~/.config/nvim/lua/options.lua
-        '';
-      };
-    });
   };
 }
