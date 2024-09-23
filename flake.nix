@@ -533,27 +533,31 @@
       ];
 
       extraLuaConfig = ''
+
         ${luaColors}
         ${luaColorsOpaque}
         ${builtins.readFile ./nvim/init.lua}
+        vim.opt.runtimepath:append("${pkgs.neovim-unwrapped}/share/nvim/runtime")
       '';
     };
 
     packages = forAllSystems (system: {
-      neovim-config = pkgs.stdenv.mkDerivation {
-        pname = "neovim-config";
-        version = "1.0";
-
-        installPhase = ''
-          mkdir -p $out/.config/nvim/lua
-          cp -r ${./nvim}/* $out/.config/nvim
-
-          # Write customCursorLine.lua
-          echo "${import ./nvim/plugins/reactive/customCursorLine.lua.nix}" > $out/.config/nvim/lua/reactive/presets/customCursorLine.lua
-
-          # Write options.lua
-          echo "${import ./nvim/lua/options.lua.nix}" > $out/.config/nvim/lua/options.lua
-        '';
+      neovim-config = pkgs.symlinkJoin {
+        name = "neovim-config";
+        paths = [
+          (pkgs.stdenv.mkDerivation {
+            pname = "neovim-config";
+            version = "1.0";
+            src = ./.;
+            installPhase = ''
+              mkdir -p $out/.config/nvim/lua
+              cp -r ./nvim/* $out/.config/nvim
+              echo "${import ./nvim/plugins/reactive/customCursorLine.lua.nix}" > $out/.config/nvim/lua/reactive/presets/customCursorLine.lua
+              echo "${import ./nvim/lua/options.lua.nix}" > $out/.config/nvim/lua/options.lua
+            '';
+          })
+          pkgs.neovim-unwrapped
+        ];
       };
     });
   };
