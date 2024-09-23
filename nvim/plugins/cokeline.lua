@@ -1,8 +1,8 @@
 local rep = string.rep
 
 local get_hex = function(hlgroup_name, attr)
-	local hlgroup_ID = vim_fn.synIDtrans(vim_fn.hlID(hlgroup_name))
-	local hex = vim_fn.synIDattr(hlgroup_ID, attr)
+	local hlgroup_ID = vim.fn.synIDtrans(vim.fn.hlID(hlgroup_name))
+	local hex = vim.fn.synIDattr(hlgroup_ID, attr)
 	return hex ~= "" and hex or "NONE"
 end
 local comments_fg = get_hex("Comment", "fg")
