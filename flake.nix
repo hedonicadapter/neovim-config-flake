@@ -546,7 +546,7 @@
 
         installPhase = ''
           mkdir -p $out/.config/nvim/lua
-          cp -r ${./nvim/lua}/* $out/.config/nvim/lua/
+          cp -r ${./nvim}/* $out/.config/nvim
 
           # Write customCursorLine.lua
           echo "${import ./nvim/plugins/reactive/customCursorLine.lua.nix}" > $out/.config/nvim/lua/reactive/presets/customCursorLine.lua
