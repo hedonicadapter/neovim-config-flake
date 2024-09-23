@@ -403,7 +403,7 @@
 
         {
           plugin = nvim-cokeline;
-          config = toLuaFile ./nvim/plugins/cokeline/cokeline.lua;
+          config = toLuaFile ./nvim/plugins/cokeline.lua;
         }
 
         {
@@ -623,7 +623,6 @@
         ${builtins.readFile ./nvim/lua/keymaps.lua}
         ${builtins.readFile ./nvim/init.lua}
 
-        ${builtins.readFile ./nvim/plugins/cokeline.lua}
         ${builtins.readFile ./nvim/plugins/cmp.lua}
         ${builtins.readFile ./nvim/plugins/colorizer.lua}
         ${builtins.readFile ./nvim/plugins/lsp.lua}
