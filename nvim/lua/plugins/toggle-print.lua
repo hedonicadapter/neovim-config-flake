@@ -1,6 +1,4 @@
-local M = {}
-
-M.print_statements = {
+local print_statements = {
 	lua = "print(%s)",
 	python = "print(%s)",
 	javascript = "console.log(%s)",
@@ -10,7 +8,7 @@ M.print_statements = {
 }
 
 -- stolen from fzf
-function M.tbl_length(T)
+local function tbl_length(T)
 	local count = 0
 	for _ in pairs(T) do
 		count = count + 1
@@ -19,7 +17,7 @@ function M.tbl_length(T)
 end
 
 -- stolen from fzf
-function M.get_visual_selection()
+local function get_visual_selection()
 	-- this will exit visual mode
 	-- use 'gv' to reselect the text
 	local _, csrow, cscol, cerow, cecol
@@ -57,7 +55,7 @@ function M.get_visual_selection()
 	return table.concat(lines, "\n")
 end
 
-function M.toggle_print()
+local function toggle_print()
 	local buf = vim.api.nvim_get_current_buf()
 	local buf_lang = vim.bo[buf].filetype
 
@@ -77,5 +75,3 @@ function M.toggle_print()
 
 	vim.api.nvim_buf_set_text(buf, s_pos[2] - 1, s_pos[3] - 1, e_pos[2] - 1, e_pos[3], { wrapped_print_stmt })
 end
-
-return M

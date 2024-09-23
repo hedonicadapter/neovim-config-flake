@@ -619,20 +619,9 @@
 
         ${builtins.readFile ./nvim/lua/plugins/toggle-print.lua}
         ${builtins.readFile ./nvim/lua/utils.lua}
-        ${builtins.toString (import ./nvim/lua/options.lua.nix {inherit colors;})}
+        ${import ./nvim/lua/options.lua.nix {inherit colors;}}
         ${builtins.readFile ./nvim/lua/keymaps.lua}
         ${builtins.readFile ./nvim/init.lua}
-
-        ${builtins.readFile ./nvim/plugins/cmp.lua}
-        ${builtins.readFile ./nvim/plugins/colorizer.lua}
-        ${builtins.readFile ./nvim/plugins/lsp.lua}
-        ${builtins.readFile ./nvim/plugins/mini.lua}
-        ${builtins.readFile ./nvim/plugins/staline.lua.nix}
-        ${builtins.readFile ./nvim/plugins/telescope.lua}
-        ${builtins.readFile ./nvim/plugins/toggleterm.lua}
-        ${builtins.readFile ./nvim/plugins/treesitter-textobjects.lua}
-        ${builtins.readFile ./nvim/plugins/treesitter.lua}
-        ${builtins.readFile ./nvim/plugins/twilight.lua}
       '';
     };
   };
