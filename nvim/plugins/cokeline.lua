@@ -1,6 +1,3 @@
-local util = require("utils")
-local get_hex = util.get_hex
-
 local rep = string.rep
 
 local comments_fg = get_hex("Comment", "fg")
