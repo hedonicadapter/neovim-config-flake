@@ -619,7 +619,7 @@
 
         ${builtins.readFile ./nvim/lua/plugins/toggle-print.lua}
         ${builtins.readFile ./nvim/lua/utils.lua}
-        ${builtins.toString (import ./nvim/lua/options.lua.nix)}
+        ${builtins.toString (import ./nvim/lua/options.lua.nix {inherit colors;})}
         ${builtins.readFile ./nvim/lua/keymaps.lua}
         ${builtins.readFile ./nvim/init.lua}
 

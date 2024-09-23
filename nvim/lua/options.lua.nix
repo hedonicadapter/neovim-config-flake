@@ -1,4 +1,4 @@
-{outputs, ...}: let
+{colors, ...}: let
   lua = ''
     local o = vim.o
     local opt = vim.opt
@@ -185,8 +185,8 @@
     		GitSignsChange = { bg = "NONE" },
     		GitSignsDelete = { bg = "NONE" },
     		VertSplit = { bg = "NONE", ctermbg = "NONE" },
-    		MatchParen = { bg = "${outputs.colors.yellow}", fg = "${outputs.colors.black}"},
-        Visual = { bg = "${outputs.darken outputs.colors_opaque.blue 0.6}"},
+    		MatchParen = { bg = "${colors.outputs.colors.yellow}", fg = "${colors.outputs.colors.black}"},
+        Visual = { bg = "${colors.outputs.darken colors.outputs.colors_opaque.blue 0.6}"},
     	}
 
     	for group, settings in pairs(highlights) do
