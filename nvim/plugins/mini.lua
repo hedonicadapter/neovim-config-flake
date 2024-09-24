@@ -1,10 +1,22 @@
 local starter = require("mini.starter")
 
-function merge_tables(t1, t2)
+local function merge_tables(t1, t2)
 	for k, v in ipairs(t2) do
 		table.insert(t1, v)
 	end
 	return t1
+end
+
+local getFilesInDirectory = function(directory)
+	local files = {}
+	for dir in io.popen("ls -pa " .. directory .. " | grep -v /"):lines() do
+		local filename_withoutpercentage = string.gsub(dir, "%%", "/")
+		local filename = string.gsub(filename_withoutpercentage, "%.vim", "")
+		local fileObject = { name = filename }
+
+		table.insert(files, fileObject)
+	end
+	return files
 end
 
 local my_items = function()
