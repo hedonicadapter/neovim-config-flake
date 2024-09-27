@@ -22,93 +22,80 @@ nvim_set_keymap("n", "<leader>sf", "<cmd>w<CR>", {
 
 set_keymap_for_all_modes("<leader>qq", "<cmd>qa<CR>")
 
-nvim_set_keymap("n", "<leader>u", "<cmd>Telescope undo<CR>", {
+keymap.set("n", "<leader>u", "<cmd>Telescope undo<CR>", {
 	noremap = true,
 	silent = true,
 })
 
-nvim_set_keymap("n", "<Esc>", "<cmd>nohlsearch<CR>", {
+keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>", {
 	noremap = true,
 	silent = true,
 })
 
-nvim_set_keymap("n", "<leader>sv", "<C-w>v", {
+keymap.set("n", "<leader>sv", "<C-w>v", {
 	noremap = true,
 	desc = "split vertical",
 })
-nvim_set_keymap("n", "<leader>sh", "<C-w>s", {
+keymap.set("n", "<leader>sh", "<C-w>s", {
 	noremap = true,
 	desc = "split horizontal",
 })
-nvim_set_keymap("n", "<leader>sx", ":close<CR>", {
+keymap.set("n", "<leader>sx", ":close<CR>", {
 	noremap = true,
 	desc = "close window",
 })
 
-nvim_set_keymap("n", "<leader>bd", ":bd<CR><CR>", {
+keymap.set("n", "<leader>bd", ":bd<CR><CR>", {
 	noremap = true,
 	desc = "close buffer",
 })
 
-nvim_set_keymap("v", "y", "ygv<esc>", {
+keymap.set("v", "y", "ygv<esc>", {
 	noremap = true,
 })
 
-nvim_set_keymap("t", "<Esc>", "<C-\\><C-n>", {
+keymap.set("t", "<Esc>", "<C-\\><C-n>", {
 	noremap = true,
 })
 
--- nvim_set_keymap("n", "<Tab>", ":bnext<CR>", {
--- 	noremap = true,
--- 	silent = true,
--- })
--- nvim_set_keymap("n", "<S-Tab>", ":bprev<CR>", {
--- 	noremap = true,
--- 	silent = true,
--- })
---
-
-nvim_set_keymap("n", "<Tab>", ":TelescopeBuffersNext", {
+keymap.set("n", "<S-l>", ":bnext<CR>", {
 	noremap = true,
 	silent = true,
 })
-nvim_set_keymap("n", "<S-Tab>", ":TelescopeBuffersPrevious", {
+keymap.set("n", "<S-h>", ":bprev<CR>", {
 	noremap = true,
 	silent = true,
 })
 
-nvim_set_keymap("n", "<C-j>", ":m .+1<CR>==", { -- move line down
+keymap.set("n", "<Tab>", ":TelescopeBuffersNext<CR>")
+keymap.set("n", "<Tab>", ":TelescopeBuffersPrevious<CR>")
+
+keymap.set("n", "<C-j>", ":m .+1<CR>==") -- move line down
+keymap.set("n", "<C-k>", ":m .-2<CR>==") -- move line up
+keymap.set("i", "<C-j>", "<Esc>:m .+1<CR>==gi", {
 	noremap = true,
 	silent = true,
 })
-nvim_set_keymap("n", "<C-k>", ":m .-2<CR>==", { -- move line up
+keymap.set("i", "<C-k>", "<Esc>:m .-2<CR>==gi", {
 	noremap = true,
 	silent = true,
 })
-nvim_set_keymap("i", "<C-j>", "<Esc>:m .+1<CR>==gi", {
+keymap.set("v", "<C-j>", ":m '>+1<CR>gv", {
 	noremap = true,
 	silent = true,
 })
-nvim_set_keymap("i", "<C-k>", "<Esc>:m .-2<CR>==gi", {
-	noremap = true,
-	silent = true,
-})
-nvim_set_keymap("v", "<C-j>", ":m '>+1<CR>gv", {
-	noremap = true,
-	silent = true,
-})
-nvim_set_keymap("v", "<C-k>", ":m '<-2<CR>gv", {
+keymap.set("v", "<C-k>", ":m '<-2<CR>gv", {
 	noremap = true,
 	silent = true,
 })
 
-nvim_set_keymap("v", "y", "ygv", {
+keymap.set("v", "y", "ygv", {
 	noremap = true,
 })
-nvim_set_keymap("v", ">", ">gv", {
+keymap.set("v", ">", ">gv", {
 	noremap = true,
 })
-nvim_set_keymap("v", "<", "<gv", {
+keymap.set("v", "<", "<gv", {
 	noremap = true,
 })
 
