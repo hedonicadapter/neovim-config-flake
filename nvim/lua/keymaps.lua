@@ -66,11 +66,11 @@ nvim_set_keymap("t", "<Esc>", "<C-\\><C-n>", {
 -- 	noremap = true,
 -- 	silent = true,
 -- })
-nvim_set_keymap("n", "<Tab>", ":lua require'telescope.builtin'.buffers<CR>", {
+nvim_set_keymap("n", "<Tab>", ":Telescope buffers <CR>", {
 	noremap = true,
 	silent = true,
 })
-nvim_set_keymap("n", "<S-Tab>", ":lua require'telescope.builtin'.buffers<CR>", {
+nvim_set_keymap("n", "<S-Tab>", ":Telescope buffers <CR>", {
 	noremap = true,
 	silent = true,
 })
