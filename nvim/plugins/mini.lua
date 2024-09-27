@@ -24,7 +24,7 @@ local my_items = function()
 		if i > 5 then
 			break
 		end -- Exit the loop after 5 items
-		fileObject.action = "SessionRestore '" .. decodeURLPath(fileObject.name) .. "')"
+		fileObject.action = "SessionRestore " .. decodeURLPath(fileObject.name)
 		local truncated_name = decodeURLPath(fileObject.name)
 		if #truncated_name > max_name_length then
 			truncated_name = truncated_name:sub(1, max_name_length - 3) .. "..."
