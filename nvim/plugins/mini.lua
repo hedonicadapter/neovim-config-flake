@@ -1,12 +1,5 @@
 local starter = require("mini.starter")
 
-local function merge_tables(t1, t2)
-	for k, v in ipairs(t2) do
-		table.insert(t1, v)
-	end
-	return t1
-end
-
 local getFilesInDirectory = function(directory)
 	local files = {}
 	for dir in io.popen("ls -pa " .. directory .. " | grep -v /"):lines() do
@@ -31,9 +24,7 @@ local my_items = function()
 		if i > 5 then
 			break
 		end -- Exit the loop after 5 items
-		fileObject.action = "lua require('auto-session.session-lens.actions').functions.RestoreSession('"
-			.. decodeURLPath(fileObject.name)
-			.. "')"
+		fileObject.action = "SessionRestore '" .. decodeURLPath(fileObject.name) .. "')"
 		local truncated_name = decodeURLPath(fileObject.name)
 		if #truncated_name > max_name_length then
 			truncated_name = truncated_name:sub(1, max_name_length - 3) .. "..."
