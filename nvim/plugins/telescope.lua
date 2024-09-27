@@ -257,8 +257,8 @@ telescope.setup({
 	},
 	mappings = {
 		i = {
-			["<Tab>"] = actions.move_selection_previous,
-			["<S-Tab>"] = actions.move_selection_next,
+			["<Tab>"] = actions.move_selection_next,
+			["<S-Tab>"] = actions.move_selection_previous,
 		},
 	},
 	extensions = {
