@@ -169,8 +169,8 @@
     	local highlights = {
     		TreesitterContextBottom = { sp = "NONE" },
     		TreesitterContext = { bg = "NONE", italic = true },
-        TelescopeNormal = { guibg = "NONE" },
-        TelescopePreviewNormal = { guibg = "NONE" },
+        TelescopeNormal = { bg = "NONE" },
+        TelescopePreviewNormal = { bg = "NONE" },
     		WinBar = { bg = "NONE" },
     		LineNr = { bg = "NONE" },
     		SignColumn = { bg = "NONE" },
