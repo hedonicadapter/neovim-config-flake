@@ -257,8 +257,8 @@ telescope.setup({
 	},
 	mappings = {
 		i = {
-			["<Tab>"] = actions.move_selection_next,
-			["<S-Tab>"] = actions.move_selection_previous,
+			["<Tab>"] = actions.move_selection_previous,
+			["<S-Tab>"] = actions.move_selection_next,
 		},
 	},
 	extensions = {
@@ -280,7 +280,7 @@ local function move_next()
 
 	vim.defer_fn(function()
 		local prompt_bufnr = vim.api.nvim_get_current_buf()
-		actions.move_selection_next(prompt_bufnr)
+		actions.move_selection_previous(prompt_bufnr)
 	end, 250)
 end
 local function move_prev()
@@ -288,7 +288,7 @@ local function move_prev()
 
 	vim.defer_fn(function()
 		local prompt_bufnr = vim.api.nvim_get_current_buf()
-		actions.move_selection_previous(prompt_bufnr)
+		actions.move_selection_next(prompt_bufnr)
 	end, 250)
 end
 
