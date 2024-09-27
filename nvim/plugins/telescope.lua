@@ -2,6 +2,7 @@ local Layout = require("nui.layout")
 local Popup = require("nui.popup")
 
 local telescope = require("telescope")
+local actions = require("telescope.actions")
 local TSLayout = require("telescope.pickers.layout")
 
 local function make_popup(options)
@@ -264,39 +265,26 @@ telescope.setup({
 	},
 })
 
-require("telescope").load_extension("fzf")
-require("telescope").load_extension("undo")
-require("telescope").load_extension("session-lens")
+telescope.load_extension("fzf")
+telescope.load_extension("undo")
+telescope.load_extension("session-lens")
 
-local function telescope_buffers_and_move(direction)
+local function move_next()
 	vim.cmd("Telescope buffers")
 
 	vim.defer_fn(function()
-		local key
-		if direction == "next" then
-			key = "<C-n>"
-		elseif direction == "previous" then
-			key = "<C-p>"
-		else
-			print("Invalid direction. Use 'next' or 'previous'.")
-			return
-		end
-
-		local keys = vim.api.nvim_replace_termcodes(key, true, false, true)
-		vim.api.nvim_feedkeys(keys, "n", true)
-	end, 100)
+		local prompt_bufnr = vim.api.nvim_get_current_buf()
+		actions.move_selection_next(prompt_bufnr)
+	end, 250)
 end
+local function move_prev()
+	vim.cmd("Telescope buffers")
 
-vim.api.nvim_create_user_command("TelescopeBuffersPrevious", function()
-	telescope_buffers_and_move("previous")
-end, {})
-
-local actions = require("telescope.actions")
-local action_state = require("telescope.actions.state")
-
-local function move_next()
-	local prompt_bufnr = vim.api.nvim_get_current_buf()
-	actions.move_selection_next(prompt_bufnr)
+	vim.defer_fn(function()
+		local prompt_bufnr = vim.api.nvim_get_current_buf()
+		actions.move_selection_previous(prompt_bufnr)
+	end, 250)
 end
 
 vim.api.nvim_create_user_command("TelescopeBuffersNext", move_next, {})
+vim.api.nvim_create_user_command("TelescopeBuffersPrevious", move_prev, {})
