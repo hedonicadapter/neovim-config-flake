@@ -282,7 +282,8 @@ local function telescope_buffers_and_move(direction)
 			return
 		end
 
-		vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, false, true), "n", true)
+		local keys = vim.api.nvim_replace_termcodes(key, true, false, true)
+		vim.api.nvim_feedkeys(keys, "n", true)
 	end, 100)
 end
 
