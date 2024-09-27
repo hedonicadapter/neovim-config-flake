@@ -58,11 +58,19 @@ nvim_set_keymap("t", "<Esc>", "<C-\\><C-n>", {
 	noremap = true,
 })
 
-nvim_set_keymap("n", "<Tab>", ":bnext<CR>", {
+-- nvim_set_keymap("n", "<Tab>", ":bnext<CR>", {
+-- 	noremap = true,
+-- 	silent = true,
+-- })
+-- nvim_set_keymap("n", "<S-Tab>", ":bprev<CR>", {
+-- 	noremap = true,
+-- 	silent = true,
+-- })
+nvim_set_keymap("n", "<Tab>", ":lua require'telescope.builtin'.buffers<CR>", {
 	noremap = true,
 	silent = true,
 })
-nvim_set_keymap("n", "<S-Tab>", ":bprev<CR>", {
+nvim_set_keymap("n", "<S-Tab>", ":lua require'telescope.builtin'.buffers<CR>", {
 	noremap = true,
 	silent = true,
 })
