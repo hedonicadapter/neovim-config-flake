@@ -268,10 +268,27 @@ require("telescope").load_extension("fzf")
 require("telescope").load_extension("undo")
 require("telescope").load_extension("session-lens")
 
-vim.api.nvim_exec(
-	[[
-  autocmd ColorScheme * highlight TelescopeNormal guibg=NONE
-  autocmd ColorScheme * highlight TelescopePreviewNormal guibg=NONE
-]],
-	false
-)
+local function telescope_buffers_and_move(direction)
+	vim.cmd("Telescope buffers")
+
+	vim.defer_fn(function()
+		local key
+		if direction == "next" then
+			key = "<C-n>"
+		elseif direction == "previous" then
+			key = "<C-p>"
+		else
+			print("Invalid direction. Use 'next' or 'previous'.")
+			return
+		end
+
+		vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, false, true), "n", true)
+	end, 100)
+end
+
+vim.api.nvim_create_user_command("TelescopeBuffersNext", function()
+	telescope_buffers_and_move("next")
+end, {})
+vim.api.nvim_create_user_command("TelescopeBuffersPrevious", function()
+	telescope_buffers_and_move("previous")
+end, {})

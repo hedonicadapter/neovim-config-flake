@@ -66,11 +66,13 @@ nvim_set_keymap("t", "<Esc>", "<C-\\><C-n>", {
 -- 	noremap = true,
 -- 	silent = true,
 -- })
-nvim_set_keymap("n", "<Tab>", ":Telescope buffers <CR>", {
+--
+
+nvim_set_keymap("n", "<Tab>", ":TelescopeBuffersNext", {
 	noremap = true,
 	silent = true,
 })
-nvim_set_keymap("n", "<S-Tab>", ":Telescope buffers <CR>", {
+nvim_set_keymap("n", "<S-Tab>", ":TelescopeBuffersPrevious", {
 	noremap = true,
 	silent = true,
 })
