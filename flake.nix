@@ -499,10 +499,10 @@
                     [{ "gu", "gU", "g~", "~" }] = {
                       winhl = {
                         CursorLine = { bg = "${colors.outputs.darken colors.outputs.colors_opaque.black 0.7}" },
-                        CursorLineNr = { fg = "${colors.outputs.darken colors.outputs.colors_opaque.beige 0.2}", bg = "${colors.outputs.darken colors.outputs.colors_opaque.black 0.7}" },
+                        CursorLineNr = { fg = "${colors.outputs.darken colors.outputs.colors_opaque.black 0.2}", bg = "${colors.outputs.darken colors.outputs.colors_opaque.black 0.7}" },
                       },
                       hl = {
-                        Cursor = { bg = "${colors.outputs.darken colors.outputs.colors_opaque.beige 0.2}" },
+                        Cursor = { bg = "${colors.outputs.darken colors.outputs.colors_opaque.black 0.2}" },
                       },
                     },
                     -- change
@@ -561,7 +561,7 @@
                     Visual = { bg = "${colors.outputs.darken colors.outputs.colors_opaque.blue 0.7}" },
                   },
                   hl = {
-                    Cursor = { bg = "${colors.outputs.darken colors.outputs.colors_opaque.cyan 0.2}" },
+                    Cursor = { bg = "${colors.outputs.darken colors.outputs.colors_opaque.blue 0.2}" },
                   },
                 },
                 -- select
