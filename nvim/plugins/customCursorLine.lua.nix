@@ -12,21 +12,21 @@
     				[{ "gu", "gU", "g~", "~" }] = {
     					winhl = {
     						CursorLine = { bg = "${outputs.darken outputs.colors_opaque.black 0.5}" },
-    						CursorLineNr = { fg = "${outputs.darken outputs.colors_opaque.beige 0.5}", bg = "${outputs.darken outputs.colors_opaque.black 0.5}" },
+    						CursorLineNr = { fg = "${outputs.darken outputs.colors_opaque.beige 0.3}", bg = "${outputs.darken outputs.colors_opaque.black 0.5}" },customcursorline
     					},
     				},
     				-- change
     				c = {
     					winhl = {
     						CursorLine = { bg = "${outputs.darken outputs.colors_opaque.yellow 0.5}" },
-    						CursorLineNr = { fg = "${outputs.darken outputs.colors_opaque.yellow 0.5}", bg = "${outputs.darken outputs.colors_opaque.yellow 0.5}" },
+    						CursorLineNr = { fg = "${outputs.darken outputs.colors_opaque.yellow 0.3}", bg = "${outputs.darken outputs.colors_opaque.yellow 0.5}" },customcursorline
     					},
     				},
     				-- yank
     				y = {
     					winhl = {
     						CursorLine = { bg = "${outputs.darken outputs.colors_opaque.burgundy 0.5}" },
-    						CursorLineNr = { fg = "${outputs.darken outputs.colors_opaque.burgundy 0.5}", bg = "${outputs.darken outputs.colors_opaque.burgundy 0.5}" },
+    						CursorLineNr = { fg = "${outputs.darken outputs.colors_opaque.burgundy 0.3}", bg = "${outputs.darken outputs.colors_opaque.burgundy 0.5}" },customcursorline
     					},
     				},
     			},
@@ -34,7 +34,7 @@
     		i = {
     			winhl = {
     				CursorLine = { bg = "${outputs.darken outputs.colors_opaque.green 0.5}" },
-    				CursorLineNr = { fg = "${outputs.darken outputs.colors_opaque.green 0.5}", bg = "${outputs.darken outputs.colors_opaque.green 0.5}" },
+    				CursorLineNr = { fg = "${outputs.darken outputs.colors_opaque.green 0.3}", bg = "${outputs.darken outputs.colors_opaque.green 0.5}" },customcursorline
     			},
     			hl = {
     				Cursor = { bg = "${outputs.darken outputs.colors_opaque.green 0.5}" },
@@ -43,13 +43,13 @@
     		c = {
     			winhl = {
     				CursorLine = { bg = "${outputs.darken outputs.colors_opaque.orange 0.5}" },
-    				CursorLineNr = { fg = "${outputs.darken outputs.colors_opaque.orange 0.5}", bg = "${outputs.darken outputs.colors_opaque.orange 0.5}" },
+    				CursorLineNr = { fg = "${outputs.darken outputs.colors_opaque.orange 0.3}", bg = "${outputs.darken outputs.colors_opaque.orange 0.5}" },customcursorline
     			},
     		},
     		n = {
     			winhl = {
     				CursorLine = { bg = "${outputs.darken outputs.colors_opaque.white_dim 0.5}" },
-    				CursorLineNr = { fg = "${outputs.darken outputs.colors_opaque.white_dim 0.5}", bg = "${outputs.darken outputs.colors_opaque.white_dim 0.5}" },
+    				CursorLineNr = { fg = "${outputs.darken outputs.colors_opaque.white_dim 0.3}", bg = "${outputs.darken outputs.colors_opaque.white_dim 0.5}" },customcursorline
     			},
     			hl = {
     				Cursor = { bg = "${outputs.darken outputs.colors_opaque.white_dim 0.5}" },
@@ -58,7 +58,7 @@
     		-- visual
     		[{ "v", "V", "\x16" }] = {
     			winhl = {
-    				CursorLineNr = { fg = "${outputs.darken outputs.colors_opaque.blue 0.5}" },
+    				CursorLineNr = { fg = "${outputs.darken outputs.colors_opaque.blue 0.3}" },customcursorline
     				Visual = { bg = "${outputs.darken outputs.colors_opaque.blue 0.5}" },
     			},
     			hl = {
@@ -68,7 +68,7 @@
     		-- select
     		[{ "s", "S", "\x13" }] = {
     			winhl = {
-    				CursorLineNr = { fg = "${outputs.darken outputs.colors_opaque.blue 0.5}" },
+    				CursorLineNr = { fg = "${outputs.darken outputs.colors_opaque.blue 0.3}" },customcursorline
     				Visual = { bg = "${outputs.darken outputs.colors_opaque.blue 0.5}" },
     			},
     		},
@@ -76,7 +76,7 @@
     		R = {
     			winhl = {
     				CursorLine = { bg = "${outputs.darken outputs.colors_opaque.red 0.5}" },
-    				CursorLineNr = { fg = "${outputs.darken outputs.colors_opaque.red 0.5}", bg = "${outputs.darken outputs.colors_opaque.red 0.5}" },
+    				CursorLineNr = { fg = "${outputs.darken outputs.colors_opaque.red 0.3}", bg = "${outputs.darken outputs.colors_opaque.red 0.5}" },customcursorline
     			},
     		},
     	},
