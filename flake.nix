@@ -63,11 +63,11 @@
           plugin = auto-session;
           config = toLua ''
             require('auto-session').setup({
-              auto_session_suppress_dirs = { "~/", "~/Documents/coding", "~/Downloads", "/"},
-              log_level = "error",
-              auto_restore_enabled = false,
-              auto_save_enabled = true,
-              auto_session_root_dir = vim.fn.stdpath('data').."/sessions/",
+            auto_restore = false,
+            auto_save = true,
+            log_level = "error",
+            root_dir = vim.fn.stdpath('data').."/sessions/",
+            suppressed_dirs = { "~/", "~/Documents/coding", "~/Downloads", "/" }
             })
           '';
         }

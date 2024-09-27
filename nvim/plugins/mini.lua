@@ -19,25 +19,25 @@ local getFilesInDirectory = function(directory)
 	return files
 end
 
+local function decodeURLPath(path)
+	return path:gsub("/2F", "/")
+end
+
 local my_items = function()
 	local sessions = getFilesInDirectory("~/.local/share/nvim/sessions")
 	local limited_sessions = {}
 	local max_name_length = 45
-
 	for i, fileObject in ipairs(sessions) do
 		if i > 5 then
 			break
 		end -- Exit the loop after 5 items
-
 		fileObject.action = "lua require('auto-session.session-lens.actions').functions.RestoreSession('"
-			.. fileObject.name
+			.. decodeURLPath(fileObject.name)
 			.. "')"
-
-		local truncated_name = fileObject.name
+		local truncated_name = decodeURLPath(fileObject.name)
 		if #truncated_name > max_name_length then
 			truncated_name = truncated_name:sub(1, max_name_length - 3) .. "..."
 		end
-
 		fileObject.name = i .. " " .. truncated_name
 		fileObject.section = "Sessions"
 		table.insert(limited_sessions, fileObject)
