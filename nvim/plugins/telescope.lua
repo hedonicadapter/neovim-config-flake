@@ -287,9 +287,16 @@ local function telescope_buffers_and_move(direction)
 	end, 100)
 end
 
-vim.api.nvim_create_user_command("TelescopeBuffersNext", function()
-	telescope_buffers_and_move("next")
-end, {})
 vim.api.nvim_create_user_command("TelescopeBuffersPrevious", function()
 	telescope_buffers_and_move("previous")
 end, {})
+
+local actions = require("telescope.actions")
+local action_state = require("telescope.actions.state")
+
+local function move_next()
+	local prompt_bufnr = vim.api.nvim_get_current_buf()
+	actions.move_selection_next(prompt_bufnr)
+end
+
+vim.api.nvim_create_user_command("TelescopeBuffersNext", move_next, {})
