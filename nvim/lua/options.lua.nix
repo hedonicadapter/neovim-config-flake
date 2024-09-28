@@ -171,6 +171,8 @@
     		TreesitterContext = { bg = "NONE", italic = true },
         TelescopeNormal = { bg = "NONE" },
         TelescopePreviewNormal = { bg = "NONE" },
+        TelescopeSelection = { bg = "${colors.outputs.colors.green}" },
+        TelescopeSelectionCaret = { bg = "NONE" },
     		WinBar = { bg = "NONE" },
     		LineNr = { bg = "NONE" },
     		SignColumn = { bg = "NONE" },
