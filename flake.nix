@@ -215,6 +215,13 @@
         }
 
         {
+          plugin = ultimate-autopair-nvim;
+          config = toLua ''
+            require('ultimate-autopair').setup()
+          '';
+        }
+
+        {
           plugin = nvim-treesitter-context;
           config = toLua ''
             require("treesitter-context").setup({
