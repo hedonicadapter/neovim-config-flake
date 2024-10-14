@@ -290,10 +290,9 @@ lspconfig.tailwindcss.setup(coq.lsp_ensure_capabilities({
 		"postcss.config.ts"
 	),
 }))
-lspconfig.terraform_lsp.setup(coq.lsp_ensure_capabilities({
+lspconfig.terraformls.setup(coq.lsp_ensure_capabilities({
 	on_attach = on_attach,
 	capabilities = capabilities,
-	filetypes = { "tf", "terraform", "terraform-vars", "hcl" },
 }))
 lspconfig.vimls.setup(coq.lsp_ensure_capabilities({
 	on_attach = on_attach,
