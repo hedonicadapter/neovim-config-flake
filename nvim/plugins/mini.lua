@@ -24,8 +24,9 @@ local my_items = function()
 		if i > 5 then
 			break
 		end
-		fileObject.action = 'silent SessionRestore "' .. decodeURLPath(fileObject.name) .. '"'
-		local truncated_name = decodeURLPath(fileObject.name)
+		local decodedUrl = decodeURLPath(fileObject.name)
+		fileObject.action = "SessionRestore " .. decodedUrl
+		local truncated_name = decodedUrl
 		if #truncated_name > max_name_length then
 			truncated_name = truncated_name:sub(1, max_name_length - 3) .. "..."
 		end
