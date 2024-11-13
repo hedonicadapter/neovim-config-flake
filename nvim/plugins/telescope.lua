@@ -274,6 +274,7 @@ telescope.setup({
 telescope.load_extension("fzf")
 telescope.load_extension("undo")
 telescope.load_extension("session-lens")
+telescope.load_extension("live_grep_args")
 
 local function move_next()
 	vim.cmd("Telescope buffers")

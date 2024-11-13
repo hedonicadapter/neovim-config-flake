@@ -163,7 +163,7 @@ nvim_set_keymap(
 )
 set_keymap_for_all_modes("<leader>ff", ":Telescope find_files<CR>")
 set_keymap_for_all_modes("<leader>fr", ":Telescope resume<CR>")
-set_keymap_for_all_modes("<leader>lg", ":Telescope live_grep<CR>")
+set_keymap_for_all_modes("<leader>lg", ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>")
 
 nvim_set_keymap(
 	"n",
