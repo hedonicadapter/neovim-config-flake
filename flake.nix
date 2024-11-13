@@ -321,7 +321,7 @@
         }
 
         {
-          plugin = tiny-code-action-nvim;
+          plugin = pkgs.awesomeNeovimPlugins.tiny-code-action-nvim;
           config = toLua ''
             require("tiny-code-action").setup()
           '';
