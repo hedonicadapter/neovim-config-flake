@@ -171,7 +171,7 @@
     		TreesitterContext = { bg = "NONE", italic = true },
         TelescopeNormal = { bg = "NONE" },
         TelescopePreviewNormal = { bg = "NONE" },
-        TelescopeSelection = { bg = "${colors.outputs.colors.cyan_dim}" },
+        TelescopeSelection = { bg = "${colors.outputs.colors.cyan_dim}", fg = "${colors.outputs.colors.black}" },
         TelescopeSelectionCaret = { bg = "NONE" },
     		WinBar = { bg = "NONE" },
     		LineNr = { bg = "NONE" },
