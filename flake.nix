@@ -320,6 +320,13 @@
           config = toLuaFile ./nvim/plugins/telescope.lua;
         }
 
+        {
+          plugin = tiny-code-action-nvim;
+          config = toLua ''
+            require("tiny-code-action").setup()
+          '';
+        }
+
         telescope-undo-nvim
 
         {

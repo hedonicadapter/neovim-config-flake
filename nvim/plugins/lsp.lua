@@ -10,7 +10,10 @@ local on_attach = function(client, bufnr)
 	end
 
 	bufmap("<leader>rn", vim.lsp.buf.rename)
-	bufmap("<leader>ca", vim.lsp.buf.code_action)
+	--[[ 	bufmap("<leader>ca", vim.lsp.buf.code_action) ]]
+	bufmap("<leader>ca", function()
+		require("tiny-code-action").code_action()
+	end)
 
 	bufmap("gd", vim.lsp.buf.definition)
 	bufmap("gD", vim.lsp.buf.declaration)
