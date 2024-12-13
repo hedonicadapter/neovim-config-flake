@@ -31,8 +31,7 @@
     opt.fillchars:append(",eob: ")
 
     if g.neovide then
-    	opt.linespace = 10
-
+    	opt.linespace = 2
     	opt.guifont = "vt323:#h-none"
 
     	g.neovide_padding_top = 10
@@ -46,8 +45,6 @@
     	g.neovide_refresh_rate_idle = 5
     	g.neovide_fullscreen = false
     	g.neovide_remember_window_size = false
-    	g.neovide_scale_factor = 0.8
-    	-- g.neovide_scale_factor = 1.25
 
     	g.neovide_scroll_animation_length = 0.1
     	g.neovide_cursor_smooth_blink = true
@@ -58,10 +55,10 @@
     	-- 	return string.format("%x", math.floor(255 * g.transparency or 0.8))
     	-- end
     	-- g:neovide_transparency should be 0 if you want to unify transparency of content and title bar.
-    	g.neovide_transparency = 0.8
-    	-- g.transparency = 0.8
-    	-- g.neovide_background_color = "#34302C" -- .. alpha()
-    	g.neovide_window_blurred = true
+    	g.neovide_transparency = 1
+    	g.transparency = 1
+    	g.neovide_background_color = "${colors.outputs.colors.base00}" -- .. alpha()
+    	-- g.neovide_window_blurred = true
 
     	keymap.set("n", "<C-s>", ":w<CR>") -- Save
     	keymap.set("v", "<C-c>", '"+y') -- Copy
@@ -171,7 +168,7 @@
     		TreesitterContext = { bg = "NONE", italic = true },
         TelescopeNormal = { bg = "NONE" },
         TelescopePreviewNormal = { bg = "NONE" },
-        TelescopeSelection = { bg = "${colors.outputs.colors.cyan_dim}", fg = "${colors.outputs.colors.black}" },
+        TelescopeSelection = { bg = "${colors.outputs.colors.base0C}", fg = "${colors.outputs.colors.base00}" },
         TelescopeSelectionCaret = { bg = "NONE" },
     		WinBar = { bg = "NONE" },
     		LineNr = { bg = "NONE" },
@@ -189,8 +186,8 @@
     		GitSignsChange = { bg = "NONE" },
     		GitSignsDelete = { bg = "NONE" },
     		VertSplit = { bg = "NONE", ctermbg = "NONE" },
-    		MatchParen = { bg = "${colors.outputs.colors.yellow}", fg = "${colors.outputs.colors.black}"},
-        Visual = { bg = "${colors.outputs.darken colors.outputs.colors_opaque.blue 0.6}"},
+    		MatchParen = { bg = "${colors.outputs.colors.base09}", fg = "${colors.outputs.colors.base00}"},
+        Visual = { bg = "${colors.outputs.darken colors.outputs.colors_opaque.base0D 0.6}"},
     	}
 
     	for group, settings in pairs(highlights) do

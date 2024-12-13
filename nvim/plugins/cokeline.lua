@@ -39,31 +39,31 @@ local components = {
 		fg = function(buffer)
 			if buffer.is_focused then
 				if buffer.diagnostics.errors ~= 0 then
-					return vim.g.colors_red_opaque
+					return vim.g.colors_base08_opaque
 				elseif buffer.diagnostics.warnings ~= 0 then
-					return vim.g.colors_yellow_opaque
+					return vim.g.colors_base09_opaque
 				elseif buffer.is_modified then
-					return vim.g.colors_green_opaque
+					return vim.g.colors_base0B_opaque
 				elseif buffer.diagnostics.infos ~= 0 then
-					return vim.g.colors_blue_opaque
+					return vim.g.colors_base0D_opaque
 				elseif buffer.diagnostics.hints ~= 0 then
-					return vim.g.colors_cyan_opaque
+					return vim.g.colors_base0C_opaque
 				else
-					return vim.g.colors_white_opaque
+					return vim.g.colors_base00_opaque
 				end
 			else
 				if buffer.diagnostics.errors ~= 0 then
-					return vim.g.colors_red_dim_opaque
+					return vim.g.colors_base08_opaque
 				elseif buffer.diagnostics.warnings ~= 0 then
-					return vim.g.colors_yellow_dim_opaque
+					return vim.g.colors_base09_opaque
 				elseif buffer.is_modified then
-					return vim.g.colors_green_dim_opaque
+					return vim.g.colors_base0A_opaque
 				elseif buffer.diagnostics.infos ~= 0 then
-					return vim.g.colors_blue_dim_opaque
+					return vim.g.colors_base02_opaque
 				elseif buffer.diagnostics.hints ~= 0 then
-					return vim.g.colors_cyan_dim_opaque
+					return vim.g.colors_base0C_opaque
 				else
-					return vim.g.colors_white_dim_opaque
+					return vim.g.colors_00_opaque
 				end
 			end
 		end,
@@ -98,31 +98,31 @@ local components = {
 		fg = function(buffer)
 			if buffer.is_focused then
 				if buffer.diagnostics.errors ~= 0 then
-					return vim.g.colors_red_opaque
+					return vim.g.colors_base08_opaque
 				elseif buffer.is_modified then
-					return vim.g.colors_green_opaque
+					return vim.g.colors_base0B_opaque
 				elseif buffer.diagnostics.warnings ~= 0 then
-					return vim.g.colors_yellow_opaque
+					return vim.g.colors_base09_opaque
 				elseif buffer.diagnostics.infos ~= 0 then
-					return vim.g.colors_blue_opaque
+					return vim.g.colors_base0D_opaque
 				elseif buffer.diagnostics.hints ~= 0 then
-					return vim.g.colors_cyan_opaque
+					return vim.g.colors_base0C_opaque
 				else
-					return vim.g.colors_white
+					return vim.g.colors_base00
 				end
 			else
 				if buffer.diagnostics.errors ~= 0 then
-					return vim.g.colors_red_dim_opaque
+					return vim.g.colors_base08_opaque
 				elseif buffer.is_modified then
-					return vim.g.colors_green_dim_opaque
+					return vim.g.colors_base0A_opaque
 				elseif buffer.diagnostics.warnings ~= 0 then
-					return vim.g.colors_yellow_dim_opaque
+					return vim.g.colors_base09_opaque
 				elseif buffer.diagnostics.infos ~= 0 then
-					return vim.g.colors_blue_dim_opaque
+					return vim.g.colors_base02_opaque
 				elseif buffer.diagnostics.hints ~= 0 then
-					return vim.g.colors_cyan_dim_opaque
+					return vim.g.colors_base0C_opaque
 				else
-					return vim.g.colors_white_dim_opaque
+					return vim.g.colors_00_opaque
 				end
 			end
 		end,
@@ -146,31 +146,31 @@ local components = {
 		fg = function(buffer)
 			if buffer.is_focused then
 				if buffer.diagnostics.errors ~= 0 then
-					return vim.g.colors_red_opaque
+					return vim.g.colors_base08_opaque
 				elseif buffer.is_modified then
-					return vim.g.colors_green_opaque
+					return vim.g.colors_base0B_opaque
 				elseif buffer.diagnostics.warnings ~= 0 then
-					return vim.g.colors_yellow_opaque
+					return vim.g.colors_base09_opaque
 				elseif buffer.diagnostics.infos ~= 0 then
-					return vim.g.colors_blue_opaque
+					return vim.g.colors_base0D_opaque
 				elseif buffer.diagnostics.hints ~= 0 then
-					return vim.g.colors_cyan_opaque
+					return vim.g.colors_base0C_opaque
 				else
-					return vim.g.colors_white_opaque
+					return vim.g.colors_base00_opaque
 				end
 			else
 				if buffer.diagnostics.errors ~= 0 then
-					return vim.g.colors_red_dim_opaque
+					return vim.g.colors_base08_opaque
 				elseif buffer.is_modified then
-					return vim.g.colors_green_dim_opaque
+					return vim.g.colors_base0A_opaque
 				elseif buffer.diagnostics.warnings ~= 0 then
-					return vim.g.colors_yellow_dim_opaque
+					return vim.g.colors_base09_opaque
 				elseif buffer.diagnostics.infos ~= 0 then
-					return vim.g.colors_blue_dim_opaque
+					return vim.g.colors_base02_opaque
 				elseif buffer.diagnostics.hints ~= 0 then
-					return vim.g.colors_cyan_dim_opaque
+					return vim.g.colors_base0C_opaque
 				else
-					return vim.g.colors_black_opaque
+					return vim.g.colors_base00_opaque
 				end
 			end
 		end,
@@ -201,25 +201,25 @@ local components = {
 		fg = function(buffer)
 			if buffer.is_focused then
 				if buffer.diagnostics.errors ~= 0 then
-					return vim.g.colors_red_opaque
+					return vim.g.colors_base08_opaque
 				elseif buffer.diagnostics.warnings ~= 0 then
-					return vim.g.colors_yellow_opaque
+					return vim.g.colors_base09_opaque
 				elseif buffer.diagnostics.infos ~= 0 then
-					return vim.g.colors_blue_opaque
+					return vim.g.colors_base0D_opaque
 				elseif buffer.diagnostics.hints ~= 0 then
-					return vim.g.colors_cyan_opaque
+					return vim.g.colors_base0C_opaque
 				else
 					return "NONE"
 				end
 			else
 				if buffer.diagnostics.errors ~= 0 then
-					return vim.g.colors_red_dim_opaque
+					return vim.g.colors_base08_opaque
 				elseif buffer.diagnostics.warnings ~= 0 then
-					return vim.g.colors_yellow_dim_opaque
+					return vim.g.colors_base09_opaque
 				elseif buffer.diagnostics.infos ~= 0 then
-					return vim.g.colors_blue_dim_opaque
+					return vim.g.colors_base02_opaque
 				elseif buffer.diagnostics.hints ~= 0 then
-					return vim.g.colors_cyan_dim_opaque
+					return vim.g.colors_base0C_opaque
 				else
 					return "NONE"
 				end
@@ -240,9 +240,9 @@ local components = {
 			end
 
 			if buffer.is_focused then
-				return vim.g.colors_green_opaque
+				return vim.g.colors_base0B_opaque
 			else
-				return vim.g.colors_green_dim_opaque
+				return vim.g.colors_base0A_opaque
 			end
 		end,
 		truncation = { priority = 1 },
