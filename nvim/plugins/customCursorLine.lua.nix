@@ -11,72 +11,72 @@
     				-- switch case
     				[{ "gu", "gU", "g~", "~" }] = {
     					winhl = {
-    						CursorLine = { bg = "${outputs.darken outputs.colors_opaque.black 0.5}" },
-    						CursorLineNr = { fg = "${outputs.darken outputs.colors_opaque.beige 0.3}", bg = "${outputs.darken outputs.colors_opaque.black 0.5}" },
+    						CursorLine = { bg = "${outputs.darken outputs.colors_opaque.base07 0.5}" },
+    						CursorLineNr = { fg = "${outputs.darken outputs.colors_opaque.base09 0.3}", bg = "${outputs.darken outputs.colors_opaque.base07 0.5}" },
     					},
     				},
     				-- change
     				c = {
     					winhl = {
-    						CursorLine = { bg = "${outputs.darken outputs.colors_opaque.yellow 0.5}" },
-    						CursorLineNr = { fg = "${outputs.darken outputs.colors_opaque.yellow 0.3}", bg = "${outputs.darken outputs.colors_opaque.yellow 0.5}" },
+    						CursorLine = { bg = "${outputs.darken outputs.colors_opaque.base09 0.5}" },
+    						CursorLineNr = { fg = "${outputs.darken outputs.colors_opaque.base09 0.3}", bg = "${outputs.darken outputs.colors_opaque.base09 0.5}" },
     					},
     				},
     				-- yank
     				y = {
     					winhl = {
-    						CursorLine = { bg = "${outputs.darken outputs.colors_opaque.burgundy 0.5}" },
-    						CursorLineNr = { fg = "${outputs.darken outputs.colors_opaque.burgundy 0.3}", bg = "${outputs.darken outputs.colors_opaque.burgundy 0.5}" },
+    						CursorLine = { bg = "${outputs.darken outputs.colors_opaque.base08 0.5}" },
+    						CursorLineNr = { fg = "${outputs.darken outputs.colors_opaque.base08 0.3}", bg = "${outputs.darken outputs.colors_opaque.base08 0.5}" },
     					},
     				},
     			},
     		},
     		i = {
     			winhl = {
-    				CursorLine = { bg = "${outputs.darken outputs.colors_opaque.green 0.5}" },
-    				CursorLineNr = { fg = "${outputs.darken outputs.colors_opaque.green 0.3}", bg = "${outputs.darken outputs.colors_opaque.green 0.5}" },
+    				CursorLine = { bg = "${outputs.darken outputs.colors_opaque.base0B 0.5}" },
+    				CursorLineNr = { fg = "${outputs.darken outputs.colors_opaque.base0B 0.3}", bg = "${outputs.darken outputs.colors_opaque.base0B 0.5}" },
     			},
     			hl = {
-    				Cursor = { bg = "${outputs.darken outputs.colors_opaque.green 0.5}" },
+    				Cursor = { bg = "${outputs.darken outputs.colors_opaque.base0B 0.5}" },
     			},
     		},
     		c = {
     			winhl = {
-    				CursorLine = { bg = "${outputs.darken outputs.colors_opaque.orange 0.5}" },
-    				CursorLineNr = { fg = "${outputs.darken outputs.colors_opaque.orange 0.3}", bg = "${outputs.darken outputs.colors_opaque.orange 0.5}" },
+    				CursorLine = { bg = "${outputs.darken outputs.colors_opaque.base0F 0.5}" },
+    				CursorLineNr = { fg = "${outputs.darken outputs.colors_opaque.base0F 0.3}", bg = "${outputs.darken outputs.colors_opaque.base0F 0.5}" },
     			},
     		},
     		n = {
     			winhl = {
-    				CursorLine = { bg = "${outputs.darken outputs.colors_opaque.white_dim 0.5}" },
-    				CursorLineNr = { fg = "${outputs.darken outputs.colors_opaque.white_dim 0.3}", bg = "${outputs.darken outputs.colors_opaque.white_dim 0.5}" },
+    				CursorLine = { bg = "${outputs.darken outputs.colors_opaque.base07 0.5}" },
+    				CursorLineNr = { fg = "${outputs.darken outputs.colors_opaque.base07 0.3}", bg = "${outputs.darken outputs.colors_opaque.base07 0.5}" },
     			},
     			hl = {
-    				Cursor = { bg = "${outputs.darken outputs.colors_opaque.white_dim 0.5}" },
+    				Cursor = { bg = "${outputs.darken outputs.colors_opaque.base07 0.5}" },
     			},
     		},
     		-- visual
     		[{ "v", "V", "\x16" }] = {
     			winhl = {
-    				CursorLineNr = { fg = "${outputs.darken outputs.colors_opaque.blue 0.3}" },
-    				Visual = { bg = "${outputs.darken outputs.colors_opaque.blue 0.5}" },
+    				CursorLineNr = { fg = "${outputs.darken outputs.colors_opaque.base0D 0.3}" },
+    				Visual = { bg = "${outputs.darken outputs.colors_opaque.base0D 0.5}" },
     			},
     			hl = {
-    				Cursor = { bg = "${outputs.darken outputs.colors_opaque.cyan 0.5}" },
+    				Cursor = { bg = "${outputs.darken outputs.colors_opaque.base0C 0.5}" },
     			},
     		},
     		-- select
     		[{ "s", "S", "\x13" }] = {
     			winhl = {
-    				CursorLineNr = { fg = "${outputs.darken outputs.colors_opaque.blue 0.3}" },
-    				Visual = { bg = "${outputs.darken outputs.colors_opaque.blue 0.5}" },
+    				CursorLineNr = { fg = "${outputs.darken outputs.colors_opaque.base0D 0.3}" },
+    				Visual = { bg = "${outputs.darken outputs.colors_opaque.base0D 0.5}" },
     			},
     		},
     		-- replace
     		R = {
     			winhl = {
-    				CursorLine = { bg = "${outputs.darken outputs.colors_opaque.red 0.5}" },
-    				CursorLineNr = { fg = "${outputs.darken outputs.colors_opaque.red 0.3}", bg = "${outputs.darken outputs.colors_opaque.red 0.5}" },
+    				CursorLine = { bg = "${outputs.darken outputs.colors_opaque.base08 0.5}" },
+    				CursorLineNr = { fg = "${outputs.darken outputs.colors_opaque.base08 0.3}", bg = "${outputs.darken outputs.colors_opaque.base08 0.5}" },
     			},
     		},
     	},
