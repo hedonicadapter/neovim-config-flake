@@ -49,7 +49,7 @@ local components = {
 				elseif buffer.diagnostics.hints ~= 0 then
 					return vim.g.colors_base0C_opaque
 				else
-					return vim.g.colors_base00_opaque
+					return vim.g.colors_base06_opaque
 				end
 			else
 				if buffer.diagnostics.errors ~= 0 then
@@ -108,7 +108,7 @@ local components = {
 				elseif buffer.diagnostics.hints ~= 0 then
 					return vim.g.colors_base0C_opaque
 				else
-					return vim.g.colors_base00
+					return vim.g.colors_base06
 				end
 			else
 				if buffer.diagnostics.errors ~= 0 then
@@ -156,7 +156,7 @@ local components = {
 				elseif buffer.diagnostics.hints ~= 0 then
 					return vim.g.colors_base0C_opaque
 				else
-					return vim.g.colors_base00_opaque
+					return vim.g.colors_base06_opaque
 				end
 			else
 				if buffer.diagnostics.errors ~= 0 then
@@ -170,7 +170,7 @@ local components = {
 				elseif buffer.diagnostics.hints ~= 0 then
 					return vim.g.colors_base0C_opaque
 				else
-					return vim.g.colors_base00_opaque
+					return vim.g.colors_base06_opaque
 				end
 			end
 		end,

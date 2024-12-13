@@ -14,11 +14,11 @@
     		V = "${colors.outputs.colors.base0D}",
     	},
     	mode_icons = {
-    		n = " ",
-    		i = " ",
-    		c = " ",
-    		v = " ",
-    		V = " ",
+    		n = "NORMAL ",
+    		i = "INSERT ",
+    		c = "COMMAND ",
+    		v = "VISUAL ",
+    		V = "VISUAL ",
     	},
     	defaults = {
     		true_colors = true,
