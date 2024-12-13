@@ -46,7 +46,7 @@
     	g.neovide_fullscreen = false
     	g.neovide_remember_window_size = false
 
-    	g.neovide_scroll_animation_length = 0.1
+    	g.neovide_scroll_animation_length = 0.2
     	g.neovide_cursor_smooth_blink = true
     	g.neovide_floating_shadow = false
 
