@@ -22,7 +22,7 @@
     opt.backspace = "indent,eol,start"
     opt.clipboard:append("unnamedplus")
     g.have_nerd_font = true
-    opt.guifont = "CartographCF Nerd Font"
+    opt.guifont = "vt323"
     o.guicursor = "n-v-c-sm-i-ci-ve:block,r-cr-o:hor20,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor"
     o.cmdheight = 0
     o.sidescroll = 1
@@ -33,7 +33,7 @@
     if g.neovide then
     	opt.linespace = 10
 
-    	opt.guifont = "CartographCF Nerd Font:#h-none"
+    	opt.guifont = "vt323:#h-none"
 
     	g.neovide_padding_top = 10
     	g.neovide_padding_bottom = 0
