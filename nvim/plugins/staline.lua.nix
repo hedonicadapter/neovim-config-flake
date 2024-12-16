@@ -7,11 +7,11 @@
     		right = { "", "cwd", "branch" },
     	},
     	mode_colors = {
-    		i = "${colors.outputs.colors.base0B}",
-    		n = "${colors.outputs.colors.base09}",
-    		c = "${colors.outputs.colors.base09}",
-    		v = "${colors.outputs.colors.base0D}",
-    		V = "${colors.outputs.colors.base0D}",
+    		i = "${colors.outputs.colors.base0F}",
+    		n = "${colors.outputs.colors.base03}",
+    		c = "${colors.outputs.colors.base0E}",
+    		v = "${colors.outputs.colors.base0C}",
+    		V = "${colors.outputs.colors.base0C}",
     	},
     	mode_icons = {
     		n = "NORMAL ",
