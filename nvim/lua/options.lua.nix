@@ -22,7 +22,7 @@
     opt.backspace = "indent,eol,start"
     opt.clipboard:append("unnamedplus")
     g.have_nerd_font = true
-    opt.guifont = "vt323"
+    opt.guifont = "Mx437 DOS/V re. JPN30"
     o.guicursor = "n-v-c-sm-i-ci-ve:block,r-cr-o:hor20,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor"
     o.cmdheight = 0
     o.sidescroll = 1
@@ -32,7 +32,7 @@
 
     if g.neovide then
     	opt.linespace = 2
-    	opt.guifont = "vt323:#h-none"
+    	opt.guifont = "Mx437 DOS/V re. JPN30:#h-none"
 
     	g.neovide_padding_top = 10
     	g.neovide_padding_bottom = 0
