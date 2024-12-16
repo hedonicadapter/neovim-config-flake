@@ -188,6 +188,9 @@
     		VertSplit = { bg = "NONE", ctermbg = "NONE" },
     		MatchParen = { bg = "${colors.outputs.colors.base09}", fg = "${colors.outputs.colors.base00}"},
         Visual = { bg = "${colors.outputs.darken colors.outputs.colors_opaque.base0D 0.6}"},
+
+        Comment = { fg = "${colors.outputs.colors.base04}" },
+        TSComment = { fg = "${colors.outputs.colors.base04}" },
     	}
 
     	for group, settings in pairs(highlights) do

@@ -90,11 +90,11 @@
     		-- replace
     		R = {
           winhl = {
-            CursorLine = { bg = "${outputs.colors.darken c contrast}", fg = "${outputs.colors_opaque.base07}"},
-            CursorLineNr = { fg = "${c}", bg = "${outputs.colors.darken c contrast}" },
+            CursorLine = { bg = "${outputs.colors.darken r contrast}", fg = "${outputs.colors_opaque.base07}"},
+            CursorLineNr = { fg = "${r}", bg = "${outputs.colors.darken r contrast}" },
           },
           hl = {
-            Cursor = { bg = "${c}", fg = "${outputs.colors_opaque.base07}" },
+            Cursor = { bg = "${r}", fg = "${outputs.colors_opaque.base07}" },
           },
     		},
     	},
