@@ -31,8 +31,8 @@
     opt.fillchars:append(",eob: ")
 
     if g.neovide then
-    	opt.linespace = 2
-    	opt.guifont = "Mx437 DOS/V re. JPN30:#h-none"
+    	opt.linespace = 1.75
+    	opt.guifont = "Mx437 DOS/V re. JPN30:h11:#h-none"
 
     	g.neovide_padding_top = 10
     	g.neovide_padding_bottom = 0

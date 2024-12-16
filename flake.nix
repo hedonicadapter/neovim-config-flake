@@ -517,30 +517,6 @@
                   vim.opt.cursorline = true
                 end,
                 modes = {
-                  no = {
-                    operators = {
-                      -- change
-                      [{ "c", "C" }] = {
-                        winhl = {
-                          CursorLine = { bg = "${colors.outputs.darken c contrast}", fg = "${colors.outputs.colors_opaque.base07}"},
-                          CursorLineNr = { fg = "${c}", bg = "${colors.outputs.darken c contrast}" },
-                        },
-                        hl = {
-                          Cursor = { bg = "${c}", fg = "${colors.outputs.colors_opaque.base07}" },
-                        },
-                      },
-                      -- yank
-                      y = {
-                        winhl = {
-                          CursorLine = { bg = "${colors.outputs.darken y contrast}", fg = "${colors.outputs.colors_opaque.base00}"},
-                          CursorLineNr = { fg = "${y}", bg = "${colors.outputs.darken y contrast}" },
-                        },
-                        hl = {
-                          Cursor = { bg = "${y}", fg = "${colors.outputs.colors_opaque.base00}" },
-                        },
-                      },
-                    },
-                  },
                   n = {
                     winhl = {
                       CursorLine = { bg = "${colors.outputs.darken n contrast}"},
