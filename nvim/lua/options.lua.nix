@@ -36,8 +36,8 @@
 
     	g.neovide_padding_top = 10
     	g.neovide_padding_bottom = 0
-    	g.neovide_padding_right = 20
-    	g.neovide_padding_left = 20
+    	g.neovide_padding_right = 4
+    	g.neovide_padding_left = 4
 
     	g.neovide_theme = "auto"
 
