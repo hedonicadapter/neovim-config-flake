@@ -506,10 +506,9 @@
             c = colors.outputs.colors_opaque.base0E;
             v = colors.outputs.colors_opaque.base0C;
             y = colors.outputs.colors_opaque.base0D;
-            s = colors.outputs.colors_opaque.base05;
             r = colors.outputs.colors_opaque.base0E;
 
-            contrast = 3;
+            contrast = 0.8;
           in
             toLua ''
               require('reactive').add_preset {
@@ -562,7 +561,7 @@
                   },
                   n = {
                     winhl = {
-                      CursorLine = { bg = "${colors.outputs.darken n contrast}", fg = "${colors.outputs.colors_opaque.base07}"},
+                      CursorLine = { bg = "${colors.outputs.darken n contrast}"},
                       CursorLineNr = { fg = "${n}", bg = "${colors.outputs.darken n contrast}" },
                     },
                     hl = {
@@ -572,7 +571,7 @@
                   -- visual
                   [{ "v", "V", "\x16" }] = {
                     winhl = {
-                      CursorLine = { bg = "${colors.outputs.darken v contrast}", fg = "${colors.outputs.colors_opaque.base00}"},
+                      CursorLine = { bg = "${colors.outputs.darken v contrast}"},
                       CursorLineNr = { fg = "${v}", bg = "${colors.outputs.darken v contrast}" },
                     },
                     hl = {
