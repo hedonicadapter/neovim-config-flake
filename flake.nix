@@ -523,8 +523,8 @@
                       -- change
                       [{ "c", "C" }] = {
                         winhl = {
-                          CursorLine = { bg = "${colors.outputs.colors.darken c contrast}", fg = "${colors.outputs.colors_opaque.base07}"},
-                          CursorLineNr = { fg = "${c}", bg = "${colors.outputs.colors.darken c contrast}" },
+                          CursorLine = { bg = "${colors.outputs.darken c contrast}", fg = "${colors.outputs.colors_opaque.base07}"},
+                          CursorLineNr = { fg = "${c}", bg = "${colors.outputs.darken c contrast}" },
                         },
                         hl = {
                           Cursor = { bg = "${c}", fg = "${colors.outputs.colors_opaque.base07}" },
@@ -533,8 +533,8 @@
                       -- yank
                       y = {
                         winhl = {
-                          CursorLine = { bg = "${colors.outputs.colors.darken y contrast}", fg = "${colors.outputs.colors_opaque.base00}"},
-                          CursorLineNr = { fg = "${y}", bg = "${colors.outputs.colors.darken y contrast}" },
+                          CursorLine = { bg = "${colors.outputs.darken y contrast}", fg = "${colors.outputs.colors_opaque.base00}"},
+                          CursorLineNr = { fg = "${y}", bg = "${colors.outputs.darken y contrast}" },
                         },
                         hl = {
                           Cursor = { bg = "${y}", fg = "${colors.outputs.colors_opaque.base00}" },
@@ -544,8 +544,8 @@
                   },
                   i = {
                     winhl = {
-                      CursorLine = { bg = "${colors.outputs.colors.darken i contrast}", fg = "${colors.outputs.colors_opaque.base00}"},
-                      CursorLineNr = { fg = "${i}", bg = "${colors.outputs.colors.darken i contrast}" },
+                      CursorLine = { bg = "${colors.outputs.darken i contrast}", fg = "${colors.outputs.colors_opaque.base00}"},
+                      CursorLineNr = { fg = "${i}", bg = "${colors.outputs.darken i contrast}" },
                     },
                     hl = {
                       Cursor = { bg = "${i}", fg = "${colors.outputs.colors_opaque.base00}" },
@@ -553,8 +553,8 @@
                   },
                   [{ "c", "C" }] = {
                     winhl = {
-                      CursorLine = { bg = "${colors.outputs.colors.darken c contrast}", fg = "${colors.outputs.colors_opaque.base07}"},
-                      CursorLineNr = { fg = "${c}", bg = "${colors.outputs.colors.darken c contrast}" },
+                      CursorLine = { bg = "${colors.outputs.darken c contrast}", fg = "${colors.outputs.colors_opaque.base07}"},
+                      CursorLineNr = { fg = "${c}", bg = "${colors.outputs.darken c contrast}" },
                     },
                     hl = {
                       Cursor = { bg = "${c}", fg = "${colors.outputs.colors_opaque.base07}" },
@@ -562,8 +562,8 @@
                   },
                   n = {
                     winhl = {
-                      CursorLine = { bg = "${colors.outputs.colors.darken n contrast}", fg = "${colors.outputs.colors_opaque.base07}"},
-                      CursorLineNr = { fg = "${n}", bg = "${colors.outputs.colors.darken n contrast}" },
+                      CursorLine = { bg = "${colors.outputs.darken n contrast}", fg = "${colors.outputs.colors_opaque.base07}"},
+                      CursorLineNr = { fg = "${n}", bg = "${colors.outputs.darken n contrast}" },
                     },
                     hl = {
                       Cursor = { bg = "${n}", fg = "${colors.outputs.colors_opaque.base07}" },
@@ -572,8 +572,8 @@
                   -- visual
                   [{ "v", "V", "\x16" }] = {
                     winhl = {
-                      CursorLine = { bg = "${colors.outputs.colors.darken v contrast}", fg = "${colors.outputs.colors_opaque.base00}"},
-                      CursorLineNr = { fg = "${v}", bg = "${colors.outputs.colors.darken v contrast}" },
+                      CursorLine = { bg = "${colors.outputs.darken v contrast}", fg = "${colors.outputs.colors_opaque.base00}"},
+                      CursorLineNr = { fg = "${v}", bg = "${colors.outputs.darken v contrast}" },
                     },
                     hl = {
                       Cursor = { bg = "${v}", fg = "${colors.outputs.colors_opaque.base00}" },
@@ -582,8 +582,8 @@
                   -- select
                   [{ "s", "S", "\x13" }] = {
                     winhl = {
-                      CursorLine = { bg = "${colors.outputs.colors.darken s contrast}", fg = "${colors.outputs.colors_opaque.base00}"},
-                      CursorLineNr = { fg = "${s}", bg = "${colors.outputs.colors.darken s contrast}" },
+                      CursorLine = { bg = "${colors.outputs.darken s contrast}", fg = "${colors.outputs.colors_opaque.base00}"},
+                      CursorLineNr = { fg = "${s}", bg = "${colors.outputs.darken s contrast}" },
                     },
                     hl = {
                       Cursor = { bg = "${s}", fg = "${colors.outputs.colors_opaque.base00}" },
@@ -592,8 +592,8 @@
                   -- replace
                   R = {
                     winhl = {
-                      CursorLine = { bg = "${colors.outputs.colors.darken r contrast}", fg = "${colors.outputs.colors_opaque.base07}"},
-                      CursorLineNr = { fg = "${r}", bg = "${colors.outputs.colors.darken r contrast}" },
+                      CursorLine = { bg = "${colors.outputs.darken r contrast}", fg = "${colors.outputs.colors_opaque.base07}"},
+                      CursorLineNr = { fg = "${r}", bg = "${colors.outputs.darken r contrast}" },
                     },
                     hl = {
                       Cursor = { bg = "${r}", fg = "${colors.outputs.colors_opaque.base07}" },
