@@ -42,11 +42,11 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1734356913,
-        "narHash": "sha256-7ra0kn3qRyyc4vi8LjIVN3r4A4dGk+glEmxaKvF6Qw4=",
+        "lastModified": 1734365413,
+        "narHash": "sha256-FsbKFnf5TSUecjv2P4JHi0Z2sHj4kd7QeV+YtIJ+qWM=",
         "owner": "hedonicadapter",
         "repo": "colors-flake",
-        "rev": "61ccbbf428bca31db4f2b105d92441bc0410970a",
+        "rev": "52a4715c68428566087a7bf6e645ecea7e62581e",
         "type": "github"
       },
       "original": {
@@ -489,11 +489,11 @@
         "treefmt-nix": "treefmt-nix_2"
       },
       "locked": {
-        "lastModified": 1734346857,
-        "narHash": "sha256-MbN3HK2pYJ0chSVXXcTvw5XGIvn0NIWi2u3PvfPC0eY=",
+        "lastModified": 1734365288,
+        "narHash": "sha256-6voC5s2D+PkHre6irzdm0iyqdOhWVym0b9SNlATASyA=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "da2a753678dd619a92280e78784ef1d09de242e3",
+        "rev": "da1b6cc2a1733db9e6716d38c47df6a08c2ba76c",
         "type": "github"
       },
       "original": {
