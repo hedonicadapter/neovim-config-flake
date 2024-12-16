@@ -609,6 +609,13 @@
             end)
           '';
         }
+
+        {
+          plugin = pkgs.awesomeNeovimPlugins.quicker-nvim;
+          config = toLua ''
+            require("quicker").setup()
+          '';
+        }
       ];
 
       extraLuaConfig = ''
