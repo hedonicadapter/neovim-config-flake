@@ -541,6 +541,15 @@
                       },
                     },
                   },
+                  n = {
+                    winhl = {
+                      CursorLine = { bg = "${colors.outputs.darken n contrast}"},
+                      CursorLineNr = { fg = "${colors.outputs.colors_opaque.base07}", bg = "${colors.outputs.darken n contrast}" },
+                    },
+                    hl = {
+                      Cursor = { bg = "${n}", fg = "${colors.outputs.colors_opaque.base07}" },
+                    },
+                  },
                   i = {
                     winhl = {
                       CursorLine = { bg = "${colors.outputs.darken i contrast}"},
@@ -559,19 +568,10 @@
                       Cursor = { bg = "${c}", fg = "${colors.outputs.colors_opaque.base07}" },
                     },
                   },
-                  n = {
-                    winhl = {
-                      CursorLine = { bg = "${colors.outputs.darken n contrast}"},
-                      CursorLineNr = { fg = "${n}", bg = "${colors.outputs.darken n contrast}" },
-                    },
-                    hl = {
-                      Cursor = { bg = "${n}", fg = "${colors.outputs.colors_opaque.base07}" },
-                    },
-                  },
                   -- visual
                   [{ "v", "V", "\x16" }] = {
                     winhl = {
-                      CursorLine = { bg = "${colors.outputs.darken v contrast}"},
+                      Visual = { bg = "${colors.outputs.darken v contrast}"},
                       CursorLineNr = { fg = "${v}", bg = "${colors.outputs.darken v contrast}" },
                     },
                     hl = {
