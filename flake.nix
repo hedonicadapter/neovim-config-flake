@@ -509,7 +509,7 @@
             s = colors.outputs.colors_opaque.base05;
             r = colors.outputs.colors_opaque.base0E;
 
-            contrast = 5;
+            contrast = 3;
           in
             toLua ''
               require('reactive').add_preset {
@@ -544,7 +544,7 @@
                   },
                   i = {
                     winhl = {
-                      CursorLine = { bg = "${colors.outputs.darken i contrast}", fg = "${colors.outputs.colors_opaque.base00}"},
+                      CursorLine = { bg = "${colors.outputs.darken i contrast}"},
                       CursorLineNr = { fg = "${i}", bg = "${colors.outputs.darken i contrast}" },
                     },
                     hl = {
@@ -577,16 +577,6 @@
                     },
                     hl = {
                       Cursor = { bg = "${v}", fg = "${colors.outputs.colors_opaque.base00}" },
-                    },
-                  },
-                  -- select
-                  [{ "s", "S", "\x13" }] = {
-                    winhl = {
-                      CursorLine = { bg = "${colors.outputs.darken s contrast}", fg = "${colors.outputs.colors_opaque.base00}"},
-                      CursorLineNr = { fg = "${s}", bg = "${colors.outputs.darken s contrast}" },
-                    },
-                    hl = {
-                      Cursor = { bg = "${s}", fg = "${colors.outputs.colors_opaque.base00}" },
                     },
                   },
                   -- replace
