@@ -566,9 +566,9 @@
                   },
                 },
               }
-                require('reactive').setup({
-                  load = { 'customCursorLine' }
-                })
+              require('reactive').setup({
+                load = { 'customCursorLine' }
+              })
             '';
         }
 
