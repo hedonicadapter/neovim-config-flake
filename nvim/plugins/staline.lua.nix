@@ -4,7 +4,7 @@
     	sections = {
     		left = { "-mode" },
     		mid = {},
-    		right = { "-", "-cwd", "-branch" },
+    		right = { "- ", "-cwd", "-branch" },
     	},
     	mode_colors = {
     		i = "${colors.outputs.colors.base0F}",
@@ -14,11 +14,11 @@
     		V = "${colors.outputs.colors.base0C}",
     	},
     	mode_icons = {
-    		n = "NORMAL ",
-    		i = "INSERT ",
-    		c = "COMMAND ",
-    		v = "VISUAL ",
-    		V = "VISUAL ",
+    		n = "NORMAL",
+    		i = "INSERT",
+    		c = "COMMAND",
+    		v = "VISUAL",
+    		V = "VISUAL",
     	},
     	defaults = {
     		true_colors = true,
