@@ -2,9 +2,9 @@
   lua = ''
     require("staline").setup({
     	sections = {
-    		left = { "mode" },
+    		left = { "-mode" },
     		mid = {},
-    		right = { "", "cwd", "branch" },
+    		right = { "-", "-cwd", "-branch" },
     	},
     	mode_colors = {
     		i = "${colors.outputs.colors.base0F}",
@@ -23,6 +23,7 @@
     	defaults = {
     		true_colors = true,
     		branch_symbol = " ",
+        bg = "none",
     	},
     })
   '';

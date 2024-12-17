@@ -32,7 +32,7 @@
 
     if g.neovide then
     	opt.linespace = 2
-    	opt.guifont = "Mx437 DOS/V re. JPN30:h11:#h-none"
+    	opt.guifont = "Mx437 DOS/V re. JPN30:h16"
 
     	g.neovide_padding_top = 10
     	g.neovide_padding_bottom = 0
