@@ -191,6 +191,8 @@
 
         Comment = { fg = "${colors.outputs.colors.base04}" },
         TSComment = { fg = "${colors.outputs.colors.base04}" },
+
+    		StatusLine = { bg = "NONE" },
     	}
 
     	for group, settings in pairs(highlights) do
