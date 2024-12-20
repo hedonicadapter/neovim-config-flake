@@ -1,4 +1,4 @@
-vim.o.background = "light"
+vim.o.background = "dark"
 vim.opt.swapfile = false
 
 vim.api.nvim_create_user_command("ListLoadedModules", function()

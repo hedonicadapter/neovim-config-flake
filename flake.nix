@@ -215,9 +215,9 @@
         }
 
         {
-          plugin = ultimate-autopair-nvim;
+          plugin = debugprint-nvim;
           config = toLua ''
-            require('ultimate-autopair').setup()
+            require("debugprint").setup()
           '';
         }
 
