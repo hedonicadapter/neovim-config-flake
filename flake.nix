@@ -134,6 +134,22 @@
             vim.keymap.set('n', 'zM', require('ufo').closeAllFolds)
           '';
         }
+
+        # cmp-cmdline
+        # cmp-nvim-lsp
+        # cmp-async-path
+        # cmp-buffer
+        # {
+        #   plugin = nvim-cmp;
+        #   config = toLuaFile ./nvim/plugins/cmp.lua;
+        # }
+
+        {
+          plugin = blink-cmp;
+          config = toLua ''
+            require("blink.cmp").setup()
+          '';
+        }
         {
           plugin = nvim-lspconfig;
           config = toLuaFile ./nvim/plugins/lsp.lua;
@@ -250,15 +266,6 @@
           config = toLua ''
             require('render-markdown').setup({})
           '';
-        }
-
-        cmp-cmdline
-        cmp-nvim-lsp
-        cmp-async-path
-        cmp-buffer
-        {
-          plugin = nvim-cmp;
-          config = toLuaFile ./nvim/plugins/cmp.lua;
         }
 
         nui-nvim
