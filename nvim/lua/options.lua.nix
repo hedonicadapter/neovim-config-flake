@@ -206,6 +206,7 @@
     		vim.opt.relativenumber = true
     		vim.opt.number = true
     		vim.opt.cursorline = true
+        jumpoptions-=clean
 
     		local bufname = vim.fn.expand("<afile>:t")
     		if bufname ~= "copilot-chat" then
