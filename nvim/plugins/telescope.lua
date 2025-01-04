@@ -276,48 +276,22 @@ telescope.load_extension("undo")
 telescope.load_extension("session-lens")
 telescope.load_extension("live_grep_args")
 
-local function open_telescope_buffers_with_jump(prefer_forward)
-	local jump_list = vim.fn.getjumplist()[1] -- Get the jump list
-	local current_position = vim.api.nvim_win_get_cursor(0)
-	local current_buf = vim.api.nvim_get_current_buf()
+local buffer_picker_opts = {
+	sort_mru = true,
+	ignore_current_buffer = true,
+}
 
-	local function find_closest_jump()
-		local closest_index, closest_distance = nil, math.huge
-
-		for i, jump in ipairs(jump_list) do
-			if jump.bufnr == current_buf then
-				local line_distance = math.abs(jump.lnum - current_position[1])
-				if
-					(prefer_forward and jump.lnum > current_position[1])
-					or (not prefer_forward and jump.lnum < current_position[1])
-				then
-					if line_distance < closest_distance then
-						closest_distance = line_distance
-						closest_index = i
-					end
-				end
-			end
-		end
-
-		return closest_index
-	end
-
-	local preselect_index = find_closest_jump()
-
-	if preselect_index then
-		telescope.builtin.buffers({
-			default_selection_index = preselect_index,
-			sort_mru = true,
-			ignore_current_buffer = true,
-		})
-	else
-		telescope.builtin.buffers()
-	end
+local function shift_selection(forward)
+	local prompt_bufnr = vim.api.nvim_get_current_buf()
+	local direction = forward and 1 or -1
+	actions.set.shift_selection({ prompt_bufnr }, { direction })
 end
 
 vim.keymap.set("n", "<Tab>", function()
-	open_telescope_buffers_with_jump(true)
+	telescope.builtin.buffers(buffer_picker_opts)
+	shift_selection(true)
 end, { noremap = true, silent = true })
 vim.keymap.set("n", "<S-Tab>", function()
-	open_telescope_buffers_with_jump(false)
+	telescope.builtin.buffers(buffer_picker_opts)
+	shift_selection(false)
 end, { noremap = true, silent = true })
