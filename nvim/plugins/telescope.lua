@@ -305,11 +305,11 @@ local function open_telescope_buffers_with_jump(prefer_forward)
 	local preselect_index = find_closest_jump()
 
 	if preselect_index then
-		telescope.buffers({
+		telescope.builtin.buffers({
 			default_selection_index = preselect_index,
 		})
 	else
-		telescope.buffers()
+		telescope.builtin.buffers()
 	end
 end
 
