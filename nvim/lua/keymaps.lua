@@ -67,9 +67,6 @@ keymap.set("n", "<S-h>", ":bprev<CR>", {
 	silent = true,
 })
 
-keymap.set("n", "<Tab>", ":TelescopeBuffersNext<CR>")
-keymap.set("n", "<S-Tab>", ":TelescopeBuffersPrevious<CR>")
-
 keymap.set("n", "<C-j>", ":m .+1<CR>==") -- move line down
 keymap.set("n", "<C-k>", ":m .-2<CR>==") -- move line up
 keymap.set("i", "<C-j>", "<Esc>:m .+1<CR>==gi", {
