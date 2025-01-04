@@ -2,6 +2,7 @@ local Layout = require("nui.layout")
 local Popup = require("nui.popup")
 
 local telescope = require("telescope")
+local builtin = require("telescope.builtin")
 local actions = require("telescope.actions")
 local TSLayout = require("telescope.pickers.layout")
 
@@ -288,10 +289,10 @@ local function shift_selection(forward)
 end
 
 vim.keymap.set("n", "<Tab>", function()
-	telescope.builtin.buffers(buffer_picker_opts)
+	builtin.buffers(buffer_picker_opts)
 	shift_selection(true)
 end, { noremap = true, silent = true })
 vim.keymap.set("n", "<S-Tab>", function()
-	telescope.builtin.buffers(buffer_picker_opts)
+	builtin.buffers(buffer_picker_opts)
 	shift_selection(false)
 end, { noremap = true, silent = true })
