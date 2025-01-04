@@ -307,6 +307,8 @@ local function open_telescope_buffers_with_jump(prefer_forward)
 	if preselect_index then
 		telescope.builtin.buffers({
 			default_selection_index = preselect_index,
+			sort_mru = true,
+			ignore_current_buffer = true,
 		})
 	else
 		telescope.builtin.buffers()
