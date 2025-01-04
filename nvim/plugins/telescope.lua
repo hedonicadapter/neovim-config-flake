@@ -276,20 +276,65 @@ telescope.load_extension("undo")
 telescope.load_extension("session-lens")
 telescope.load_extension("live_grep_args")
 
-local function move_next()
-	vim.cmd("Telescope buffers")
+local function get_jumplist()
+	local jumps = vim.fn.getjumplist()[1]
+	local current_jump = vim.fn.getjumplist()[2]
+	local buffers = {}
 
+	for _, jump in ipairs(jumps) do
+		table.insert(buffers, jump.bufnr)
+	end
+
+	return buffers, current_jump
+end
+
+local function move_next()
+	local jumps, current = get_jumplist()
+	if #jumps == 0 then
+		return
+	end
+
+	local target_bufnr = jumps[current + 2]
+	if not target_bufnr then
+		return
+	end
+
+	vim.cmd("Telescope buffers")
 	vim.defer_fn(function()
 		local prompt_bufnr = vim.api.nvim_get_current_buf()
-		actions.move_selection_previous(prompt_bufnr)
+		local picker = require("telescope.actions.state").get_current_picker(prompt_bufnr)
+
+		for index, entry in ipairs(picker.manager.linked_states.results) do
+			if entry.bufnr == target_bufnr then
+				picker:set_selection(index)
+				break
+			end
+		end
 	end, 250)
 end
-local function move_prev()
-	vim.cmd("Telescope buffers")
 
+local function move_prev()
+	local jumps, current = get_jumplist()
+	if #jumps == 0 then
+		return
+	end
+
+	local target_bufnr = jumps[current]
+	if not target_bufnr then
+		return
+	end
+
+	vim.cmd("Telescope buffers")
 	vim.defer_fn(function()
 		local prompt_bufnr = vim.api.nvim_get_current_buf()
-		actions.move_selection_next(prompt_bufnr)
+		local picker = require("telescope.actions.state").get_current_picker(prompt_bufnr)
+
+		for index, entry in ipairs(picker.manager.linked_states.results) do
+			if entry.bufnr == target_bufnr then
+				picker:set_selection(index)
+				break
+			end
+		end
 	end, 250)
 end
 
