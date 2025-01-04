@@ -276,67 +276,46 @@ telescope.load_extension("undo")
 telescope.load_extension("session-lens")
 telescope.load_extension("live_grep_args")
 
-local function get_jumplist()
-	local jumps = vim.fn.getjumplist()[1]
-	local current_jump = vim.fn.getjumplist()[2]
-	local buffers = {}
+local function open_telescope_buffers_with_jump(prefer_forward)
+	local jump_list = vim.fn.getjumplist()[1] -- Get the jump list
+	local current_position = vim.api.nvim_win_get_cursor(0)
+	local current_buf = vim.api.nvim_get_current_buf()
 
-	for _, jump in ipairs(jumps) do
-		table.insert(buffers, jump.bufnr)
-	end
+	local function find_closest_jump()
+		local closest_index, closest_distance = nil, math.huge
 
-	return buffers, current_jump
-end
-
-local function move_next()
-	local jumps, current = get_jumplist()
-	if #jumps == 0 then
-		return
-	end
-
-	local target_bufnr = jumps[current + 2]
-	if not target_bufnr then
-		return
-	end
-
-	vim.cmd("Telescope buffers")
-	vim.defer_fn(function()
-		local prompt_bufnr = vim.api.nvim_get_current_buf()
-		local picker = require("telescope.actions.state").get_current_picker(prompt_bufnr)
-
-		for index, entry in ipairs(picker.manager.linked_states.results) do
-			if entry.bufnr == target_bufnr then
-				picker:set_selection(index)
-				break
+		for i, jump in ipairs(jump_list) do
+			if jump.bufnr == current_buf then
+				local line_distance = math.abs(jump.lnum - current_position[1])
+				if
+					(prefer_forward and jump.lnum > current_position[1])
+					or (not prefer_forward and jump.lnum < current_position[1])
+				then
+					if line_distance < closest_distance then
+						closest_distance = line_distance
+						closest_index = i
+					end
+				end
 			end
 		end
-	end, 250)
-end
 
-local function move_prev()
-	local jumps, current = get_jumplist()
-	if #jumps == 0 then
-		return
+		return closest_index
 	end
 
-	local target_bufnr = jumps[current]
-	if not target_bufnr then
-		return
+	local preselect_index = find_closest_jump()
+
+	if preselect_index then
+		telescope.buffers({
+			default_selection_index = preselect_index,
+		})
+	else
+		telescope.buffers()
 	end
-
-	vim.cmd("Telescope buffers")
-	vim.defer_fn(function()
-		local prompt_bufnr = vim.api.nvim_get_current_buf()
-		local picker = require("telescope.actions.state").get_current_picker(prompt_bufnr)
-
-		for index, entry in ipairs(picker.manager.linked_states.results) do
-			if entry.bufnr == target_bufnr then
-				picker:set_selection(index)
-				break
-			end
-		end
-	end, 250)
 end
 
-vim.api.nvim_create_user_command("TelescopeBuffersNext", move_next, {})
-vim.api.nvim_create_user_command("TelescopeBuffersPrevious", move_prev, {})
+vim.keymap.set("n", "<Tab>", function()
+	open_telescope_buffers_with_jump(true)
+end, { noremap = true, silent = true })
+vim.keymap.set("n", "<S-Tab>", function()
+	open_telescope_buffers_with_jump(false)
+end, { noremap = true, silent = true })
