@@ -4,7 +4,6 @@ local Popup = require("nui.popup")
 local telescope = require("telescope")
 local builtin = require("telescope.builtin")
 local actions = require("telescope.actions")
-local set = require("telescope.actions.set")
 local TSLayout = require("telescope.pickers.layout")
 
 local function make_popup(options)
@@ -285,8 +284,11 @@ local buffer_picker_opts = {
 
 local function shift_selection(forward)
 	local prompt_bufnr = vim.api.nvim_get_current_buf()
-	local direction = forward and 1 or -1
-	set.shift_selection({ prompt_bufnr }, { direction })
+	if forward then
+		actions.move_selection_next(prompt_bufnr)
+	else
+		actions.move_selection_previous(prompt_bufnr)
+	end
 end
 
 vim.keymap.set("n", "<Tab>", function()
