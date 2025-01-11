@@ -264,5 +264,3 @@ keymap.set("n", "<leader>bc", function()
 		end
 	end
 end, { silent = true, desc = "Close unused buffers" })
-
-nvim_set_keymap("c", "help", "vert help", { noremap = true, silent = true })

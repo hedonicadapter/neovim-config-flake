@@ -193,6 +193,12 @@
         TSComment = { fg = "${colors.outputs.colors.base04}" },
 
     		StatusLine = { bg = "NONE" },
+
+        MiniStarterHeader = { fg = "${colors.outputs.colors.base0F}" },
+        MiniStarterSection = { fg = "${colors.outputs.colors.base0F}" },
+        MiniStarterItemBullet = { fg = "${colors.outputs.colors.base09}" },
+        MiniStarterItemPrefix = { fg = "${colors.outputs.colors.base0F}" },
+        MiniStarterFooter = { fg = "${colors.outputs.colors.base0F}" },
     	}
 
     	for group, settings in pairs(highlights) do
@@ -229,6 +235,17 @@
     			vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "i", false)
     		end
     	end,
+    })
+
+    -- vertical help panel
+    vim.api.nvim_create_autocmd("CmdlineEnter", {
+      pattern = "*",
+      callback = function()
+        local cmd = vim.fn.getcmdline()
+        if cmd:match("^help") then
+          vim.fn.setcmdline("vert " .. cmd)
+        end
+      end
     })
   '';
 in
