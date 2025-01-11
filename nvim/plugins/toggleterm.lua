@@ -13,12 +13,12 @@ require("toggleterm").setup({
 	},
 })
 
-vim.api.nvim_exec(
+vim.api.nvim_exec2(
 	[[
 		autocmd TermOpen term://*toggleterm* startinsert | normal! A
 		autocmd TermLeave term://*toggleterm* stopinsert
 	]],
-	false
+	{ output = false }
 )
 
 vim.api.nvim_set_keymap("n", "<C-Space>", ":ToggleTerm direction=vertical size=80 <CR>", {

@@ -6,9 +6,9 @@ require("twilight").setup({
 	treesitter = true,
 })
 
-vim.api.nvim_exec(
+vim.api.nvim_exec2(
 	[[
     au BufEnter * TwilightEnable
 ]],
-	false
+	{ output = false }
 )
