@@ -111,9 +111,13 @@ lspconfig.azure_pipelines_ls.setup(coq.lsp_ensure_capabilities({
 	on_attach = on_attach,
 	capabilities = capabilities,
 }))
+
+local bicep_lsp_bin = vim.fn.system("which bicep"):gsub("%s+", "")
 lspconfig.bicep.setup(coq.lsp_ensure_capabilities({
 	on_attach = on_attach,
 	capabilities = capabilities,
+
+	cmd = { "dotnet", bicep_lsp_bin },
 }))
 vim.cmd([[ autocmd BufNewFile,BufRead *.bicep set filetype=bicep ]])
 
