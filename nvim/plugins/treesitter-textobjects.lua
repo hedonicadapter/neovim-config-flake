@@ -48,20 +48,3 @@ require("nvim-treesitter.configs").setup({
 		},
 	},
 })
--- Jump to previous variable and select it (Ctrl+h)
-vim.keymap.set({ "n", "v" }, "<C-h>", function()
-	require("nvim-treesitter.textobjects.move").goto_previous_start("@variable.declaration")
-	-- If in normal mode, switch to visual and select the variable
-	if vim.fn.mode() == "n" then
-		vim.cmd("normal! viw")
-	end
-end)
-
--- Jump to next variable and select it (Ctrl+l)
-vim.keymap.set({ "n", "v" }, "<C-l>", function()
-	require("nvim-treesitter.textobjects.move").goto_next_start("@variable.declaration")
-	-- If in normal mode, switch to visual and select the variable
-	if vim.fn.mode() == "n" then
-		vim.cmd("normal! viw")
-	end
-end)

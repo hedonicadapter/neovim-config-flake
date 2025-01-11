@@ -34,7 +34,7 @@
     pkgs = import nixpkgs {
       inherit systems;
       overlays = [
-        inputs.nur.overlay
+        inputs.nur.overlays.default
         inputs.awesome-neovim-plugins.overlays.default
         inputs.nixneovimplugins.overlays.default
       ];
