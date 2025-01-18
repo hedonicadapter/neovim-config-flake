@@ -194,11 +194,11 @@
 
     		StatusLine = { bg = "NONE" },
 
-        MiniStarterHeader = { fg = "${colors.outputs.colors.base08}" },
-        MiniStarterSection = { fg = "${colors.outputs.colors.base08}" },
-        MiniStarterItemBullet = { fg = "${colors.outputs.colors.base0F}" },
-        MiniStarterItemPrefix = { fg = "${colors.outputs.colors.base08}" },
-        MiniStarterFooter = { fg = "${colors.outputs.colors.base08}" },
+        MiniStarterHeader = { fg = "${colors.outputs.colors.base0E}" },
+        MiniStarterSection = { fg = "${colors.outputs.colors.base0E}" },
+        MiniStarterItemBullet = { fg = "${colors.outputs.colors.base05}" },
+        MiniStarterItemPrefix = { fg = "${colors.outputs.colors.base0E}" },
+        MiniStarterFooter = { fg = "${colors.outputs.colors.base0E}" },
     	}
 
     	for group, settings in pairs(highlights) do
