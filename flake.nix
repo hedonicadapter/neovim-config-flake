@@ -57,6 +57,9 @@
     neovimConfig = {
       package = inputs.neovim-nightly-overlay.packages.${pkgs.system}.default;
 
+      extraLuaPackages = ps: [ps.magick];
+      extraPackages = [pkgs.imagemagick];
+
       plugins = with pkgs.vimPlugins; [
         roslyn-nvim
         {
@@ -278,6 +281,32 @@
               tmux_show_only_in_active_window = true,
 
               hijack_file_patterns = { "*.png", "*.jpg", "*.jpeg", "*.gif", "*.webp", "*.avif" },
+            })
+          '';
+        }
+        {
+          plugin = pkgs.img-clip-nvim;
+          config = toLua ''
+            require("image").setup({
+              default = {
+                use_absolute_path = false,
+                relative_to_current_file = true,
+
+                dir_path = vim.g.neovim_mode == "skitty" and "img" or function()
+                  return vim.fn.expand("%:t:r") .. "-img"
+                end,
+
+                prompt_for_file_name = false,
+                file_name = "%y%m%d-%H%M%S",
+              },
+
+              filetypes = {
+                markdown = {
+                  url_encode_path = true,
+                  template = vim.g.neovim_mode == "skitty" and "![i](./$FILE_PATH)" or "![Image](./$FILE_PATH)",
+                  template = "![$FILE_NAME]($FILE_PATH)",
+                },
+              },
             })
           '';
         }
