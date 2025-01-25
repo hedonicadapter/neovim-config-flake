@@ -246,7 +246,7 @@
           '';
         }
         {
-          plugin = pkgs.image-nvim;
+          plugin = image-nvim;
           config = toLua ''
             require("image").setup({
               backend = "kitty",
@@ -285,7 +285,7 @@
           '';
         }
         {
-          plugin = pkgs.img-clip-nvim;
+          plugin = img-clip-nvim;
           config = toLua ''
             require("image").setup({
               default = {
