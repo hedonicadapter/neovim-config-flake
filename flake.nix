@@ -627,10 +627,9 @@
         }
 
         {
-          plugin = dropbar-nvim;
+          plugin = dropbar-nvim; # breadcrumbs/context
           config = toLua ''
             require('dropbar').setup()
-            vim.o.winbar = "%{%v:lua.dropbar.get_dropbar_str()%}"
           '';
         }
 
