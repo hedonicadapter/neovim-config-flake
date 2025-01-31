@@ -79,9 +79,10 @@
           plugin = coq_nvim;
           config = toLua ''
             vim.g.coq_settings = {
+              auto_start = true,
               display = {
                 preview = {
-                  border = "rounded",
+                  border = "single",
                 },
               },
             }
@@ -118,20 +119,6 @@
           '';
         }
 
-        {
-          plugin = blink-cmp;
-          config = toLua ''
-            require("blink.cmp").setup({
-              enabled = function()
-                return not vim.tbl_contains({ "typr" }, vim.bo.filetype)
-                  and vim.b.completion ~= false
-              end,
-              signature = {
-                enabled = true,
-              }
-            })
-          '';
-        }
         {
           plugin = nvim-lspconfig;
           config = toLuaFile ./nvim/plugins/lsp.lua;

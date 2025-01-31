@@ -32,7 +32,6 @@ local on_attach = function(client, bufnr)
 end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
-require("blink.cmp").get_lsp_capabilities(capabilities)
 
 capabilities.textDocument.foldingRange = {
 	dynamicRegistration = false,
