@@ -477,7 +477,7 @@
             require("scrollbar").setup({
               hide_if_all_visible = true,
               handle = {
-                blend = 40,
+                blend = 60,
               },
             })
             require("scrollbar.handlers.gitsigns").setup()
@@ -646,7 +646,6 @@
             require("quicker").setup()
           '';
         }
-        nvzone-typr
       ];
 
       extraLuaConfig = ''
