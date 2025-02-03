@@ -439,11 +439,6 @@
         }
 
         {
-          plugin = nvim-surround;
-          config = toLua "require('nvim-surround').setup{}";
-        }
-
-        {
           plugin = eyeliner-nvim;
           config = toLua ''
             require('eyeliner').setup {

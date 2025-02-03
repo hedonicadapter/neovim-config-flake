@@ -78,6 +78,7 @@ require("mini.move").setup({
 	},
 })
 require("mini.ai").setup()
+require("mini.surround").setup()
 require("mini.clue").setup({ window = { delay = 250 } })
 require("mini.cursorword").setup()
 local map = require("mini.map")
