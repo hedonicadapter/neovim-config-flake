@@ -87,7 +87,7 @@ require("mini.files").setup({
 		use_as_default_explorer = true,
 	},
 	windows = {
-		previes = true,
+		previews = true,
 	},
 })
 

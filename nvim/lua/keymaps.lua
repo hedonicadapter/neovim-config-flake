@@ -274,7 +274,13 @@ keymap.set("n", "<leader>tt", ":ToggleTerm<CR>", {
 	silent = true,
 })
 
-keymap.set("n", "-", "<cmd>lua MiniFiles.open()<CR>", {
+local MiniFiles = require("mini.files")
+local minifiles_toggle = function()
+	if not MiniFiles.close() then
+		MiniFiles.open()
+	end
+end
+keymap.set("n", "-", minifiles_toggle, {
 	noremap = true,
 	silent = true,
 })
