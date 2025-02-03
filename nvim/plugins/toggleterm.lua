@@ -1,7 +1,6 @@
 require("toggleterm").setup({
 	shell = "zsh",
 	shade_terminals = false,
-	open_mapping = [[<c-space>]],
 	size = 20,
 	on_open = function()
 		vim.cmd("startinsert")

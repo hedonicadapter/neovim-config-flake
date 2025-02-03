@@ -61,7 +61,6 @@
       extraPackages = [pkgs.imagemagick];
 
       plugins = with pkgs.vimPlugins; [
-        roslyn-nvim
         {
           plugin = auto-session;
           config = toLua ''
