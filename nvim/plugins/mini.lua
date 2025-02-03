@@ -81,6 +81,16 @@ require("mini.ai").setup()
 require("mini.surround").setup()
 require("mini.clue").setup({ window = { delay = 250 } })
 require("mini.cursorword").setup()
+require("mini.files").setup({
+	options = {
+		permanent_delete = false,
+		use_as_default_explorer = true,
+	},
+	windows = {
+		previes = true,
+	},
+})
+
 local map = require("mini.map")
 map.setup({
 	integrations = {

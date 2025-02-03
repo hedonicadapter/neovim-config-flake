@@ -265,7 +265,12 @@ keymap.set("n", "<leader>bc", function()
 	end
 end, { silent = true, desc = "Close unused buffers" })
 
-vim.api.nvim_set_keymap("n", "<leader>tt", ":ToggleTerm<CR>", {
+keymap.set("n", "<leader>tt", ":ToggleTerm<CR>", {
+	noremap = true,
+	silent = true,
+})
+
+keymap.set("n", "-", "MiniFiles.open()", {
 	noremap = true,
 	silent = true,
 })
