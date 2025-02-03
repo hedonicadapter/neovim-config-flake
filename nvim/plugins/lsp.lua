@@ -172,12 +172,12 @@ vim.cmd([[ autocmd BufNewFile,BufRead *.bicep set filetype=bicep ]])
 -- 	      },
 -- 	    },
 -- 	}))
-require("roslyn").setup({
-	dotnet_cmd = "dotnet", -- this is the default
-	roslyn_version = "4.8.0-3.23475.7", -- this is the default
-	on_attach = on_attach,
-	capabilities = capabilities,
-})
+-- require("roslyn").setup({
+-- 	dotnet_cmd = "dotnet", -- this is the default
+-- 	roslyn_version = "4.8.0-3.23475.7", -- this is the default
+-- 	on_attach = on_attach,
+-- 	capabilities = capabilities,
+-- })
 lspconfig.cssls.setup(coq.lsp_ensure_capabilities({
 	on_attach = on_attach,
 	capabilities = capabilities,
