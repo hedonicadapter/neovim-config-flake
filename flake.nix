@@ -349,8 +349,6 @@
 
         diffview-nvim
 
-        telescope-live-grep-args-nvim
-
         {
           plugin = telescope-nvim;
           config = toLuaFile ./nvim/plugins/telescope.lua;

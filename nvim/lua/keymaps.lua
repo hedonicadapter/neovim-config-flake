@@ -22,7 +22,11 @@ nvim_set_keymap("n", "<leader>sf", "<cmd>w<CR>", {
 
 set_keymap_for_all_modes("<leader>qq", "<cmd>qa<CR>")
 
-keymap.set("n", "<leader>u", "<cmd>Telescope undo<CR>", {
+keymap.set("n", "<leader>fu", "<cmd>Telescope undo<CR>", {
+	noremap = true,
+	silent = true,
+})
+keymap.set("n", "<leader>fc", "<cmd>Telescope neoclip<CR>", {
 	noremap = true,
 	silent = true,
 })
@@ -247,7 +251,7 @@ end, { noremap = true })
 nvim_set_keymap(
 	"v",
 	"<leader>ls",
-	":lua require('plugins.toggle-print').toggle_print()<CR>",
+	"<cmd>lua require('plugins.toggle-print').toggle_print()<CR>",
 	{ noremap = true, silent = true }
 )
 
@@ -270,7 +274,7 @@ keymap.set("n", "<leader>tt", ":ToggleTerm<CR>", {
 	silent = true,
 })
 
-keymap.set("n", "-", "MiniFiles.open()", {
+keymap.set("n", "-", "<cmd>lua MiniFiles.open()", {
 	noremap = true,
 	silent = true,
 })
