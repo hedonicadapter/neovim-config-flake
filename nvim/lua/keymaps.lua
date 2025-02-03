@@ -274,7 +274,7 @@ keymap.set("n", "<leader>tt", ":ToggleTerm<CR>", {
 	silent = true,
 })
 
-keymap.set("n", "-", "<cmd>lua MiniFiles.open()", {
+keymap.set("n", "-", "<cmd>lua MiniFiles.open()<CR>", {
 	noremap = true,
 	silent = true,
 })
