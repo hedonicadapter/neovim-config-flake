@@ -223,7 +223,7 @@ nvim_set_keymap(
 nvim_set_keymap(
 	"n",
 	"<leader>0",
-	"<CMD>lua require('CopilotChat').toggle()<CR>",
+	"<CMD>lua require('codecompanion').toggle()<CR>",
 	{ desc = "Open Copilot Chat", noremap = true, silent = true }
 )
 

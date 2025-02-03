@@ -214,10 +214,6 @@
     		vim.opt.cursorline = true
 
     		local bufname = vim.fn.expand("<afile>:t")
-    		if bufname ~= "copilot-chat" then
-    			vim.opt_local.wrap = false
-    			vim.opt_local.signcolumn = "no"
-    		end
     	end,
     })
 

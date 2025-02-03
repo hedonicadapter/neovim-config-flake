@@ -102,11 +102,9 @@
           '';
         }
 
-        omnisharp-extended-lsp-nvim
-
         promise-async
         {
-          plugin = nvim-ufo;
+          plugin = nvim-ufo; # folds
           config = toLua ''
             vim.o.foldcolumn = '0'
             vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
@@ -122,6 +120,7 @@
           plugin = nvim-lspconfig;
           config = toLuaFile ./nvim/plugins/lsp.lua;
         }
+
         {
           plugin = pkgs.awesomeNeovimPlugins.garbage-day-nvim;
           config = toLua ''
@@ -130,7 +129,7 @@
         }
 
         {
-          plugin = pkgs.awesomeNeovimPlugins.hawtkeys-nvim;
+          plugin = pkgs.awesomeNeovimPlugins.hawtkeys-nvim; # mostly for :HawtkeysDupes to show duplicate keybinds
           config = toLua ''
             require("hawtkeys").setup({})
           '';
@@ -216,15 +215,23 @@
           '';
         }
 
-        # copilot-vim
         {
-          plugin = CopilotChat-nvim;
+          plugin = codecompanion-nvim;
           config = toLua ''
-            require('CopilotChat').setup({
-              show_help = false,
-              separator = "_",
-              context = "buffers",
-              answer_header = "## (~‾⌣‾)> "
+            require('codecompanion').setup({
+              strategies = {
+                chat = {
+                  adapter = "anthropic",
+                },
+                inline = {
+                  adapter = "anthropic",
+                },
+              },
+              display = {
+                chat = {
+                  start_in_insert_mode = true,
+                },
+              },
             })
           '';
         }
@@ -232,7 +239,9 @@
         {
           plugin = pkgs.awesomeNeovimPlugins.render-markdown-nvim;
           config = toLua ''
-            require('render-markdown').setup({})
+            require('render-markdown').setup({
+              ft = { "markdown", "codecompanion" }
+            })
           '';
         }
         {
@@ -400,6 +409,8 @@
             p.tree-sitter-typescript
             p.tree-sitter-tsx
             p.tree-sitter-terraform
+            p.tree-sitter-bicep
+            p.tree-sitter-yaml
           ]);
           config = toLuaFile ./nvim/plugins/treesitter.lua;
         }
