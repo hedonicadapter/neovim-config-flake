@@ -30,6 +30,10 @@ keymap.set("n", "<leader>fc", "<cmd>Telescope neoclip<CR>", {
 	noremap = true,
 	silent = true,
 })
+keymap.set("n", "<leader>fp", "<cmd>Telescope commands<CR>", {
+	noremap = true,
+	silent = true,
+})
 
 keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>", {
 	noremap = true,
