@@ -350,6 +350,21 @@
         diffview-nvim
 
         {
+          plugin = oil-nvim;
+          config = toLua ''
+            require('oil').setup({
+              delete_to_trash = true,
+              show_hidden = true,
+              natural_order = true,
+              is_always_hidden = function(name,_)
+                return name == '..' or name == '.git'
+              end,
+            })
+            vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
+          '';
+        }
+
+        {
           plugin = telescope-nvim;
           config = toLuaFile ./nvim/plugins/telescope.lua;
         }
