@@ -74,19 +74,6 @@
           '';
         }
 
-        # {
-        #   plugin = coq_nvim;
-        #   config = toLua ''
-        #     vim.g.coq_settings = {
-        #       auto_start = true,
-        #       display = {
-        #         preview = {
-        #           border = "single",
-        #         },
-        #       },
-        #     }
-        #   '';
-        # }
         blink-cmp
 
         {

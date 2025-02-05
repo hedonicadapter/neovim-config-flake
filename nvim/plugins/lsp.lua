@@ -39,7 +39,6 @@ capabilities.textDocument.foldingRange = {
 }
 
 local lspconfig = require("lspconfig")
-local coq = require("coq")
 
 vim.diagnostic.config({
 	underline = true,
