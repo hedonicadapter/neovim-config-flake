@@ -277,14 +277,3 @@ keymap.set("n", "<leader>tt", ":ToggleTerm<CR>", {
 	noremap = true,
 	silent = true,
 })
-
-local MiniFiles = require("mini.files")
-local minifiles_toggle = function()
-	if not MiniFiles.close() then
-		MiniFiles.open()
-	end
-end
-keymap.set("n", "-", minifiles_toggle, {
-	noremap = true,
-	silent = true,
-})
