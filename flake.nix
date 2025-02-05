@@ -74,7 +74,20 @@
           '';
         }
 
-        blink-cmp
+        {
+          plugin = blink-cmp;
+          config = toLua ''
+            require("blink.cmp").setup({
+              enabled = function()
+                return not vim.tbl_contains({ "typr" }, vim.bo.filetype)
+                  and vim.b.completion ~= false
+              end,
+              signature = {
+                enabled = true,
+              }
+            })
+          '';
+        }
 
         {
           plugin = git-conflict-nvim;
