@@ -31,7 +31,7 @@ local on_attach = function(client, bufnr)
 	end, {})
 end
 
-local capabilities = vim.lsp.protocol.make_client_capabilities()
+local capabilities = require("blink.cmp").get_lsp_capabilities()
 
 capabilities.textDocument.foldingRange = {
 	dynamicRegistration = false,
@@ -63,7 +63,7 @@ vim.diagnostic.config({
 	},
 })
 
-lspconfig.lua_ls.setup(coq.lsp_ensure_capabilities({
+lspconfig.lua_ls.setup({
 	on_attach = on_attach,
 	capabilities = capabilities,
 	root_dir = function()
@@ -76,17 +76,17 @@ lspconfig.lua_ls.setup(coq.lsp_ensure_capabilities({
 			telemetry = { enable = false },
 		},
 	},
-}))
+})
 
-lspconfig.nil_ls.setup(coq.lsp_ensure_capabilities({
+lspconfig.nil_ls.setup({
 	on_attach = on_attach,
 	capabilities = capabilities,
-}))
-lspconfig.astro.setup(coq.lsp_ensure_capabilities({
+})
+lspconfig.astro.setup({
 	on_attach = on_attach,
 	capabilities = capabilities,
-}))
-lspconfig.azure_pipelines_ls.setup(coq.lsp_ensure_capabilities({
+})
+lspconfig.azure_pipelines_ls.setup({
 	on_attach = on_attach,
 	capabilities = capabilities,
 	settings = {
@@ -101,26 +101,26 @@ lspconfig.azure_pipelines_ls.setup(coq.lsp_ensure_capabilities({
 			},
 		},
 	},
-}))
-lspconfig.bashls.setup(coq.lsp_ensure_capabilities({
+})
+lspconfig.bashls.setup({
 	on_attach = on_attach,
 	capabilities = capabilities,
-}))
-lspconfig.azure_pipelines_ls.setup(coq.lsp_ensure_capabilities({
+})
+lspconfig.azure_pipelines_ls.setup({
 	on_attach = on_attach,
 	capabilities = capabilities,
-}))
+})
 
 local bicep_lsp_bin = vim.fn.system("which bicep"):gsub("%s+", "")
-lspconfig.bicep.setup(coq.lsp_ensure_capabilities({
+lspconfig.bicep.setup({
 	on_attach = on_attach,
 	capabilities = capabilities,
 
 	cmd = { "dotnet", bicep_lsp_bin },
-}))
+})
 vim.cmd([[ autocmd BufNewFile,BufRead *.bicep set filetype=bicep ]])
 
--- lspconfig.omnisharp.setup(coq.lsp_ensure_capabilities({
+-- lspconfig.omnisharp.setup({
 -- 		on_attach = on_attach,
 -- 		capabilities = capabilities,
 -- 	    cmd = { "dotnet", "OmniSharp" },
@@ -178,31 +178,31 @@ vim.cmd([[ autocmd BufNewFile,BufRead *.bicep set filetype=bicep ]])
 -- 	on_attach = on_attach,
 -- 	capabilities = capabilities,
 -- })
-lspconfig.cssls.setup(coq.lsp_ensure_capabilities({
+lspconfig.cssls.setup({
 	on_attach = on_attach,
 	capabilities = capabilities,
-}))
-lspconfig.dockerls.setup(coq.lsp_ensure_capabilities({
+})
+lspconfig.dockerls.setup({
 	on_attach = on_attach,
 	capabilities = capabilities,
-}))
-lspconfig.gopls.setup(coq.lsp_ensure_capabilities({
+})
+lspconfig.gopls.setup({
 	on_attach = on_attach,
 	capabilities = capabilities,
-}))
-lspconfig.html.setup(coq.lsp_ensure_capabilities({
+})
+lspconfig.html.setup({
 	on_attach = on_attach,
 	capabilities = capabilities,
-}))
-lspconfig.htmx.setup(coq.lsp_ensure_capabilities({
+})
+lspconfig.htmx.setup({
 	on_attach = on_attach,
 	capabilities = capabilities,
-}))
-lspconfig.jsonls.setup(coq.lsp_ensure_capabilities({
+})
+lspconfig.jsonls.setup({
 	on_attach = on_attach,
 	capabilities = capabilities,
-}))
-lspconfig.ts_ls.setup(coq.lsp_ensure_capabilities({
+})
+lspconfig.ts_ls.setup({
 	capabilities = capabilities,
 	single_file_support = true,
 	root_dir = require("lspconfig.util").root_pattern(".git"),
@@ -234,8 +234,8 @@ lspconfig.ts_ls.setup(coq.lsp_ensure_capabilities({
 			},
 		},
 	},
-}))
-lspconfig.lua_ls.setup(coq.lsp_ensure_capabilities({
+})
+lspconfig.lua_ls.setup({
 	on_attach = on_attach,
 	capabilities = capabilities,
 
@@ -268,12 +268,12 @@ lspconfig.lua_ls.setup(coq.lsp_ensure_capabilities({
 	settings = {
 		Lua = {},
 	},
-}))
-lspconfig.sqls.setup(coq.lsp_ensure_capabilities({
+})
+lspconfig.sqls.setup({
 	on_attach = on_attach,
 	capabilities = capabilities,
-}))
-lspconfig.tailwindcss.setup(coq.lsp_ensure_capabilities({
+})
+lspconfig.tailwindcss.setup({
 	capabilities = capabilities,
 	completions = {
 		completeFunctionCalls = true,
@@ -286,27 +286,27 @@ lspconfig.tailwindcss.setup(coq.lsp_ensure_capabilities({
 		"postcss.config.cjs",
 		"postcss.config.ts"
 	),
-}))
-lspconfig.terraformls.setup(coq.lsp_ensure_capabilities({
+})
+lspconfig.terraformls.setup({
 	on_attach = on_attach,
 	capabilities = capabilities,
-}))
-lspconfig.vimls.setup(coq.lsp_ensure_capabilities({
+})
+lspconfig.vimls.setup({
 	on_attach = on_attach,
 	capabilities = capabilities,
-}))
-lspconfig.yamlls.setup(coq.lsp_ensure_capabilities({
+})
+lspconfig.yamlls.setup({
 	on_attach = on_attach,
 	capabilities = capabilities,
-}))
-lspconfig.ansiblels.setup(coq.lsp_ensure_capabilities({
+})
+lspconfig.ansiblels.setup({
 	on_attach = on_attach,
 	capabilities = capabilities,
-}))
-lspconfig.basedpyright.setup(coq.lsp_ensure_capabilities({
+})
+lspconfig.basedpyright.setup({
 	on_attach = on_attach,
 	capabilities = capabilities,
-}))
+})
 
 vim.api.nvim_create_autocmd({ "BufWritePre" }, {
 	pattern = { "*.tf", "*.tfvars" },
