@@ -217,15 +217,6 @@
         }
 
         {
-          plugin = pkgs.awesomeNeovimPlugins.render-markdown-nvim;
-          config = toLua ''
-            require('render-markdown').setup({
-              ft = { "markdown", "codecompanion" }
-            })
-          '';
-        }
-
-        {
           plugin = codecompanion-nvim;
           config = toLua ''
             require('codecompanion').setup({
@@ -246,6 +237,15 @@
                   provider = "telescope",
                 },
               },
+            })
+          '';
+        }
+
+        {
+          plugin = pkgs.awesomeNeovimPlugins.render-markdown-nvim;
+          config = toLua ''
+            require('render-markdown').setup({
+              ft = { "markdown", "codecompanion" }
             })
           '';
         }
