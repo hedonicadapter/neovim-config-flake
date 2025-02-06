@@ -2,19 +2,18 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
 local keymap = vim.keymap
-local nvim_set_keymap = vim.api.nvim_set_keymap
 
 local function set_keymap_for_all_modes(key, cmd)
 	local modes = { "n", "v", "x", "s", "o", "l" }
 	for _, mode in ipairs(modes) do
-		nvim_set_keymap(mode, key, cmd, {
+		keymap.set(mode, key, cmd, {
 			noremap = true,
 			silent = true,
 		})
 	end
 end
 
-nvim_set_keymap("n", "<leader>sf", "<cmd>w<CR>", {
+keymap.set("n", "<leader>sf", "<cmd>w<CR>", {
 	desc = "save",
 	noremap = true,
 	silent = true,
@@ -114,8 +113,6 @@ keymap.set("n", "<leader>ra", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Lef
 
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 keymap.set("n", "<space>e", vim.diagnostic.open_float)
-keymap.set("n", "[d", vim.diagnostic.goto_prev)
-keymap.set("n", "]d", vim.diagnostic.goto_next)
 keymap.set("n", "<space>q", vim.diagnostic.setloclist)
 
 keymap.set("n", "<leader>n", "<Cmd>call search('[([{<\\|\"\\|'']')<CR>", {
@@ -143,9 +140,9 @@ vim.api.nvim_exec2(
 	{ output = false }
 )
 
-nvim_set_keymap("n", "<leader>ss", "<cmd>Telescope session-lens<cr>", { noremap = true, silent = true })
+keymap.set("n", "<leader>ss", "<cmd>Telescope session-lens<cr>", { noremap = true, silent = true })
 
-nvim_set_keymap(
+keymap.set(
 	"n",
 	"<leader>fw",
 	[[:lua require('telescope.builtin').live_grep({ default_text = vim.fn.expand('<cword>') })<CR>]],
@@ -156,7 +153,7 @@ nvim_set_keymap(
 	}
 )
 
-nvim_set_keymap(
+keymap.set(
 	"v",
 	"<leader>fs",
 	[[:lua require('telescope.builtin').live_grep({ default_text = vim.fn.GetVisualSelection() })<CR>]],
@@ -221,28 +218,23 @@ vim.keymap.set({ "n", "v" }, "<leader>ff", my_find_files, { noremap = true, sile
 vim.keymap.set({ "n", "v" }, "<leader>lg", my_live_grep, { noremap = true, silent = true })
 set_keymap_for_all_modes("<leader>fr", ":Telescope resume<CR>")
 
-nvim_set_keymap(
-	"n",
-	"<leader>o",
-	"<CMD>SymbolsOutline<CR>",
-	{ desc = "Symbols outline", noremap = true, silent = true }
-)
+keymap.set("n", "<leader>o", "<CMD>SymbolsOutline<CR>", { desc = "Symbols outline", noremap = true, silent = true })
 
-nvim_set_keymap(
+keymap.set(
 	"n",
 	"<leader>0",
 	"<CMD>lua require('codecompanion').toggle()<CR>",
 	{ desc = "Toggle Copilot Chat", noremap = true, silent = true }
 )
-nvim_set_keymap(
-	"v",
+keymap.set(
+	{ "v", "x" },
 	"<leader>0",
 	"<CMD>CodeCompanionChat Add<CR>",
 	{ desc = "Open Copilot Chat with selected inserted", noremap = true, silent = true }
 )
 
 -- SnipRun
-nvim_set_keymap("n", "<leader>sr", "<CMD>SnipRun<CR>", { desc = "Run SnipRun", noremap = true, silent = true })
+keymap.set("n", "<leader>sr", "<CMD>SnipRun<CR>", { desc = "Run SnipRun", noremap = true, silent = true })
 keymap.set(
 	{ "v", "x" },
 	"<leader>sr",
@@ -258,7 +250,7 @@ keymap.set({ "n", "x", "o" }, "S", function()
 	require("flash").treesitter()
 end, { noremap = true })
 
-nvim_set_keymap(
+keymap.set(
 	"v",
 	"<leader>ls",
 	"<cmd>lua require('plugins.toggle-print').toggle_print()<CR>",
