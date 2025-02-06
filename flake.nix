@@ -242,6 +242,9 @@
                 chat = {
                   start_in_insert_mode = true,
                 },
+                action_palette = {
+                  provider = "telescope",
+                },
               },
             })
           '';
