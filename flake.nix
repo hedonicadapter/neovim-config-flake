@@ -245,7 +245,7 @@
           plugin = render-markdown-nvim;
           config = toLua ''
             require('render-markdown').setup({
-              ft = { "markdown", "codecompanion" }
+              ft = { "markdown", "codecompanion" },
             })
           '';
         }
@@ -424,6 +424,19 @@
           config = toLuaFile ./nvim/plugins/treesitter-textobjects.lua;
         }
 
+        # {
+        #   plugin = twilight-nvim;
+        #   config = toLuaFile ./nvim/plugins/twilight.lua;
+        # }
+        {
+          plugin = snacks-nvim;
+          config = toLua ''
+            require('snacks').setup(
+              zen = { }
+            )
+          '';
+        }
+
         {
           plugin = zoxide-vim;
           config = toLua ''
@@ -514,11 +527,6 @@
               },
             })
           '';
-        }
-
-        {
-          plugin = twilight-nvim;
-          config = toLuaFile ./nvim/plugins/twilight.lua;
         }
 
         nvim-web-devicons
