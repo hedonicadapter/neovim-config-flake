@@ -242,7 +242,7 @@
         }
 
         {
-          plugin = pkgs.awesomeNeovimPlugins.render-markdown-nvim;
+          plugin = render-markdown-nvim;
           config = toLua ''
             require('render-markdown').setup({
               ft = { "markdown", "codecompanion" }
@@ -504,7 +504,7 @@
         }
 
         {
-          plugin = pkgs.awesomeNeovimPlugins.hlchunk-nvim;
+          plugin = hlchunk-nvim;
           config = toLua ''
             require("hlchunk").setup({
               chunk = {
@@ -523,7 +523,7 @@
 
         nvim-web-devicons
         {
-          plugin = pkgs.awesomeNeovimPlugins.tiny-devicons-auto-colors-nvim;
+          plugin = tiny-devicons-auto-colors-nvim;
           config = toLua ''
             require('tiny-devicons-auto-colors').setup({
                 colors = {
@@ -660,7 +660,7 @@
         }
 
         {
-          plugin = pkgs.awesomeNeovimPlugins.quicker-nvim;
+          plugin = quicker-nvim;
           config = toLua ''
             require("quicker").setup()
           '';
