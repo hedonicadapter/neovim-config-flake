@@ -212,7 +212,6 @@
               enable = true,
               max_lines = 3,
             })
-
           '';
         }
 
@@ -431,9 +430,9 @@
         {
           plugin = snacks-nvim;
           config = toLua ''
-            require('snacks').setup(
-              zen = { }
-            )
+                   require('snacks').setup {
+                     zen = { },
+            }
           '';
         }
 
