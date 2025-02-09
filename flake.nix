@@ -241,11 +241,22 @@
           '';
         }
 
+        # {
+        #   plugin = render-markdown-nvim;
+        #   config = toLua ''
+        #     require('render-markdown').setup({
+        #       latex = { enabled = false },
+        #     })
+        #   '';
+        # }
         {
-          plugin = render-markdown-nvim;
+          plugin = markview-nvim;
           config = toLua ''
             require('render-markdown').setup({
-              ft = { "markdown", "codecompanion" },
+              preview = {
+                filetypes = { "markdown", "codecompanion" },
+                ignore_buftypes = {},
+              },
             })
           '';
         }
@@ -529,32 +540,37 @@
           '';
         }
 
-        # nvim-web-devicons
-        # {
-        #   plugin = tiny-devicons-auto-colors-nvim;
-        #   config = toLua ''
-        #     require('tiny-devicons-auto-colors').setup({
-        #         colors = {
-        #           "${colors.outputs.colors_opaque.base00}",
-        #           "${colors.outputs.colors_opaque.base01}",
-        #           "${colors.outputs.colors_opaque.base02}",
-        #           "${colors.outputs.colors_opaque.base03}",
-        #           "${colors.outputs.colors_opaque.base04}",
-        #           "${colors.outputs.colors_opaque.base05}",
-        #           "${colors.outputs.colors_opaque.base06}",
-        #           "${colors.outputs.colors_opaque.base07}",
-        #           "${colors.outputs.colors_opaque.base08}",
-        #           "${colors.outputs.colors_opaque.base09}",
-        #           "${colors.outputs.colors_opaque.base0A}",
-        #           "${colors.outputs.colors_opaque.base0B}",
-        #           "${colors.outputs.colors_opaque.base0C}",
-        #           "${colors.outputs.colors_opaque.base0D}",
-        #           "${colors.outputs.colors_opaque.base0E}",
-        #           "${colors.outputs.colors_opaque.base0F}",
-        #         },
-        #     })
-        #   '';
-        # }
+        {
+          plugin = nvim-web-devicons;
+          config = toLua ''
+            require('nvim-web-devicons').setup {}
+          '';
+        }
+        {
+          plugin = tiny-devicons-auto-colors-nvim;
+          config = toLua ''
+            require('tiny-devicons-auto-colors').setup({
+                colors = {
+                  "${colors.outputs.colors_opaque.base00}",
+                  "${colors.outputs.colors_opaque.base01}",
+                  "${colors.outputs.colors_opaque.base02}",
+                  "${colors.outputs.colors_opaque.base03}",
+                  "${colors.outputs.colors_opaque.base04}",
+                  "${colors.outputs.colors_opaque.base05}",
+                  "${colors.outputs.colors_opaque.base06}",
+                  "${colors.outputs.colors_opaque.base07}",
+                  "${colors.outputs.colors_opaque.base08}",
+                  "${colors.outputs.colors_opaque.base09}",
+                  "${colors.outputs.colors_opaque.base0A}",
+                  "${colors.outputs.colors_opaque.base0B}",
+                  "${colors.outputs.colors_opaque.base0C}",
+                  "${colors.outputs.colors_opaque.base0D}",
+                  "${colors.outputs.colors_opaque.base0E}",
+                  "${colors.outputs.colors_opaque.base0F}",
+                },
+            })
+          '';
+        }
 
         {
           plugin = pkgs.vimExtraPlugins.reactive-nvim;
