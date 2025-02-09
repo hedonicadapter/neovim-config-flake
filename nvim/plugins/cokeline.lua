@@ -6,8 +6,6 @@ local get_hex = function(hlgroup_name, attr)
 	return hex ~= "" and hex or "NONE"
 end
 local comments_fg = get_hex("Comment", "fg")
-local errors_fg = get_hex("DiagnosticError", "fg")
-local warnings_fg = get_hex("DiagnosticWarn", "fg")
 
 local min_buffer_width = 30
 
@@ -191,13 +189,6 @@ local components = {
 				or (buffer.diagnostics.hints ~= 0 and "󱠂 " .. buffer.diagnostics.hints .. " ")
 				or ""
 		end,
-		-- hl = {
-		-- 	fg = function(buffer)
-		-- 		return (buffer.diagnostics.errors ~= 0 and errors_fg)
-		-- 			or (buffer.diagnostics.warnings ~= 0 and warnings_fg)
-		-- 			or nil
-		-- 	end,
-		-- },
 		fg = function(buffer)
 			if buffer.is_focused then
 				if buffer.diagnostics.errors ~= 0 then
@@ -261,20 +252,6 @@ local get_remaining_space = function(buffer)
 	return math.max(0, min_buffer_width - used_space)
 end
 
-local left_padding = {
-	text = function(buffer)
-		local remaining_space = get_remaining_space(buffer)
-		return rep(" ", remaining_space / 2 + remaining_space % 2)
-	end,
-}
-
-local right_padding = {
-	text = function(buffer)
-		local remaining_space = get_remaining_space(buffer)
-		return rep(" ", remaining_space / 2)
-	end,
-}
-
 require("cokeline").setup({
 	show_if_buffers_are_at_least = 1,
 
@@ -284,10 +261,6 @@ require("cokeline").setup({
 		focus_on_delete = "next",
 		new_buffers_position = "next",
 	},
-
-	-- rendering = {
-	-- 	max_buffer_width = 30,
-	-- },
 
 	default_hl = {
 		fg = function(buffer)

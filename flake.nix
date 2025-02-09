@@ -78,9 +78,9 @@
           plugin = blink-cmp;
           config = toLua ''
             require("blink.cmp").setup({
-              enabled = function()
-                return not vim.tbl_contains({ "typr" }, vim.bo.filetype)
-                  and vim.b.completion ~= false
+              enabled = function ()
+                buftype = vim.api.nvim_buf_get_option(0, "buftype")
+                if buftype == "prompt" then return false end
               end,
               signature = {
                 enabled = true,
@@ -241,14 +241,6 @@
           '';
         }
 
-        # {
-        #   plugin = render-markdown-nvim;
-        #   config = toLua ''
-        #     require('render-markdown').setup({
-        #       latex = { enabled = false },
-        #     })
-        #   '';
-        # }
         {
           plugin = markview-nvim;
           config = toLua ''
