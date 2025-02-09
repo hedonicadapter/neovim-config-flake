@@ -252,7 +252,7 @@
         {
           plugin = markview-nvim;
           config = toLua ''
-            require('render-markdown').setup({
+            require('markview').setup({
               preview = {
                 filetypes = { "markdown", "codecompanion" },
                 ignore_buftypes = {},
