@@ -164,7 +164,6 @@
 
     local function set_highlights()
     	local highlights = {
-    		TreesitterContextBottom = { sp = "NONE" },
     		TreesitterContext = { bg = "NONE", italic = true },
         TelescopeNormal = { bg = "NONE" },
         TelescopePreviewNormal = { bg = "NONE" },
@@ -208,6 +207,7 @@
 
     vim.api.nvim_create_autocmd("BufEnter", {
     	callback = function()
+    		set_highlights()
     		vim.opt.relativenumber = true
     		vim.opt.number = true
     		vim.opt.cursorline = true
