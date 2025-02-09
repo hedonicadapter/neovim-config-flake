@@ -79,8 +79,11 @@
           config = toLua ''
             require("blink.cmp").setup({
               enabled = function ()
-                buftype = vim.api.nvim_buf_get_option(0, "buftype")
-                if buftype == "prompt" then return false end
+                local filetype = vim.api.nvim_buf_get_option(0, "filetype")
+                if filetype == "TelescopePrompt" then
+                  return false
+                end
+                return true
               end,
               signature = {
                 enabled = true,
