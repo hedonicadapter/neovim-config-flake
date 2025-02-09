@@ -164,6 +164,7 @@
 
     local function set_highlights()
     	local highlights = {
+    		TreesitterContextBottom = { sp = "NONE" },
     		TreesitterContext = { bg = "NONE", italic = true },
         TelescopeNormal = { bg = "NONE" },
         TelescopePreviewNormal = { bg = "NONE" },
