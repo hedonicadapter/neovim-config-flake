@@ -208,7 +208,6 @@
 
     vim.api.nvim_create_autocmd("BufEnter", {
     	callback = function()
-    		set_highlights()
     		vim.opt.relativenumber = true
     		vim.opt.number = true
     		vim.opt.cursorline = true
