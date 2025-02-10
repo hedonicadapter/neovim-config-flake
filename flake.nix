@@ -249,23 +249,33 @@
           config = toLua ''
             require('markview').setup({
               preview = {
-                filetypes = { "markdown", "md", "codecompanion" },
-                ignore_buftypes = {},
-                condition = function (buffer)
-                  local ft, bt = vim.bo[buffer].ft, vim.bo[buffer].bt;
+                  filetypes = {
+                      'md',
+                      'markdown',
+                      'norg',
+                      'rmd',
+                      'org',
+                      'vimwiki',
+                      'typst',
+                      'latex',
+                      'quarto',
+                      'Avante',
+                      'codecompanion',
+                  },
+                  ignore_buftypes = {},
 
-                  vim.api.nvim_out_write("chungus " .. ft .. "\n")
-                  vim.api.nvim_out_write("chungus " .. bt .. "\n")
+                  condition = function (buffer)
+                      local ft, bt = vim.bo[buffer].ft, vim.bo[buffer].bt;
 
-                  if bt == "nofile" and ft == "codecompanion" then
-                    return true;
-                  elseif bt == "nofile" then
-                    return false;
-                  else
-                    return true;
+                      if bt == "nofile" and ft == "codecompanion" then
+                           return true;
+                      elseif bt == "nofile" then
+                           return false;
+                      else
+                           return true;
+                      end
                   end
-                end,
-              },
+              }
             })
           '';
         }
