@@ -259,7 +259,6 @@
                       'typst',
                       'latex',
                       'quarto',
-                      'Avante',
                       'codecompanion',
                   },
                   ignore_buftypes = {},
@@ -277,6 +276,10 @@
                   end
               }
             })
+
+            vim.api.nvim_exec([[
+              autocmd BufEnter * if &buftype == 'nofile' && &filetype == 'codecompanion' | silent! :Markview attach | endif
+            ]], false)
           '';
         }
 
