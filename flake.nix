@@ -262,6 +262,7 @@
                       'codecompanion',
                   },
                   ignore_buftypes = {},
+                  hybrid_modes = { "i" },
 
                   condition = function (buffer)
                       local ft, bt = vim.bo[buffer].ft, vim.bo[buffer].bt;
