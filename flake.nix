@@ -277,9 +277,10 @@
               }
             })
 
-            vim.api.nvim_exec([[
-              autocmd BufEnter * if &buftype == 'nofile' && &filetype == 'codecompanion' | silent! :Markview attach | endif
-            ]], false)
+            vim.api.nvim_create_autocmd('FileType', {
+              pattern = 'codecompanion',
+              command = 'Markview attach',
+            })
           '';
         }
 
