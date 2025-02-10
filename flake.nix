@@ -249,10 +249,13 @@
           config = toLua ''
             require('markview').setup({
               preview = {
-                filetypes = { "markdown", "codecompanion" },
+                filetypes = { "markdown", "md", "codecompanion" },
                 ignore_buftypes = {},
                 condition = function (buffer)
                   local ft, bt = vim.bo[buffer].ft, vim.bo[buffer].bt;
+
+                  vim.api.nvim_out_write("chungus " .. ft .. "\n")
+                  vim.api.nvim_out_write("chungus " .. bt .. "\n")
 
                   if bt == "nofile" and ft == "codecompanion" then
                     return true;
