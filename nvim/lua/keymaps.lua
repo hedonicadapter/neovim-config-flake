@@ -277,4 +277,4 @@ keymap.set("n", "<leader>tt", ":ToggleTerm<CR>", {
 })
 
 keymap.set("n", "<leader>cn", "<cmd>lua require('todo-comments').jump_next()<CR>", { noremap = true, silent = true })
-keymap.set("n", "<leader>cp", "<cmd>lua require('todo-comments').jump_next()<CR>", { noremap = true, silent = true })
+keymap.set("n", "<leader>cp", "<cmd>lua require('todo-comments').jump_prev()<CR>", { noremap = true, silent = true })
