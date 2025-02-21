@@ -713,6 +713,13 @@
             require("quicker").setup()
           '';
         }
+
+        {
+          plugin = todo-comments-nvim;
+          config = toLua ''
+            require("todo-comments").setup()
+          '';
+        }
       ];
 
       extraLuaConfig = ''
