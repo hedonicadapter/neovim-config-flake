@@ -120,6 +120,7 @@
           '';
         }
 
+        friendly-snippets
         {
           plugin = nvim-lspconfig;
           config = toLuaFile ./nvim/plugins/lsp.lua;
