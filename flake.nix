@@ -764,6 +764,15 @@
             require("todo-comments").setup()
           '';
         }
+
+        {
+          plugin = stay-centered-nvim;
+          config = toLua ''
+            require('stay-centered').setup({
+              skip_filetypes = { 'ministarter' }
+            })
+          '';
+        }
       ];
 
       extraLuaConfig = ''
