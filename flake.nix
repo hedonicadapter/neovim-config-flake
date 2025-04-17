@@ -97,6 +97,17 @@
 
                 menu = {
                   draw = {
+                    columns = {
+                      {
+                        "kind_icon",
+                        "label",
+                        "label_description",
+                        gap = 1
+                      },
+                      {
+                        "kind"
+                       }
+                    },
                     components = {
                       kind_icon = {
                         text = function(ctx)
