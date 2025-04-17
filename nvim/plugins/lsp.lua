@@ -309,6 +309,14 @@ setup_server('mdx_analyzer', {
 	on_attach = on_attach,
 	capabilities = capabilities,
 })
+setup_server('nixd', {
+	on_attach = on_attach,
+	capabilities = capabilities,
+})
+setup_server('nil_ls', {
+	on_attach = on_attach,
+	capabilities = capabilities,
+})
 
 vim.api.nvim_create_autocmd({ "BufWritePre" }, {
 	pattern = { "*.tf", "*.tfvars" },
