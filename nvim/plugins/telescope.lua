@@ -256,6 +256,25 @@ telescope.setup({
 			return TSLayout(layout)
 		end,
 	},
+	pickers = {
+		buffers = {
+			entry_maker = function(entry)
+				local bufname = vim.api.nvim_buf_get_name(entry.bufnr)
+				local is_modified = vim.bo[entry.bufnr].modified
+				local display_name = bufname == "" and "[No Name]" or bufname
+				if is_modified then
+					display_name = "● " .. display_name
+				else
+					display_name = "  " .. display_name
+				end
+				return {
+					value = entry,
+					ordinal = display_name,
+					display = display_name,
+				}
+			end,
+		},
+	},
 	mappings = {
 		i = {
 			["<Tab>"] = actions.move_selection_next,
