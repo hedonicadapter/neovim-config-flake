@@ -1,4 +1,5 @@
 -- local navbuddy = require("nvim-navbuddy")
+local lspconfig = require("lspconfig")
 
 local on_attach = function(client, bufnr)
 	-- vim.g.inlay_hints_visible = true
@@ -33,12 +34,25 @@ end
 
 local capabilities = require("blink.cmp").get_lsp_capabilities()
 
+local setup_server = function(server, config)
+	if not config then
+		config = {}
+	end
+
+	local cmd = config.cmd or lspconfig[server].document_config.default_config.cmd
+	local executable = cmd and cmd[1] or nil
+
+	if executable and vim.fn.executable(executable) == 0 then
+		return
+	end
+
+	lspconfig[server].setup(config)
+end
+
 capabilities.textDocument.foldingRange = {
 	dynamicRegistration = false,
 	lineFoldingOnly = true,
 }
-
-local lspconfig = require("lspconfig")
 
 vim.diagnostic.config({
 	underline = true,
@@ -62,15 +76,15 @@ vim.diagnostic.config({
 	},
 })
 
-lspconfig.nil_ls.setup({
+setup_server("nil_ls", {
 	on_attach = on_attach,
 	capabilities = capabilities,
 })
-lspconfig.astro.setup({
+setup_server("astro", {
 	on_attach = on_attach,
 	capabilities = capabilities,
 })
-lspconfig.azure_pipelines_ls.setup({
+setup_server("azure_pipelines_ls", {
 	on_attach = on_attach,
 	capabilities = capabilities,
 	settings = {
@@ -86,17 +100,17 @@ lspconfig.azure_pipelines_ls.setup({
 		},
 	},
 })
-lspconfig.bashls.setup({
+setup_server("bashls", {
 	on_attach = on_attach,
 	capabilities = capabilities,
 })
-lspconfig.azure_pipelines_ls.setup({
+setup_server("azure_pipelines_ls", {
 	on_attach = on_attach,
 	capabilities = capabilities,
 })
 
 local bicep_lsp_bin = vim.fn.system("which bicep"):gsub("%s+", "")
-lspconfig.bicep.setup({
+setup_server("bicep", {
 	on_attach = on_attach,
 	capabilities = capabilities,
 
@@ -104,7 +118,7 @@ lspconfig.bicep.setup({
 })
 vim.cmd([[ autocmd BufNewFile,BufRead *.bicep set filetype=bicep ]])
 
--- lspconfig.omnisharp.setup({
+-- setup_server('omnisharp', {
 -- 		on_attach = on_attach,
 -- 		capabilities = capabilities,
 -- 	    cmd = { "dotnet", "OmniSharp" },
@@ -156,37 +170,37 @@ vim.cmd([[ autocmd BufNewFile,BufRead *.bicep set filetype=bicep ]])
 -- 	      },
 -- 	    },
 -- 	}))
--- require("roslyn").setup({
+-- require("roslyn")', {
 -- 	dotnet_cmd = "dotnet", -- this is the default
 -- 	roslyn_version = "4.8.0-3.23475.7", -- this is the default
 -- 	on_attach = on_attach,
 -- 	capabilities = capabilities,
 -- })
-lspconfig.cssls.setup({
+setup_server("cssls", {
 	on_attach = on_attach,
 	capabilities = capabilities,
 })
-lspconfig.dockerls.setup({
+setup_server("dockerls", {
 	on_attach = on_attach,
 	capabilities = capabilities,
 })
-lspconfig.gopls.setup({
+setup_server("gopls", {
 	on_attach = on_attach,
 	capabilities = capabilities,
 })
-lspconfig.html.setup({
+setup_server("html", {
 	on_attach = on_attach,
 	capabilities = capabilities,
 })
-lspconfig.htmx.setup({
+setup_server("htmx", {
 	on_attach = on_attach,
 	capabilities = capabilities,
 })
-lspconfig.jsonls.setup({
+setup_server("jsonls", {
 	on_attach = on_attach,
 	capabilities = capabilities,
 })
-lspconfig.ts_ls.setup({
+setup_server("ts_ls", {
 	capabilities = capabilities,
 	single_file_support = true,
 	root_dir = require("lspconfig.util").root_pattern(".git"),
@@ -219,7 +233,7 @@ lspconfig.ts_ls.setup({
 		},
 	},
 })
-lspconfig.lua_ls.setup({
+setup_server("lua_ls", {
 	on_attach = on_attach,
 	capabilities = capabilities,
 
@@ -253,11 +267,11 @@ lspconfig.lua_ls.setup({
 		Lua = {},
 	},
 })
-lspconfig.sqls.setup({
+setup_server("sqls", {
 	on_attach = on_attach,
 	capabilities = capabilities,
 })
-lspconfig.tailwindcss.setup({
+setup_server("tailwindcss", {
 	capabilities = capabilities,
 	completions = {
 		completeFunctionCalls = true,
@@ -271,23 +285,35 @@ lspconfig.tailwindcss.setup({
 		"postcss.config.ts"
 	),
 })
-lspconfig.terraformls.setup({
+setup_server("terraformls", {
 	on_attach = on_attach,
 	capabilities = capabilities,
 })
-lspconfig.vimls.setup({
+setup_server("vimls", {
 	on_attach = on_attach,
 	capabilities = capabilities,
 })
-lspconfig.yamlls.setup({
+setup_server("yamlls", {
 	on_attach = on_attach,
 	capabilities = capabilities,
 })
-lspconfig.ansiblels.setup({
+setup_server("ansiblels", {
 	on_attach = on_attach,
 	capabilities = capabilities,
 })
-lspconfig.basedpyright.setup({
+setup_server("basedpyright", {
+	on_attach = on_attach,
+	capabilities = capabilities,
+})
+setup_server("mdx_analyzer", {
+	on_attach = on_attach,
+	capabilities = capabilities,
+})
+setup_server("nixd", {
+	on_attach = on_attach,
+	capabilities = capabilities,
+})
+setup_server("nil_ls", {
 	on_attach = on_attach,
 	capabilities = capabilities,
 })
