@@ -271,6 +271,8 @@ telescope.setup({
 					value = entry,
 					ordinal = display_name,
 					display = display_name,
+					filename = bufname,
+					path = bufname,
 				}
 			end,
 		},
