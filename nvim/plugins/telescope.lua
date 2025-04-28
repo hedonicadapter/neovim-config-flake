@@ -257,6 +257,12 @@ telescope.setup({
 		end,
 	},
 	pickers = {
+		find_files = {
+			hidden = true,
+		},
+		live_grep = {
+			hidden = true,
+		},
 		buffers = {
 			entry_maker = function(entry)
 				local bufname = vim.api.nvim_buf_get_name(entry.bufnr)
