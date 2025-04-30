@@ -1,37 +1,51 @@
 {
-  description = "ixvim flake";
+  description = "A nixvim configuration";
 
   inputs = {
-    nixpkgs.follows = "nixvim/nixpkgs";
+    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     nixvim.url = "github:nix-community/nixvim";
+    flake-parts.url = "github:hercules-ci/flake-parts";
   };
 
   outputs = {
-    nixpkgs,
     nixvim,
+    flake-parts,
     ...
-  }: let
-    config = {
-      colorschemes.gruvbox.enable = true;
-    };
+  } @ inputs:
+    flake-parts.lib.mkFlake {inherit inputs;} {
+      systems = [
+        "x86_64-linux"
+        "aarch64-linux"
+        "x86_64-darwin"
+        "aarch64-darwin"
+      ];
 
-    systems = [
-      "x86_64-linux"
-      "aarch64-linux"
-      "x86_64-darwin"
-      "aarch64-darwin"
-    ];
-
-    forAllSystems = nixpkgs.lib.genAttrs systems;
-  in {
-    packages = forAllSystems (
-      system: let
+      perSystem = {system, ...}: let
+        nixvimLib = nixvim.lib.${system};
         nixvim' = nixvim.legacyPackages.${system};
-        nvim = nixvim'.makeNixvim config;
+        nixvimModule = {
+          inherit system;
+          module = {
+            config = {
+              colorschemes.gruvbox.enable = true;
+              plugins = {
+              };
+            };
+            options = {};
+          };
+          extraSpecialArgs = {};
+        };
+        nvim = nixvim'.makeNixvimWithModule nixvimModule;
       in {
-        inherit nvim;
-        default = nvim;
-      }
-    );
-  };
+        checks = {
+          # Run `nix flake check .` to verify that your config is not broken
+          default = nixvimLib.check.mkTestDerivationFromNixvimModule nixvimModule;
+        };
+
+        packages = {
+          # Lets you run `nix run .` to start nixvim
+          default = nvim;
+        };
+      };
+    };
 }
