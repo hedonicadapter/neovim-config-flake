@@ -147,8 +147,8 @@
 
         go = with pkgs; [
           gopls
-          gotools
-          go-tools
+          # gotools
+          # go-tools
         ];
       };
 
