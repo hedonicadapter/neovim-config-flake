@@ -131,7 +131,7 @@
           nodePackages.bash-language-server
           terraform-ls
           terraform-lsp
-          gopls
+          # gopls
           ansible-language-server
           ansible-lint
           sqls
@@ -146,7 +146,7 @@
         ];
 
         go = with pkgs; [
-          gopls
+          # gopls
           # gotools
           # go-tools
         ];
