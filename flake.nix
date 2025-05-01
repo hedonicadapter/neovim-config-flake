@@ -149,7 +149,6 @@
           gopls
           gotools
           go-tools
-          gccgo
         ];
       };
 
