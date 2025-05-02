@@ -21,6 +21,7 @@ require("lze").load({
 	{ import = "luaConf.plugins.mini" },
 	{ import = "luaConf.plugins.auto-session" },
 	{ import = "luaConf.plugins.cokeline" },
+	{ import = "luaConf.plugins.reactive" },
 	{ import = "luaConf.plugins.telescope" },
 	{ import = "luaConf.plugins.treesitter" },
 	{ import = "luaConf.plugins.completion" },
@@ -50,15 +51,9 @@ require("lze").load({
 			require("ts-error-translator").setup()
 		end,
 	},
-	-- {
-	-- 	"staline.nvim",
-	-- 	for_cat = "general.always",
-	-- 	event = "DeferredUIEnter",
-	-- 	after = function(plugin)
-	-- 		require("staline").setup({
-	-- 		})
-	-- 	end,
-	-- },
+
+	{ import = "luaConf.plugins.staline" },
+
 	{
 		"gitsigns.nvim",
 		for_cat = "general.always",
@@ -328,7 +323,7 @@ require("lze").load({
 	{
 		"todo-comments-nvim",
 		for_cat = "general.extra",
-		event = "BufReadPost", -- Load when a file is opened, as it's used for highlighting TODO comments
+		event = "BufReadPost",
 		after = function(plugin)
 			require("todo-comments").setup()
 		end,
@@ -337,10 +332,25 @@ require("lze").load({
 	{
 		"stay-centered-nvim",
 		for_cat = "general.always",
-		event = "BufReadPost", -- Load when the cursor moves, as it keeps the cursor centered
+		event = "BufReadPost",
 		after = function(plugin)
 			require("stay-centered").setup({
 				skip_filetypes = { "ministarter" },
+			})
+		end,
+	},
+	{
+		"hlchunk-nvim",
+		for_cat = "general.extra",
+		event = "BufReadPost",
+		after = function(plugin)
+			local colors = nixCats.extra("colors")
+			require("hlchunk").setup({
+				chunk = {
+					enable = true,
+					style = { colors.base09 },
+					delay = 100,
+				},
 			})
 		end,
 	},

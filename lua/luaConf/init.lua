@@ -1,4 +1,5 @@
-require("luaConf.opts_and_keys")
+require("luaConf.keys")
+require("luaConf.options")
 
 -- NOTE: register an extra lze handler with the spec_field 'for_cat'
 -- that makes enabling an lze spec for a category slightly nicer

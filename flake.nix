@@ -33,7 +33,6 @@
     nixneovimplugins,
     ...
   } @ inputs: let
-    luaUtils = ./luaUtils.nix;
     inherit (nixCats) utils;
     luaPath = "${./.}";
     forEachSystem = utils.eachSystem nixpkgs.lib.platforms.all; # this is flake-utils eachSystem
@@ -42,9 +41,7 @@
     # import nixpkgs { config = extra_pkg_config; inherit system; }
     # will not apply to module imports
     # as that will have your system values
-    extra_pkg_config = {
-      allowUnfree = true;
-    };
+    extra_pkg_config = {allowUnfree = true;};
     # management of the system variable is one of the harder parts of using flakes.
 
     # so I have done it here in an interesting way to keep it out of the way.
@@ -146,9 +143,9 @@
         ];
 
         go = with pkgs; [
-          # gopls
-          # gotools
-          # go-tools
+          gopls
+          gotools
+          go-tools
         ];
       };
 
@@ -201,6 +198,8 @@
             pkgs.awesomeNeovimPlugins.tiny-code-action-nvim
             nvim-scrollbar
             todo-comments-nvim
+            pkgs.vimExtraPlugins.reactive-nvim
+            hlchunk-nvim
           ];
         };
 
@@ -306,6 +305,7 @@
         general = with pkgs; [
           # <- this would be included if any of the subcategories of general are
           # libgit2
+          imagemagick
         ];
       };
 
@@ -415,7 +415,7 @@
           # enabling this category will enable the go category,
           # and ALSO debug.go and debug.default due to our extraCats in categoryDefinitions.
           # go = true; # <- disabled but you could enable it with override or module on install
-          go = true;
+          go = false;
 
           test = {
             subtest1 = true;
@@ -426,9 +426,16 @@
           lspDebugMode = false;
           # you could also pass something else:
           # see :help nixCats
-          themer = true;
+          themer = false;
         };
         extra = {
+          colors = inputs.colors.outputs.colors;
+          colors_opaque = inputs.colors.outputs.colors_opaque;
+
+          # TODO: luafy these
+          # transparentize = inputs.colors.outputs.transparentize;
+          # darken = inputs.colors.outputs.darken;
+
           # to keep the categories table from being filled with non category things that you want to pass
           # there is also an extra table you can use to pass extra stuff.
           # but you can pass all the same stuff in any of these sets and access it in lua
