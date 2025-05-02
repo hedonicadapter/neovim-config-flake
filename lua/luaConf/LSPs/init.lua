@@ -3,10 +3,29 @@ if catUtils.isNixCats and nixCats("lspDebugMode") then
 	vim.lsp.set_log_level("debug")
 end
 
+vim.diagnostic.config({
+	underline = true,
+	update_in_insert = false,
+	virtual_text = {
+		spacing = 4,
+		source = "if_many",
+		prefix = "●",
+	},
+	severity_sort = true,
+	signs = {
+		text = {
+			[vim.diagnostic.severity.ERROR] = "",
+			[vim.diagnostic.severity.WARN] = "",
+			[vim.diagnostic.severity.HINT] = "󰧑",
+			[vim.diagnostic.severity.INFO] = "",
+		},
+	},
+	inlay_hints = {
+		enabled = false,
+	},
+})
+
 -- NOTE: This file uses lzextras.lsp handler https://github.com/BirdeeHub/lzextras?tab=readme-ov-file#lsp-handler
--- This is a slightly more performant fallback function
--- for when you don't provide a filetype to trigger on yourself.
--- nixCats gives us the paths, which is faster than searching the rtp!
 local old_ft_fallback = require("lze").h.lsp.get_ft_fallback()
 require("lze").h.lsp.set_ft_fallback(function(name)
 	local lspcfg = nixCats.pawsible({ "allPlugins", "opt", "nvim-lspconfig" })
@@ -24,59 +43,53 @@ end)
 require("lze").load({
 	{
 		"nvim-lspconfig",
-		for_cat = "general.core",
-		on_require = { "lspconfig" },
-		-- NOTE: define a function for lsp,
-		-- and it will run for all specs with type(plugin.lsp) == table
-		-- when their filetype trigger loads them
+		for_cat = "general.always",
 		lsp = function(plugin)
 			vim.lsp.config(plugin.name, plugin.lsp or {})
 			vim.lsp.enable(plugin.name)
 		end,
 		before = function(_)
 			vim.lsp.config("*", {
-				on_attach = require("myLuaConf.LSPs.on_attach"),
+				on_attach = require("luaConf.LSPs.on_attach"),
+				capabilities = require("luaConf.LSPs.capabilities"),
 			})
 		end,
 	},
+
 	{
-		"mason.nvim",
-		-- only run it when not on nix
-		enabled = not catUtils.isNixCats,
-		on_plugin = { "nvim-lspconfig" },
-		load = function(name)
-			vim.cmd.packadd(name)
-			vim.cmd.packadd("mason-lspconfig.nvim")
-			require("mason").setup()
-			-- auto install will make it install servers when lspconfig is called on them.
-			require("mason-lspconfig").setup({ automatic_installation = true })
-		end,
-	},
-	{
-		-- lazydev makes your lsp way better in your config without needing extra lsp configuration.
-		"lazydev.nvim",
-		for_cat = "neonixdev",
-		cmd = { "LazyDev" },
-		ft = "lua",
-		after = function(_)
-			require("lazydev").setup({
-				library = {
-					{ words = { "nixCats" }, path = (nixCats.nixCatsPath or "") .. "/lua" },
-				},
-			})
-		end,
-	},
-	{
-		-- name of the lsp
 		"lua_ls",
-		enabled = nixCats("lua") or nixCats("neonixdev") or false,
+		enabled = nixCats("general"),
 		-- provide a table containing filetypes,
 		-- and then whatever your functions defined in the function type specs expect.
 		-- in our case, it just expects the normal lspconfig setup options,
 		-- but with a default on_attach and capabilities
 		lsp = {
-			-- if you provide the filetypes it doesn't ask lspconfig for the filetypes
-			filetypes = { "lua" },
+			on_init = function(client)
+				local path = client.workspace_folders[1].name
+				if vim.loop.fs_stat(path .. "/.luarc.json") or vim.loop.fs_stat(path .. "/.luarc.jsonc") then
+					return
+				end
+
+				client.config.settings.Lua = vim.tbl_deep_extend("force", client.config.settings.Lua, {
+					runtime = {
+						-- Tell the language server which version of Lua you're using
+						-- (most likely LuaJIT in the case of Neovim)
+						version = "LuaJIT",
+					},
+					-- Make the server aware of Neovim runtime files
+					workspace = {
+						checkThirdParty = false,
+						library = {
+							vim.env.VIMRUNTIME,
+							-- Depending on the usage, you might want to add additional paths here.
+							-- "${3rd}/luv/library"
+							-- "${3rd}/busted/library",
+						},
+						-- or pull in all of 'runtimepath'. NOTE: this is a lot slower
+						-- library = vim.api.nvim_get_runtime_file("", true)
+					},
+				})
+			end,
 			settings = {
 				Lua = {
 					runtime = { version = "LuaJIT" },
@@ -92,7 +105,6 @@ require("lze").load({
 				},
 			},
 		},
-		-- also these are regular specs and you can use before and after and all the other normal fields
 	},
 	{
 		"gopls",
@@ -103,33 +115,21 @@ require("lze").load({
 		},
 	},
 	{
-		"rnix",
-		-- mason doesn't have nixd
-		enabled = not catUtils.isNixCats,
-		lsp = {
-			filetypes = { "nix" },
-		},
-	},
-	{
 		"nil_ls",
-		-- mason doesn't have nixd
-		enabled = not catUtils.isNixCats,
+		enabled = nixCats("general"),
 		lsp = {
 			filetypes = { "nix" },
 		},
 	},
 	{
 		"nixd",
-		enabled = catUtils.isNixCats and (nixCats("nix") or nixCats("neonixdev")) or false,
+		enabled = nixCats("general"),
 		lsp = {
 			filetypes = { "nix" },
 			settings = {
 				nixd = {
-					-- nixd requires some configuration.
-					-- luckily, the nixCats plugin is here to pass whatever we need!
 					-- we passed this in via the `extra` table in our packageDefinitions
 					-- for additional configuration options, refer to:
-					-- https://github.com/nix-community/nixd/blob/main/nixd/docs/configuration.md
 					nixpkgs = {
 						-- in the extras set of your package definition:
 						-- nixdExtras.nixpkgs = ''import ${pkgs.path} {}''
@@ -164,4 +164,158 @@ require("lze").load({
 			},
 		},
 	},
+	{
+		"bicep",
+		enabled = nixCats("infrastructure"),
+		lsp = {
+			cmd = { "dotnet", vim.fn.system("which bicep"):gsub("%s+", "") },
+		},
+	},
+	{
+		"ts_ls",
+		enabled = nixCats("web"),
+		lsp = {
+			single_file_support = true,
+			-- root_dir = require("lspconfig.util").root_pattern(".git"),
+			completions = {
+				completeFunctionCalls = true,
+			},
+			settings = {
+				javascript = {
+					inlayHints = {
+						includeInlayEnumMemberValueHints = false,
+						includeInlayFunctionLikeReturnTypeHints = false,
+						includeInlayFunctionParameterTypeHints = false,
+						includeInlayParameterNameHints = "none", -- 'none' | 'literals' | 'all';
+						includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+						includeInlayPropertyDeclarationTypeHints = false,
+						includeInlayVariableTypeHints = false,
+					},
+				},
+
+				typescript = {
+					inlayHints = {
+						includeInlayEnumMemberValueHints = false,
+						includeInlayFunctionLikeReturnTypeHints = false,
+						includeInlayFunctionParameterTypeHints = false,
+						includeInlayParameterNameHints = "none", -- 'none' | 'literals' | 'all';
+						includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+						includeInlayPropertyDeclarationTypeHints = false,
+						includeInlayVariableTypeHints = false,
+					},
+				},
+			},
+		},
+	},
+	{
+		"tailwindcss",
+		enabled = nixCats("web"),
+		lsp = {
+			completions = {
+				completeFunctionCalls = true,
+			},
+			root_dir = require("lspconfig").util.root_pattern(
+				"tailwind.config.js",
+				"tailwind.config.cjs",
+				"tailwind.config.ts",
+				"postcss.config.js",
+				"postcss.config.cjs",
+				"postcss.config.ts"
+			),
+		},
+	},
+	{
+		"azure_pipelines_ls",
+		enabled = nixCats("infrastructure"),
+		lsp = {
+			settings = {
+				yaml = {
+					schemas = {
+						["https://raw.githubusercontent.com/microsoft/azure-pipelines-vscode/master/service-schema.json"] = {
+							"/azure-pipeline*.y*l",
+							"/*.azure*",
+							"Azure-Pipelines/**/*.y*l",
+							"Pipelines/*.y*l",
+						},
+					},
+				},
+			},
+		},
+	},
+	{
+		"astro",
+		enabled = nixCats("web"),
+	},
+	{
+		"bashls",
+		enabled = nixCats("general"),
+	},
+	{
+		"azure_pipelines_ls",
+		enabled = nixCats("general"),
+	},
+	{
+		"terraformls",
+		enabled = nixCats("infrastructure"),
+	},
+	{
+		"vimls",
+		enabled = nixCats("general"),
+	},
+	{
+		"yamlls",
+		enabled = nixCats("general"),
+	},
+	{
+		"ansiblels",
+		enabled = nixCats("infrastructure"),
+	},
+	{
+		"basedpyright",
+		enabled = nixCats("general"),
+	},
+	{
+		"mdx_analyzer",
+		enabled = nixCats("web"),
+	},
+	{
+		"nixd",
+		enabled = nixCats("general"),
+	},
+	{
+		"nil_ls",
+		enabled = nixCats("general"),
+	},
+	{
+		"cssls",
+		enabled = nixCats("web"),
+	},
+	{
+		"dockerls",
+		enabled = nixCats("infrastructure"),
+	},
+	{
+		"gopls",
+		enabled = nixCats("infrastructure"),
+	},
+	{
+		"html",
+		enabled = nixCats("web"),
+	},
+	{
+		"htmx",
+		enabled = nixCats("web"),
+	},
+	{
+		"jsonls",
+		enabled = nixCats("web"),
+	},
+	{
+		"sqls",
+		enabled = nixCats("infrastructure"),
+	},
 })
+
+if nixCats("infrastructure") then
+	vim.cmd([[ autocmd BufNewFile,BufRead *.bicep set filetype=bicep ]])
+end
