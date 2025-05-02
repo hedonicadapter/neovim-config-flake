@@ -402,8 +402,9 @@
           wrapRc = true;
           configDirName = "nvim";
           # neovim-unwrapped = inputs.neovim-nightly-overlay.packages.${pkgs.system}.neovim;
-          hosts.python3.enable = true;
-          hosts.node.enable = true;
+          # TODO: dont think i want these
+          # hosts.python3.enable = true;
+          # hosts.node.enable = true;
         };
         # enable the categories you want from categoryDefinitions
         categories = {
