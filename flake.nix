@@ -155,6 +155,7 @@
           # you can make subcategories!!!
           # (always isnt a special name, just the one I chose for this subcategory)
           always = [
+            nvim-lspconfig
             nvim-cokeline
             nui-nvim
             oil-nvim
@@ -281,7 +282,6 @@
           ];
           always = with pkgs.vimPlugins; [
             mini-nvim
-            nvim-lspconfig
             toggleterm-nvim
             staline-nvim
             gitsigns-nvim

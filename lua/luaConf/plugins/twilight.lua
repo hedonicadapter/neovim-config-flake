@@ -12,12 +12,13 @@ return {
 				treesitter = true,
 			})
 
-			vim.api.nvim_exec2(
-				[[
-					au BufEnter * TwilightEnable
-				]],
-				{ output = false }
-			)
+			-- WARN: might need this with color themes
+			-- vim.api.nvim_exec2(
+			-- 	[[
+			-- 		au BufEnter * TwilightEnable
+			-- 	]],
+			-- 	{ output = false }
+			-- )
 		end,
 	},
 }

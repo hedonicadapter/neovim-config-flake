@@ -109,6 +109,7 @@ require("lze").load({
 	{
 		"gopls",
 		for_cat = "go",
+		enabled = nixCats("go"),
 		-- if you don't provide the filetypes it asks lspconfig for them
 		lsp = {
 			filetypes = { "go", "gomod", "gowork", "gotmpl" },
@@ -243,76 +244,75 @@ require("lze").load({
 		},
 	},
 	{
-		"astro",
-		enabled = nixCats("web"),
-	},
-	{
-		"bashls",
-		enabled = nixCats("general"),
-	},
-	{
-		"azure_pipelines_ls",
-		enabled = nixCats("general"),
-	},
-	{
-		"terraformls",
-		enabled = nixCats("infrastructure"),
-	},
-	{
-		"vimls",
-		enabled = nixCats("general"),
-	},
-	{
-		"yamlls",
-		enabled = nixCats("general"),
-	},
-	{
-		"ansiblels",
-		enabled = nixCats("infrastructure"),
-	},
-	{
-		"basedpyright",
-		enabled = nixCats("general"),
-	},
-	{
-		"mdx_analyzer",
-		enabled = nixCats("web"),
-	},
-	{
-		"nixd",
-		enabled = nixCats("general"),
-	},
-	{
-		"nil_ls",
-		enabled = nixCats("general"),
-	},
-	{
 		"cssls",
 		enabled = nixCats("web"),
+		lsp = {},
 	},
 	{
 		"dockerls",
 		enabled = nixCats("infrastructure"),
-	},
-	{
-		"gopls",
-		enabled = nixCats("infrastructure"),
+		lsp = {},
 	},
 	{
 		"html",
 		enabled = nixCats("web"),
+		lsp = {},
 	},
 	{
 		"htmx",
 		enabled = nixCats("web"),
+		lsp = {},
 	},
 	{
 		"jsonls",
 		enabled = nixCats("web"),
+		lsp = {},
 	},
 	{
 		"sqls",
 		enabled = nixCats("infrastructure"),
+		lsp = {},
+	},
+
+	{
+		"astro",
+		enabled = nixCats("web"),
+		lsp = {},
+	},
+	{
+		"bashls",
+		enabled = nixCats("general"),
+		lsp = {},
+	},
+	{
+		"terraformls",
+		enabled = nixCats("infrastructure"),
+		lsp = {},
+	},
+	{
+		"vimls",
+		enabled = nixCats("general"),
+		lsp = {},
+	},
+	{
+		"yamlls",
+		enabled = nixCats("general"),
+		lsp = {},
+	},
+	{
+		"ansiblels",
+		enabled = nixCats("infrastructure"),
+		lsp = {},
+	},
+	{
+		"basedpyright",
+		enabled = nixCats("general"),
+		lsp = {},
+	},
+	{
+		"mdx_analyzer",
+		enabled = nixCats("web"),
+		lsp = {},
 	},
 })
 
