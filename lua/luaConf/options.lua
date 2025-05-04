@@ -6,8 +6,6 @@ local autocmd = vim.api.nvim_create_autocmd
 local augroup = vim.api.nvim_create_augroup
 
 local colors = nixCats.extra("colors")
-local colors_opaque = nixCats.extra("colors_opaque")
-local colorUtils = require("colorUtils")
 
 o.showmode = false
 o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
@@ -144,56 +142,6 @@ autocmd("BufWritePost", {
 	pattern = { "*" },
 	command = "redrawstatus",
 })
-
-local function set_highlights()
-	local highlights = {
-		TreesitterContextBottom = { sp = "NONE" },
-		TreesitterContext = { bg = "NONE", italic = true },
-		TelescopeNormal = { bg = "NONE" },
-		TelescopePreviewNormal = { bg = "NONE" },
-		TelescopeSelection = { bg = colors.base0C, fg = colors.base00 },
-		TelescopeSelectionCaret = { bg = "NONE" },
-		WinBar = { bg = "NONE" },
-		LineNr = { bg = "NONE" },
-		SignColumn = { bg = "NONE" },
-		DropBarIconKindFunction = { bg = "NONE" },
-		TabLineFill = { bg = "NONE" },
-		DiagnosticSignError = { bg = "NONE" },
-		DiagnosticSignWarn = { bg = "NONE" },
-		DiagnosticSignInfo = { bg = "NONE" },
-		DiagnosticSignHint = { bg = "NONE" },
-		DiagnosticSignOk = { bg = "NONE" },
-		Folded = { bg = "NONE" },
-		Twilight = { bg = "NONE" },
-		GitSignsAdd = { bg = "NONE" },
-		GitSignsChange = { bg = "NONE" },
-		GitSignsDelete = { bg = "NONE" },
-		VertSplit = { bg = "NONE", ctermbg = "NONE" },
-		MatchParen = { bg = colors.base09, fg = colors.base00 },
-		Visual = { bg = colorUtils.darkenColorIfOpaque(colors_opaque.base0D, 0.6) },
-
-		Comment = { fg = colors.base04 },
-		TSComment = { fg = colors.base04 },
-
-		StatusLine = { bg = "NONE" },
-
-		MiniStarterHeader = { fg = colors.base0E },
-		MiniStarterSection = { fg = colors.base0E },
-		MiniStarterItemBullet = { fg = colors.base05 },
-		MiniStarterItemPrefix = { fg = colors.base0E },
-		MiniStarterFooter = { fg = colors.base0E },
-	}
-
-	for group, settings in pairs(highlights) do
-		vim.api.nvim_set_hl(0, group, settings)
-	end
-end
-
--- vim.api.nvim_create_autocmd("BufEnter", {
--- 	callback = function()
-set_highlights()
--- 	end,
--- })
 
 vim.api.nvim_create_autocmd("BufEnter", {
 	pattern = { "*.cshtml", "*.razor" },

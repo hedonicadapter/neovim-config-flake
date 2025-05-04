@@ -26,7 +26,6 @@ require("lze").load({
 	{ import = "luaConf.plugins.treesitter" },
 	{ import = "luaConf.plugins.completion" },
 	{ import = "luaConf.plugins.toggleterm" },
-	{ import = "luaConf.plugins.twilight" },
 	{ import = "luaConf.plugins.codecompanion" },
 	{ import = "luaConf.plugins.spider" },
 	{ import = "luaConf.plugins.staline" },
@@ -361,5 +360,81 @@ require("lze").load({
 		"diffview.nvim",
 		for_cat = "general.always",
 		cmd = { "DiffviewOpen", "DiffviewFileHistory" },
+	},
+	{ "twilight.nvim" },
+	{
+		"base16-nvim",
+		for_cat = "general.extra",
+		event = "VimEnter",
+		after = function(plugin)
+			local colors = nixCats.extra("colors")
+			local colors_opaque = nixCats.extra("colors_opaque")
+			local colorUtils = require("colorUtils")
+
+			require("base16-colorscheme").setup(colors)
+
+			local twilight = require("twilight")
+			twilight.setup({
+				dimming = {
+					alpha = 0.2,
+					color = { colors.base07, colors.base07 },
+					term_bg = colors.base00,
+					inactive = false,
+				},
+				context = 16,
+				treesitter = true,
+			})
+			vim.api.nvim_set_hl(0, "Twilight", { bg = "NONE" })
+			twilight.enable()
+
+			local function set_highlights()
+				local highlights = {
+					TreesitterContextBottom = { sp = "NONE" },
+					TreesitterContext = { bg = "NONE", italic = true },
+					TelescopeNormal = { bg = "NONE" },
+					TelescopePreviewNormal = { bg = "NONE" },
+					TelescopeSelection = { bg = colors.base0C, fg = colors.base00 },
+					TelescopeSelectionCaret = { bg = "NONE" },
+					WinBar = { bg = "NONE" },
+					LineNr = { bg = "NONE" },
+					SignColumn = { bg = "NONE" },
+					DropBarIconKindFunction = { bg = "NONE" },
+					TabLineFill = { bg = "NONE" },
+					DiagnosticSignError = { bg = "NONE" },
+					DiagnosticSignWarn = { bg = "NONE" },
+					DiagnosticSignInfo = { bg = "NONE" },
+					DiagnosticSignHint = { bg = "NONE" },
+					DiagnosticSignOk = { bg = "NONE" },
+					Folded = { bg = "NONE" },
+					GitSignsAdd = { bg = "NONE" },
+					GitSignsChange = { bg = "NONE" },
+					GitSignsDelete = { bg = "NONE" },
+					VertSplit = { bg = "NONE", ctermbg = "NONE" },
+					MatchParen = { bg = colors.base09, fg = colors.base00 },
+					Visual = { bg = colorUtils.darkenColorIfOpaque(colors_opaque.base0D, 0.6) },
+
+					Comment = { fg = colors.base04 },
+					TSComment = { fg = colors.base04 },
+
+					StatusLine = { bg = "NONE" },
+
+					MiniStarterHeader = { fg = colors.base0E },
+					MiniStarterSection = { fg = colors.base0E },
+					MiniStarterItemBullet = { fg = colors.base05 },
+					MiniStarterItemPrefix = { fg = colors.base0E },
+					MiniStarterFooter = { fg = colors.base0E },
+				}
+
+				for group, settings in pairs(highlights) do
+					vim.api.nvim_set_hl(0, group, settings)
+				end
+			end
+
+			-- vim.api.nvim_create_autocmd("BufEnter", {
+			-- 	callback = function()
+			set_highlights()
+			-- 	end,
+			-- })
+		end,
 	},
 })

@@ -187,6 +187,7 @@
             nvim-scrollbar
             pkgs.vimExtraPlugins.reactive-nvim
             hlchunk-nvim
+            base16-nvim
           ];
         };
 
@@ -206,20 +207,6 @@
           always = [];
           extra = [];
         };
-
-        # You can retreive information from the
-        # packageDefinitions of the package this was packaged with.
-        # :help nixCats.flake.outputs.categoryDefinitions.scheme
-        themer = with pkgs.vimPlugins; (
-          builtins.getAttr (categories.colorscheme or "onedark") {
-            # Theme switcher without creating a new category
-            "onedark" = onedark-nvim;
-            "catppuccin" = catppuccin-nvim;
-            "catppuccin-mocha" = catppuccin-nvim;
-            "tokyonight" = tokyonight-nvim;
-            "tokyonight-day" = tokyonight-nvim;
-          }
-        );
       };
 
       # not loaded automatically at startup.
