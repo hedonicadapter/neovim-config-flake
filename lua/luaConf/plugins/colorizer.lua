@@ -1,8 +1,8 @@
 return {
 	{
-		"colorizer",
+		"nvim-colorizer.lua",
 		for_cat = "general.extra",
-		event = "BufWinEnter",
+		event = "BufReadPost",
 		load = function(name)
 			vim.cmd.packadd(name)
 		end,

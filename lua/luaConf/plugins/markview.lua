@@ -1,6 +1,6 @@
 return {
 	{
-		"markview-nvim",
+		"markview.nvim",
 		for_cat = "general.always",
 		event = "BufReadPost",
 		after = function(plugin)

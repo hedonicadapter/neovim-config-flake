@@ -6,6 +6,7 @@ return {
 		load = function(name)
 			vim.cmd.packadd(name)
 			vim.cmd.packadd("nvim-treesitter-textobjects")
+			vim.cmd.packadd("nvim-ts-context-commentstring")
 		end,
 		on_require = { "nvim-treesitter", "nvim-treesitter.configs", "nvim-treesitter.install" },
 		after = function(plugin)

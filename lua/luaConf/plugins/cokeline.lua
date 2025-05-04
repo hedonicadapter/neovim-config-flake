@@ -1,6 +1,6 @@
 return {
 	{
-		"cokeline",
+		"nvim-cokeline",
 		for_cat = "general.always",
 		event = "BufWinEnter",
 		load = function(name)

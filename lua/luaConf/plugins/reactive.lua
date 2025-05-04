@@ -1,6 +1,6 @@
 return {
 	{
-		"reactive-nvim",
+		"reactive.nvim",
 		event = "BufReadPost",
 		for_cat = "general.extra",
 		after = function(plugin)

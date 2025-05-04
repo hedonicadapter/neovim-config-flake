@@ -44,7 +44,8 @@ return {
 		load = function(name)
 			vim.cmd.packadd(name)
 			vim.cmd.packadd("telescope-fzf-native.nvim")
-			vim.cmd.packadd("undo")
+			vim.cmd.packadd("telescope-undo.nvim")
+			vim.cmd.packadd("telescope-ui-select.nvim")
 			vim.cmd.packadd("session-lens")
 		end,
 		after = function(plugin)

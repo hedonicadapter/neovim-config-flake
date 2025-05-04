@@ -1,6 +1,6 @@
 return {
 	{
-		"codecompanion-nvim",
+		"codecompanion.nvim",
 		for_cat = "general.extra",
 		event = "VimEnter",
 		after = function(plugin)

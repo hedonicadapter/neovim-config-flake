@@ -123,29 +123,29 @@
           ];
 
         infrastructure = with pkgs; [
-          dockerfile-language-server-nodejs
-          docker-compose-language-service
-          nodePackages.bash-language-server
-          terraform-ls
-          terraform-lsp
-          # gopls
-          ansible-language-server
-          ansible-lint
-          sqls
+          # dockerfile-language-server-nodejs
+          # docker-compose-language-service
+          # nodePackages.bash-language-server
+          # terraform-ls
+          # terraform-lsp
+          # # gopls
+          # ansible-language-server
+          # ansible-lint
+          # sqls
         ];
 
         web = with pkgs; [
-          tailwindcss-language-server
-          nodePackages.typescript-language-server
-          nodePackages."@astrojs/language-server"
-          vscode-langservers-extracted
-          htmx-lsp
+          # tailwindcss-language-server
+          # nodePackages.typescript-language-server
+          # nodePackages."@astrojs/language-server"
+          # vscode-langservers-extracted
+          # htmx-lsp
         ];
 
         go = with pkgs; [
-          gopls
-          gotools
-          go-tools
+          # gopls
+          # gotools
+          # go-tools
         ];
       };
 
@@ -155,42 +155,29 @@
           # you can make subcategories!!!
           # (always isnt a special name, just the one I chose for this subcategory)
           always = [
+            oil-nvim
             nvim-lspconfig
             nvim-cokeline
             nui-nvim
-            oil-nvim
             auto-session
             git-conflict-nvim
-            vim-visual-multi
             sqlite-lua
             promise-async
             lze
             lzextras
             plenary-nvim
-            nvim-spider
-            flash-nvim
             nvim-treesitter-context
-            markview-nvim
-            diffview-nvim
             nvim-neoclip-lua
             snacks-nvim
             zoxide-vim
-            guess-indent-nvim
-            comment-nvim
             eyeliner-nvim
             dropbar-nvim
-            dial-nvim
             quicker-nvim
-            stay-centered-nvim
           ];
           extra = [
             image-nvim
             img-clip-nvim
-            debugprint-nvim
             vim-wakatime
-            nvim-colorizer-lua
-            twilight-nvim
-            sniprun
             pkgs.awesomeNeovimPlugins.hawtkeys-nvim
             pkgs.awesomeNeovimPlugins.garbage-day-nvim
             nvim-ts-autotag
@@ -198,7 +185,6 @@
             codecompanion-nvim
             pkgs.awesomeNeovimPlugins.tiny-code-action-nvim
             nvim-scrollbar
-            todo-comments-nvim
             pkgs.vimExtraPlugins.reactive-nvim
             hlchunk-nvim
           ];
@@ -281,6 +267,14 @@
             telescope-nvim
           ];
           always = with pkgs.vimPlugins; [
+            sniprun
+            stay-centered-nvim
+            dial-nvim
+            diffview-nvim
+            markview-nvim
+            flash-nvim
+            vim-visual-multi
+            nvim-spider
             mini-nvim
             toggleterm-nvim
             staline-nvim
@@ -288,9 +282,12 @@
             nvim-ufo
           ];
           extra = with pkgs.vimPlugins; [
+            debugprint-nvim
+            twilight-nvim
             comment-nvim
             todo-comments-nvim
             guess-indent-nvim
+            nvim-colorizer-lua
 
             # If it was included in your flake inputs as plugins-hlargs,
             # this would be how to add that plugin in your config.

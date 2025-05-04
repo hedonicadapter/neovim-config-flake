@@ -1,6 +1,6 @@
 return {
 	{
-		"spider",
+		"nvim-spider",
 		event = "BufEnter",
 		for_cat = "general.always",
 		after = function(plugin)

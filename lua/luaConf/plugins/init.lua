@@ -27,6 +27,14 @@ require("lze").load({
 	{ import = "luaConf.plugins.completion" },
 	{ import = "luaConf.plugins.toggleterm" },
 	{ import = "luaConf.plugins.twilight" },
+	{ import = "luaConf.plugins.codecompanion" },
+	{ import = "luaConf.plugins.spider" },
+	{ import = "luaConf.plugins.staline" },
+	{ import = "luaConf.plugins.colorizer" },
+	{ import = "luaConf.plugins.markview" },
+	{ import = "luaConf.plugins.image" },
+	{ import = "luaConf.plugins.img-clip" },
+
 	{
 		"comment.nvim",
 		for_cat = "general.extra",
@@ -36,7 +44,7 @@ require("lze").load({
 		end,
 	},
 	{
-		"git-conflict-nvim",
+		"git-conflict.nvim",
 		for_cat = "general.always",
 		event = "BufReadPost",
 		after = function(plugin)
@@ -51,8 +59,6 @@ require("lze").load({
 			require("ts-error-translator").setup()
 		end,
 	},
-
-	{ import = "luaConf.plugins.staline" },
 
 	{
 		"gitsigns.nvim",
@@ -81,7 +87,7 @@ require("lze").load({
 
 	{
 		"garbage-day-nvim",
-		for_cat = "general.always",
+		for_cat = "general.extra",
 		event = "VimEnter",
 		after = function(plugin)
 			require("garbage-day").setup({})
@@ -90,7 +96,7 @@ require("lze").load({
 
 	{
 		"hawtkeys-nvim",
-		for_cat = "general.always",
+		for_cat = "general.extra",
 		event = "VimEnter",
 		after = function(plugin)
 			require("hawtkeys").setup({})
@@ -101,6 +107,7 @@ require("lze").load({
 		"sniprun",
 		for_cat = "general.always",
 		event = "BufReadPost",
+		cmd = "SnipRun",
 		after = function(plugin)
 			require("sniprun").setup({})
 		end,
@@ -137,13 +144,13 @@ require("lze").load({
 	},
 
 	{
-		"sqlite-lua",
+		"sqlite.lua",
 		for_cat = "general.always",
 		event = "VimEnter",
 	},
-	{ import = "luaConf.plugins.spider" },
+
 	{
-		"flash-nvim",
+		"flash.nvim",
 		for_cat = "general.always",
 		event = "BufReadPost",
 		after = function(plugin)
@@ -164,7 +171,7 @@ require("lze").load({
 	},
 
 	{
-		"debugprint-nvim",
+		"debugprint.nvim",
 		for_cat = "general.extra",
 		event = "BufReadPost",
 		after = function(plugin)
@@ -185,10 +192,6 @@ require("lze").load({
 		end,
 	},
 
-	{ import = "luaConf.plugins.colorizer" },
-	{ import = "luaConf.plugins.markview" },
-	{ import = "luaConf.plugins.image" },
-	{ import = "luaConf.plugins.img-clip" },
 	{
 		"tiny-code-action-nvim",
 		for_cat = "general.extra",
@@ -208,7 +211,7 @@ require("lze").load({
 	},
 
 	{
-		"snacks-nvim",
+		"snacks.nvim",
 		for_cat = "general.always",
 		event = "VimEnter",
 		after = function(plugin)
@@ -219,7 +222,7 @@ require("lze").load({
 	},
 
 	{
-		"zoxide-vim",
+		"zoxide.vim",
 		for_cat = "general.always",
 		event = "CmdlineEnter", -- Load when the command line is entered, as it provides a command
 		after = function(plugin)
@@ -228,8 +231,8 @@ require("lze").load({
 	},
 
 	{
-		"guess-indent-nvim",
-		for_cat = "general.always",
+		"guess-indent.nvim",
+		for_cat = "general.extra",
 		event = "BufReadPost",
 		after = function(plugin)
 			require("guess-indent").setup()
@@ -244,7 +247,7 @@ require("lze").load({
 	},
 
 	{
-		"eyeliner-nvim",
+		"eyeliner.nvim",
 		for_cat = "general.always",
 		event = "BufReadPost",
 		after = function(plugin)
@@ -271,7 +274,7 @@ require("lze").load({
 	},
 
 	{
-		"dropbar-nvim",
+		"dropbar.nvim",
 		for_cat = "general.always",
 		event = "BufReadPost",
 		after = function(plugin)
@@ -280,7 +283,7 @@ require("lze").load({
 	},
 
 	{
-		"dial-nvim",
+		"dial.nvim",
 		for_cat = "general.always",
 		event = "VimEnter",
 		after = function(plugin)
@@ -312,7 +315,7 @@ require("lze").load({
 	},
 
 	{
-		"quicker-nvim",
+		"quicker.nvim",
 		for_cat = "general.always",
 		event = "DeferredUIEnter",
 		after = function(plugin)
@@ -321,7 +324,7 @@ require("lze").load({
 	},
 
 	{
-		"todo-comments-nvim",
+		"todo-comments.nvim",
 		for_cat = "general.extra",
 		event = "BufReadPost",
 		after = function(plugin)
@@ -330,7 +333,7 @@ require("lze").load({
 	},
 
 	{
-		"stay-centered-nvim",
+		"stay-centered.nvim",
 		for_cat = "general.always",
 		event = "BufReadPost",
 		after = function(plugin)
@@ -340,7 +343,7 @@ require("lze").load({
 		end,
 	},
 	{
-		"hlchunk-nvim",
+		"hlchunk.nvim",
 		for_cat = "general.extra",
 		event = "BufReadPost",
 		after = function(plugin)
@@ -353,5 +356,10 @@ require("lze").load({
 				},
 			})
 		end,
+	},
+	{
+		"diffview.nvim",
+		for_cat = "general.always",
+		cmd = { "DiffviewOpen", "DiffviewFileHistory" },
 	},
 })

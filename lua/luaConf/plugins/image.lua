@@ -1,6 +1,6 @@
 return {
 	{
-		"image-nvim",
+		"image.nvim",
 		for_cat = "general.extra",
 		event = "BufReadPost",
 		after = function(plugin)

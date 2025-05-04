@@ -2,7 +2,14 @@ return {
 	{
 		"toggleterm.nvim",
 		for_cat = "general.extra",
-		event = "BufEnter",
+		cmd = {
+			"ToggleTerm",
+			"ToggleTermSendCurrentLine",
+			"ToggleTermSendVisualLine",
+			"ToggleTermSendVisualSelection",
+			"ToggleTermSetName",
+			"ToggleTermToggleAll",
+		},
 		after = function(plugin)
 			require("toggleterm").setup({
 				shell = "zsh",
