@@ -23,7 +23,7 @@ return {
 	{
 		"colorful-menu.nvim",
 		for_cat = "general.blink",
-		on_plugin = { "blink.cmp" },
+		dep_of = { "blink.cmp" },
 	},
 	{
 		"blink.cmp",
@@ -68,17 +68,21 @@ return {
 										local kind_icon, _, _ = require("mini.icons").get("lsp", ctx.kind)
 										return kind_icon
 									end,
-									-- (optional) use highlights from mini.icons
 									highlight = function(ctx)
-										local _, hl, _ = require("mini.icons").get("lsp", ctx.kind)
-										return hl
+										return require("colorful-menu").blink_components_highlight(ctx)
 									end,
 								},
 								kind = {
-									-- (optional) use highlights from mini.icons
 									highlight = function(ctx)
-										local _, hl, _ = require("mini.icons").get("lsp", ctx.kind)
-										return hl
+										return require("colorful-menu").blink_components_highlight(ctx)
+									end,
+								},
+								label = {
+									text = function(ctx)
+										return require("colorful-menu").blink_components_text(ctx)
+									end,
+									highlight = function(ctx)
+										return require("colorful-menu").blink_components_highlight(ctx)
 									end,
 								},
 							},
