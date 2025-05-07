@@ -1,790 +1,532 @@
+# Copyright (c) 2023 BirdeeHub
+# Licensed under the MIT license
 {
-  description = "Neovim config";
+  description = "C*ts are genuinely horrible people. Anywhoozers this is my nvim config using the unfortunately named nixc*ts";
 
   inputs = {
-    nixpkgs = {url = "github:nixos/nixpkgs/nixos-unstable";};
+    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    nixCats.url = "github:BirdeeHub/nixCats-nvim";
 
-    nur = {url = "github:nix-community/NUR";};
+    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
+    nur.url = "github:nix-community/NUR";
+    awesome-neovim-plugins.url = "github:m15a/flake-awesome-neovim-plugins";
+    nixneovimplugins.url = "github:jooooscha/nixpkgs-vim-extra-plugins";
+    colors.url = "github:hedonicadapter/colors-flake";
 
-    awesome-neovim-plugins = {
-      url = "github:m15a/flake-awesome-neovim-plugins";
-    };
-
-    nixneovimplugins = {url = "github:jooooscha/nixpkgs-vim-extra-plugins";};
-
-    neovim-nightly-overlay = {
-      url = "github:nix-community/neovim-nightly-overlay";
-    };
-
-    colors = {
-      url = "github:hedonicadapter/colors-flake";
-    };
+    # No longer fetched to avoid forcing people to import it, but this remains here as a tutorial.
+    # How to import it into your config is shown farther down in the startupPlugins set.
+    # You put it here like this, and then below you would use it with `pkgs.neovimPlugins.hlargs`
+    # "plugins-hlargs" = {
+    #   url = "github:m-demare/hlargs.nvim";
+    #   flake = false;
+    # };
   };
 
+  # see :help nixCats.flake.outputs
   outputs = {
+    self,
     nixpkgs,
+    nixCats,
     colors,
-    neovim-nightly-overlay,
+    nur,
     awesome-neovim-plugins,
+    nixneovimplugins,
     ...
   } @ inputs: let
-    systems = ["x86_64-linux"];
-    forAllSystems = nixpkgs.lib.genAttrs systems;
-
-    pkgs = import nixpkgs {
-      inherit systems;
-      overlays = [
-        inputs.nur.overlays.default
-        inputs.awesome-neovim-plugins.overlays.default
-        inputs.nixneovimplugins.overlays.default
-      ];
-    };
-
-    toLua = str: ''
-      lua << EOF
-      ${str}
-      EOF
-    '';
-    toLuaFile = file: ''
-      lua << EOF
-      ${builtins.readFile file}
-      EOF
-    '';
-
-    luaColors = builtins.concatStringsSep "\n" (builtins.attrValues (builtins.mapAttrs (name: value: "vim.g['colors_${name}'] = ${builtins.toJSON value}") colors.outputs.colors));
-    luaColorsOpaque = builtins.concatStringsSep "\n" (builtins.attrValues (builtins.mapAttrs (name: value: "vim.g['colors_${name}_opaque'] = ${builtins.toJSON value}") colors.outputs.colors_opaque));
-  in {
-    neovimConfig = {
-      package = inputs.neovim-nightly-overlay.packages.${pkgs.system}.default;
-
-      extraLuaPackages = ps: [ps.magick];
-      extraPackages = with pkgs; [imagemagick];
-
-      plugins = with pkgs.vimPlugins; [
-        {
-          plugin = auto-session;
-          config = toLua ''
-            require('auto-session').setup({
-            auto_restore = false,
-            auto_save = true,
-            log_level = "error",
-            root_dir = vim.fn.stdpath('data').."/sessions/",
-            suppressed_dirs = { "~/", "~/Documents/coding", "~/Downloads", "/" }
-            })
-          '';
-        }
-
-        {
-          plugin = blink-cmp;
-          config = toLua ''
-            require("blink.cmp").setup({
-              enabled = function ()
-                local filetype = vim.api.nvim_buf_get_option(0, "filetype")
-                if filetype == "TelescopePrompt" then
-                  return false
-                end
-                return true
-              end,
-
-              signature = {
-                enabled = true,
-              },
-
-              completion = {
-                documentation = {
-                  auto_show = true,
-                },
-
-                menu = {
-                  draw = {
-                    columns = {
-                      {
-                        "kind_icon",
-                        "label",
-                        "label_description",
-                        gap = 1
-                      },
-                      {
-                        "kind"
-                       }
-                    },
-                    components = {
-                      kind_icon = {
-                        text = function(ctx)
-                          local kind_icon, _, _ = require('mini.icons').get('lsp', ctx.kind)
-                          return kind_icon
-                        end,
-                        -- (optional) use highlights from mini.icons
-                        highlight = function(ctx)
-                          local _, hl, _ = require('mini.icons').get('lsp', ctx.kind)
-                          return hl
-                        end,
-                      },
-                      kind = {
-                        -- (optional) use highlights from mini.icons
-                        highlight = function(ctx)
-                          local _, hl, _ = require('mini.icons').get('lsp', ctx.kind)
-                          return hl
-                        end,
-                      }
-                    }
-                  }
-                }
-              }
-            })
-          '';
-        }
-
-        {
-          plugin = git-conflict-nvim;
-          config = toLua ''
-            require('git-conflict').setup()
-          '';
-        }
-
-        {
-          plugin = pkgs.awesomeNeovimPlugins.ts-error-translator-nvim;
-          config = toLua ''
-            require("ts-error-translator").setup()
-          '';
-        }
-
-        promise-async
-        {
-          plugin = nvim-ufo; # folds
-          config = toLua ''
-            vim.o.foldcolumn = '0'
-            vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
-            vim.o.foldlevelstart = 99
-            vim.o.foldenable = true
-
-            vim.keymap.set('n', 'zR', require('ufo').openAllFolds)
-            vim.keymap.set('n', 'zM', require('ufo').closeAllFolds)
-          '';
-        }
-
-        friendly-snippets
-        {
-          plugin = nvim-lspconfig;
-          config = toLuaFile ./nvim/plugins/lsp.lua;
-        }
-
-        {
-          plugin = pkgs.awesomeNeovimPlugins.garbage-day-nvim;
-          config = toLua ''
-            require("garbage-day").setup({})
-          '';
-        }
-
-        {
-          plugin = pkgs.awesomeNeovimPlugins.hawtkeys-nvim; # mostly for :HawtkeysDupes to show duplicate keybinds
-          config = toLua ''
-            require("hawtkeys").setup({})
-          '';
-        }
-
-        {
-          plugin = sniprun;
-          config = toLua ''
-            require'sniprun'.setup({})
-          '';
-        }
-
-        telescope-fzf-native-nvim
-        plenary-nvim
-        nvim-ts-autotag
-        vim-visual-multi
-        vim-wakatime
-        nvim-ts-context-commentstring
-        sqlite-lua
-
-        {
-          plugin = nvim-spider;
-          config = toLua ''
-            require('spider').setup({
-              skipInsignificantPunctuation = false,
-            })
-
-            vim.keymap.set(
-            	{ "n", "o", "x" },
-            	"w",
-            	"<cmd>lua require('spider').motion('w')<CR>",
-            	{ desc = "Spider-w" }
-            )
-            vim.keymap.set(
-            	{ "n", "o", "x" },
-            	"e",
-            	"<cmd>lua require('spider').motion('e')<CR>",
-            	{ desc = "Spider-e" }
-            )
-            vim.keymap.set(
-            	{ "n", "o", "x" },
-            	"b",
-            	"<cmd>lua require('spider').motion('b')<CR>",
-            	{ desc = "Spider-b" }
-            )
-          '';
-        }
-
-        {
-          plugin = flash-nvim;
-          config = toLua ''
-            require('flash').setup({
-                prompt = {
-                    enabled = true,
-                    prefix = { { "   ", "FlashPromptIcon" } },
-                },
-                label = {
-                  uppercase = false,
-                  rainbow = {
-                      enabled = true,
-                      shade = 6,
-                  },
-                },
-            })
-          '';
-        }
-
-        {
-          plugin = debugprint-nvim;
-          config = toLua ''
-            require("debugprint").setup()
-          '';
-        }
-
-        {
-          plugin = nvim-treesitter-context;
-          config = toLua ''
-            require("treesitter-context").setup({
-              enable = true,
-              max_lines = 3,
-              separator = "_",
-            })
-          '';
-        }
-
-        {
-          plugin = codecompanion-nvim;
-          config = toLua ''
-            require('codecompanion').setup({
-              adapters = {
-                anthropic = function()
-                  return require("codecompanion.adapters").extend("anthropic", {
-                    env = {
-                      api_key = "cmd:op read op://personal/anthropic/credential --no-newline",
-                    },
-                  })
-                end,
-              },
-              display = {
-                chat = {
-                  start_in_insert_mode = true,
-                },
-                action_palette = {
-                  provider = "telescope",
-                },
-              },
-            })
-          '';
-        }
-
-        {
-          plugin = markview-nvim;
-          config = toLua ''
-            require('markview').setup({
-              preview = {
-                  filetypes = {
-                      'md',
-                      'markdown',
-                      'norg',
-                      'rmd',
-                      'org',
-                      'vimwiki',
-                      'typst',
-                      'latex',
-                      'quarto',
-                      'codecompanion',
-                  },
-                  ignore_buftypes = {},
-                  hybrid_modes = { "i" },
-
-                  condition = function (buffer)
-                      local ft, bt = vim.bo[buffer].ft, vim.bo[buffer].bt;
-
-                      if bt == "nofile" and ft == "codecompanion" then
-                           return true;
-                      elseif bt == "nofile" then
-                           return false;
-                      else
-                           return true;
-                      end
-                  end
-              }
-            })
-
-            vim.api.nvim_create_autocmd('FileType', {
-              pattern = 'codecompanion',
-              command = 'Markview attach',
-            })
-          '';
-        }
-
-        {
-          plugin = image-nvim;
-          config = toLua ''
-            require("image").setup({
-              backend = "kitty",
-              kitty_method = "normal",
-              integrations = {
-                markdown = {
-                  enabled = true,
-                  clear_in_insert_mode = false,
-                  download_remote_images = true,
-                  only_render_image_at_cursor = true,
-                  filetypes = { "markdown", "vimwiki", "html" },
-                },
-                html = {
-                  enabled = true,
-                  only_render_image_at_cursor = true,
-                  filetypes = { "html", "xhtml", "htm" },
-                },
-                css = {
-                  enabled = true,
-                  only_render_image_at_cursor = true,
-                },
-              },
-              max_width = nil,
-              max_height = nil,
-              max_width_window_percentage = nil,
-              max_height_window_percentage = vim.g.neovim_mode == "skitty" and 30 or 40,
-
-              window_overlap_clear_enabled = false,
-              window_overlap_clear_ft_ignore = { "cmp_menu", "cmp_docs", "" },
-
-              editor_only_render_when_focused = vim.g.neovim_mode == "skitty" and false or true,
-              tmux_show_only_in_active_window = true,
-
-              hijack_file_patterns = { "*.png", "*.jpg", "*.jpeg", "*.gif", "*.webp", "*.avif" },
-            })
-          '';
-        }
-        {
-          plugin = img-clip-nvim;
-          config = toLua ''
-            require("image").setup({
-              default = {
-                use_absolute_path = false,
-                relative_to_current_file = true,
-
-                dir_path = vim.g.neovim_mode == "skitty" and "img" or function()
-                  return vim.fn.expand("%:t:r") .. "-img"
-                end,
-
-                prompt_for_file_name = false,
-                file_name = "%y%m%d-%H%M%S",
-              },
-
-              filetypes = {
-                markdown = {
-                  url_encode_path = true,
-                  template = vim.g.neovim_mode == "skitty" and "![i](./$FILE_PATH)" or "![Image](./$FILE_PATH)",
-                  template = "![$FILE_NAME]($FILE_PATH)",
-                },
-              },
-            })
-          '';
-        }
-
-        nui-nvim
-
-        {
-          plugin = conform-nvim;
-          config = toLua ''
-            require('conform').setup({
-             formatters_by_ft = {
-              lua = { "stylua" },
-              nix = { "alejandra" },
-              javascript = { "prettierd", "prettier" },
-              typescript = { "prettierd", "prettier" },
-              javascriptreact = { "prettierd", "prettier" },
-              typescriptreact = { "prettierd", "prettier" },
-              json = { "prettierd" },
-              html = { "prettierd" },
-              css = { "prettierd" },
-              scss = { "prettierd" },
-              sass = { "prettierd" },
-              astro = { "prettierd" },
-              nix = { "alejandra"},
-              bicep = { "bicep" },
-              cs = {"csharpier"},
-              go = {"gofmt"},
-              sql = {"sqlfluff"},
-              tf = {"terraform_fmt"},
-            },
-            format_on_save = {
-                -- These options will be passed to conform.format()
-                timeout_ms = 1000,
-                lsp_fallback = true,
-              },
-            })
-          '';
-        }
-
-        diffview-nvim
-
-        {
-          plugin = oil-nvim;
-          config = toLua ''
-            require('oil').setup({
-              delete_to_trash = true,
-              show_hidden = true,
-              natural_order = true,
-              is_always_hidden = function(name,_)
-                return name == '..' or name == '.git'
-              end,
-            })
-            vim.keymap.set("n", "-", "<CMD>Oil --float<CR>", { desc = "Open parent directory" })
-          '';
-        }
-
-        {
-          plugin = telescope-nvim;
-          config = toLuaFile ./nvim/plugins/telescope.lua;
-        }
-
-        {
-          plugin = pkgs.awesomeNeovimPlugins.tiny-code-action-nvim;
-          config = toLua ''
-            require("tiny-code-action").setup()
-          '';
-        }
-
-        telescope-undo-nvim
-
-        {
-          plugin = nvim-neoclip-lua;
-          config = toLua ''
-            require('neoclip').setup()
-          '';
-        }
-
-        {
-          plugin = nvim-treesitter.withPlugins (p: [
-            p.tree-sitter-nix
-            p.tree-sitter-vim
-            p.tree-sitter-vimdoc
-            p.tree-sitter-luadoc
-            p.tree-sitter-markdown
-            p.tree-sitter-markdown-inline
-            p.tree-sitter-bash
-            p.tree-sitter-lua
-            p.tree-sitter-json
-            p.tree-sitter-astro
-            p.tree-sitter-bicep
-            p.tree-sitter-c-sharp
-            p.tree-sitter-dockerfile
-            p.tree-sitter-go
-            p.tree-sitter-html
-            p.tree-sitter-javascript
-            p.tree-sitter-jsdoc
-            p.tree-sitter-scss
-            p.tree-sitter-sql
-            p.tree-sitter-typescript
-            p.tree-sitter-tsx
-            p.tree-sitter-terraform
-            p.tree-sitter-bicep
-            p.tree-sitter-yaml
-          ]);
-          config = toLuaFile ./nvim/plugins/treesitter.lua;
-        }
-
-        {
-          plugin = nvim-treesitter-textobjects;
-          config = toLuaFile ./nvim/plugins/treesitter-textobjects.lua;
-        }
-
-        # {
-        #   plugin = twilight-nvim;
-        #   config = toLuaFile ./nvim/plugins/twilight.lua;
-        # }
-        {
-          plugin = snacks-nvim;
-          config = toLua ''
-                   require('snacks').setup {
-                     zen = { },
-            }
-          '';
-        }
-
-        {
-          plugin = zoxide-vim;
-          config = toLua ''
-            vim.cmd [[command! -bang -nargs=* -complete=customlist,zoxide#complete Z zoxide#vim_cd <args>]]
-          '';
-        }
-
-        {
-          plugin = nvim-colorizer-lua;
-          config = toLuaFile ./nvim/plugins/colorizer.lua;
-        }
-
-        {
-          plugin = guess-indent-nvim;
-          config = toLua ''
-            require('guess-indent').setup()
-
-            vim.api.nvim_exec([[
-              autocmd BufEnter * silent! :GuessIndent
-            ]], false)
-          '';
-        }
-
-        {
-          plugin = comment-nvim;
-          config = toLua "require('Comment').setup()";
-        }
-
-        {
-          plugin = eyeliner-nvim;
-          config = toLua ''
-            require('eyeliner').setup {
-              highlight_on_key = true,
-              dim = true
-            }
-          '';
-        }
-
-        {
-          plugin = toggleterm-nvim;
-          config = toLuaFile ./nvim/plugins/toggleterm.lua;
-        }
-
-        {
-          plugin = nvim-cokeline;
-          config = toLuaFile ./nvim/plugins/cokeline.lua;
-        }
-
-        {
-          plugin = staline-nvim;
-          config = toLua (import ./nvim/plugins/staline.lua.nix {inherit colors;});
-        }
-
-        {
-          plugin = mini-nvim;
-          config = toLuaFile ./nvim/plugins/mini.lua;
-        }
-
-        {
-          plugin = gitsigns-nvim;
-          config = toLua ''
-            require('gitsigns').setup()
-          '';
-        }
-        diffview-nvim
-
-        {
-          plugin = nvim-scrollbar;
-          config = toLua ''
-            require("scrollbar").setup({
-              hide_if_all_visible = true,
-              handle = {
-                blend = 60,
-              },
-            })
-            require("scrollbar.handlers.gitsigns").setup()
-          '';
-        }
-
-        {
-          plugin = hlchunk-nvim;
-          config = toLua ''
-            require("hlchunk").setup({
-              chunk = {
-                enable = true,
-                style = { "${colors.outputs.colors_opaque.base09}" },
-                delay = 100,
-              },
-            })
-          '';
-        }
-
-        # {
-        #   plugin = nvim-web-devicons;
-        #   config = toLua ''
-        #     require('nvim-web-devicons').setup {}
-        #   '';
-        # }
-        # {
-        #   plugin = tiny-devicons-auto-colors-nvim;
-        #   config = toLua ''
-        #     require('tiny-devicons-auto-colors').setup({
-        #         colors = {
-        #           "${colors.outputs.colors_opaque.base00}",
-        #           "${colors.outputs.colors_opaque.base01}",
-        #           "${colors.outputs.colors_opaque.base02}",
-        #           "${colors.outputs.colors_opaque.base03}",
-        #           "${colors.outputs.colors_opaque.base04}",
-        #           "${colors.outputs.colors_opaque.base05}",
-        #           "${colors.outputs.colors_opaque.base06}",
-        #           "${colors.outputs.colors_opaque.base07}",
-        #           "${colors.outputs.colors_opaque.base08}",
-        #           "${colors.outputs.colors_opaque.base09}",
-        #           "${colors.outputs.colors_opaque.base0A}",
-        #           "${colors.outputs.colors_opaque.base0B}",
-        #           "${colors.outputs.colors_opaque.base0C}",
-        #           "${colors.outputs.colors_opaque.base0D}",
-        #           "${colors.outputs.colors_opaque.base0E}",
-        #           "${colors.outputs.colors_opaque.base0F}",
-        #         },
-        #     })
-        #   '';
-        # }
-
-        {
-          plugin = pkgs.vimExtraPlugins.reactive-nvim;
-          config = let
-            n = colors.outputs.colors_opaque.base03;
-            i = colors.outputs.colors_opaque.base0F;
-            c = colors.outputs.colors_opaque.base0E;
-            v = colors.outputs.colors_opaque.base0C;
-            y = colors.outputs.colors_opaque.base0D;
-            r = colors.outputs.colors_opaque.base0E;
-
-            contrast = 0.8;
-          in
-            toLua ''
-              require('reactive').add_preset {
-                name = "customCursorLine",
-                init = function()
-                  vim.opt.cursorline = true
-                end,
-                modes = {
-                  n = {
-                    winhl = {
-                      CursorLine = { bg = "${colors.outputs.darken n contrast}"},
-                      CursorLineNr = { fg = "${colors.outputs.colors_opaque.base07}", bg = "${colors.outputs.darken n contrast}" },
-                    },
-                    hl = {
-                      Cursor = { bg = "${n}", fg = "${colors.outputs.colors_opaque.base07}" },
-                    },
-                  },
-                  i = {
-                    winhl = {
-                      CursorLine = { bg = "${colors.outputs.darken i contrast}"},
-                      CursorLineNr = { fg = "${i}", bg = "${colors.outputs.darken i contrast}" },
-                    },
-                    hl = {
-                      Cursor = { bg = "${i}", fg = "${colors.outputs.colors_opaque.base00}" },
-                    },
-                  },
-                  [{ "c", "C" }] = {
-                    winhl = {
-                      CursorLine = { bg = "${colors.outputs.darken c contrast}", fg = "${colors.outputs.colors_opaque.base07}"},
-                      CursorLineNr = { fg = "${c}", bg = "${colors.outputs.darken c contrast}" },
-                    },
-                    hl = {
-                      Cursor = { bg = "${c}", fg = "${colors.outputs.colors_opaque.base07}" },
-                    },
-                  },
-                  -- visual
-                  [{ "v", "V", "\x16" }] = {
-                    winhl = {
-                      Visual = { bg = "${colors.outputs.darken v contrast}"},
-                      CursorLineNr = { fg = "${v}", bg = "${colors.outputs.darken v contrast}" },
-                    },
-                    hl = {
-                      Cursor = { bg = "${v}", fg = "${colors.outputs.colors_opaque.base00}" },
-                    },
-                  },
-                  -- replace
-                  R = {
-                    winhl = {
-                      CursorLine = { bg = "${colors.outputs.darken r contrast}", fg = "${colors.outputs.colors_opaque.base07}"},
-                      CursorLineNr = { fg = "${r}", bg = "${colors.outputs.darken r contrast}" },
-                    },
-                    hl = {
-                      Cursor = { bg = "${r}", fg = "${colors.outputs.colors_opaque.base07}" },
-                    },
-                  },
-                },
-              }
-              require('reactive').setup({
-                load = { 'customCursorLine' }
-              })
-            '';
-        }
-
-        {
-          plugin = dropbar-nvim; # breadcrumbs/context
-          config = toLua ''
-            require('dropbar').setup()
-          '';
-        }
-
-        {
-          plugin = dial-nvim;
-          config = toLua ''
-            vim.keymap.set("n", "<C-a>", function()
-                require("dial.map").manipulate("increment", "normal")
-            end)
-            vim.keymap.set("n", "<C-x>", function()
-                require("dial.map").manipulate("decrement", "normal")
-            end)
-            vim.keymap.set("n", "g<C-a>", function()
-                require("dial.map").manipulate("increment", "gnormal")
-            end)
-            vim.keymap.set("n", "g<C-x>", function()
-                require("dial.map").manipulate("decrement", "gnormal")
-            end)
-            vim.keymap.set("v", "<C-a>", function()
-                require("dial.map").manipulate("increment", "visual")
-            end)
-            vim.keymap.set("v", "<C-x>", function()
-                require("dial.map").manipulate("decrement", "visual")
-            end)
-            vim.keymap.set("v", "g<C-a>", function()
-                require("dial.map").manipulate("increment", "gvisual")
-            end)
-            vim.keymap.set("v", "g<C-x>", function()
-                require("dial.map").manipulate("decrement", "gvisual")
-            end)
-          '';
-        }
-
-        {
-          plugin = quicker-nvim;
-          config = toLua ''
-            require("quicker").setup()
-          '';
-        }
-
-        {
-          plugin = todo-comments-nvim;
-          config = toLua ''
-            require("todo-comments").setup()
-          '';
-        }
-
-        {
-          plugin = stay-centered-nvim;
-          config = toLua ''
-            require('stay-centered').setup({
-              skip_filetypes = { 'ministarter' }
-            })
-          '';
-        }
+    inherit (nixCats) utils;
+    luaPath = "${./.}";
+    forEachSystem = utils.eachSystem nixpkgs.lib.platforms.all; # this is flake-utils eachSystem
+    # the following extra_pkg_config contains any values
+    # which you want to pass to the config set of nixpkgs
+    # import nixpkgs { config = extra_pkg_config; inherit system; }
+    # will not apply to module imports
+    # as that will have your system values
+    extra_pkg_config = {allowUnfree = true;};
+    # management of the system variable is one of the harder parts of using flakes.
+
+    # so I have done it here in an interesting way to keep it out of the way.
+    # It gets resolved within the builder itself, and then passed to your
+    # categoryDefinitions and packageDefinitions.
+
+    # this allows you to use ${pkgs.system} whenever you want in those sections
+    # without fear.
+
+    # see :help nixCats.flake.outputs.overlays
+    dependencyOverlays =
+      /*
+      (import ./overlays inputs) ++
+      */
+      [
+        # This overlay grabs all the inputs named in the format
+        # `plugins-<pluginName>`
+        # Once we add this overlay to our nixpkgs, we are able to
+        # use `pkgs.neovimPlugins`, which is a set of our plugins.
+        (utils.standardPluginOverlay inputs)
+        # add any other flake overlays here.
+        nur.overlays.default
+        awesome-neovim-plugins.overlays.default
+        nixneovimplugins.overlays.default
+
+        # when other people mess up their overlays by wrapping them with system,
+        # you may instead call this function on their overlay.
+        # it will check if it has the system in the set, and if so return the desired overlay
+        # (utils.fixSystemizedOverlay inputs.codeium.overlays
+        #   (system: inputs.codeium.overlays.${system}.default)
+        # )
       ];
 
-      extraLuaConfig = ''
-        ${luaColors}
-        ${luaColorsOpaque}
+    # see :help nixCats.flake.outputs.categories
+    # and
+    # :help nixCats.flake.outputs.categoryDefinitions.scheme
+    categoryDefinitions = {
+      pkgs,
+      settings,
+      categories,
+      extra,
+      name,
+      mkPlugin,
+      ...
+    } @ packageDef: {
+      # to define and use a new category, simply add a new list to a set here,
+      # and later, you will include categoryname = true; in the set you
+      # provide when you build the package using this builder function.
+      # see :help nixCats.flake.outputs.packageDefinitions for info on that section.
 
-        ${builtins.readFile ./nvim/lua/plugins/toggle-print.lua}
-        ${builtins.readFile ./nvim/lua/utils.lua}
-        ${import ./nvim/lua/options.lua.nix {inherit colors;}}
-        ${builtins.readFile ./nvim/lua/keymaps.lua}
-        ${builtins.readFile ./nvim/init.lua}
-      '';
+      # lspsAndRuntimeDeps:
+      # this section is for dependencies that should be available
+      # at RUN TIME for plugins. Will be available to PATH within neovim terminal
+      # this includes LSPs
+      lspsAndRuntimeDeps = {
+        general = with pkgs;
+          [
+            imagemagick
+            universal-ctags
+            ripgrep
+            fd
+          ] # Language servers
+          ++ [
+            nil
+            lua-language-server
+            vim-language-server
+            nodePackages.bash-language-server
+            yaml-language-server
+          ]
+          # Formatters & linters
+          ++ [
+            alejandra
+            stylua
+            sqlfluff
+          ]
+          # Fonts
+          ++ [
+            nerd-fonts.symbols-only
+          ];
+
+        infrastructure = with pkgs; [
+          # dockerfile-language-server-nodejs
+          # docker-compose-language-service
+          # nodePackages.bash-language-server
+          # terraform-ls
+          # terraform-lsp
+          # # gopls
+          # ansible-language-server
+          # ansible-lint
+          # sqls
+        ];
+
+        web = with pkgs; [
+          # tailwindcss-language-server
+          # nodePackages.typescript-language-server
+          # nodePackages."@astrojs/language-server"
+          # vscode-langservers-extracted
+          # htmx-lsp
+        ];
+
+        go = with pkgs; [
+          # gopls
+          # gotools
+          # go-tools
+        ];
+      };
+
+      # This is for plugins that will load at startup without using packadd:
+      startupPlugins = {
+        general = with pkgs.vimPlugins; {
+          # you can make subcategories!!!
+          # (always isnt a special name, just the one I chose for this subcategory)
+          always = [
+            oil-nvim
+            nvim-lspconfig
+            nvim-cokeline
+            nui-nvim
+            auto-session
+            git-conflict-nvim
+            sqlite-lua
+            promise-async
+            lze
+            lzextras
+            plenary-nvim
+            nvim-treesitter-context
+            nvim-neoclip-lua
+            snacks-nvim
+            zoxide-vim
+            eyeliner-nvim
+            dropbar-nvim
+            quicker-nvim
+          ];
+          extra = [
+            image-nvim
+            img-clip-nvim
+            vim-wakatime
+            pkgs.awesomeNeovimPlugins.hawtkeys-nvim
+            pkgs.awesomeNeovimPlugins.garbage-day-nvim
+            nvim-ts-autotag
+            nvim-ts-context-commentstring
+            codecompanion-nvim
+            pkgs.awesomeNeovimPlugins.tiny-code-action-nvim
+            nvim-scrollbar
+            pkgs.vimExtraPlugins.reactive-nvim
+            hlchunk-nvim
+            base16-nvim
+          ];
+        };
+
+        infrastructure = with pkgs.vimPlugins; {
+          always = [];
+          extra = [];
+        };
+
+        web = with pkgs.vimPlugins; {
+          always = [
+            pkgs.awesomeNeovimPlugins.ts-error-translator-nvim
+          ];
+          extra = [];
+        };
+
+        go = with pkgs.vimPlugins; {
+          always = [];
+          extra = [];
+        };
+      };
+
+      # not loaded automatically at startup.
+      # use with packadd and an autocommand in config to achieve lazy loading
+      # or a tool for organizing this like lze or lz.n!
+      # to get the name packadd expects, use the
+      # `:NixCats pawsible` command to see them all
+      optionalPlugins = {
+        debug = with pkgs.vimPlugins; {
+          # it is possible to add default values.
+          # there is nothing special about the word "default"
+          # but we have turned this subcategory into a default value
+          # via the extraCats section at the bottom of categoryDefinitions.
+          default = [
+            nvim-dap
+            nvim-dap-ui
+            nvim-dap-virtual-text
+          ];
+          go = [nvim-dap-go];
+        };
+        format = with pkgs.vimPlugins; {
+          default = [conform-nvim];
+          web = with pkgs; [
+            nodePackages.prettier
+            prettierd
+          ];
+        };
+        general = {
+          blink = with pkgs.vimPlugins; [
+            friendly-snippets
+            cmp-cmdline
+            blink-cmp
+            blink-compat
+            colorful-menu-nvim
+          ];
+          treesitter = with pkgs.vimPlugins; [
+            nvim-treesitter-context
+            nvim-treesitter-textobjects
+            nvim-treesitter.withAllGrammars
+          ];
+          telescope = with pkgs.vimPlugins; [
+            telescope-fzf-native-nvim
+            telescope-ui-select-nvim
+            telescope-undo-nvim
+            telescope-nvim
+          ];
+          always = with pkgs.vimPlugins; [
+            sniprun
+            stay-centered-nvim
+            dial-nvim
+            diffview-nvim
+            markview-nvim
+            flash-nvim
+            vim-visual-multi
+            nvim-spider
+            mini-nvim
+            toggleterm-nvim
+            staline-nvim
+            gitsigns-nvim
+            nvim-ufo
+          ];
+          extra = with pkgs.vimPlugins; [
+            debugprint-nvim
+            twilight-nvim
+            comment-nvim
+            todo-comments-nvim
+            guess-indent-nvim
+            nvim-colorizer-lua
+
+            # If it was included in your flake inputs as plugins-hlargs,
+            # this would be how to add that plugin in your config.
+            # pkgs.neovimPlugins.hlargs
+          ];
+        };
+      };
+
+      # shared libraries to be added to LD_LIBRARY_PATH
+      # variable available to nvim runtime
+      sharedLibraries = {
+        general = with pkgs; [
+          # <- this would be included if any of the subcategories of general are
+          # libgit2
+          imagemagick
+        ];
+      };
+
+      # environmentVariables:
+      # this section is for environmentVariables that should be available
+      # at RUN TIME for plugins. Will be available to path within neovim terminal
+      environmentVariables = {
+        test = {
+          default = {
+            CATTESTVARDEFAULT = "It worked!";
+          };
+          subtest1 = {
+            CATTESTVAR = "It worked!";
+          };
+          subtest2 = {
+            CATTESTVAR3 = "It didn't work!";
+          };
+        };
+      };
+
+      # If you know what these are, you can provide custom ones by category here.
+      # If you dont, check this link out:
+      # https://github.com/NixOS/nixpkgs/blob/master/pkgs/build-support/setup-hooks/make-wrapper.sh
+      extraWrapperArgs = {
+        test = [
+          ''--set CATTESTVAR2 "It worked again!"''
+        ];
+      };
+
+      # lists of the functions you would have passed to
+      # python.withPackages or lua.withPackages
+      # do not forget to set `hosts.python3.enable` in package settings
+
+      # get the path to this python environment
+      # in your lua config via
+      # vim.g.python3_host_prog
+      # or run from nvim terminal via :!<packagename>-python3
+      python3.libraries = {
+        test = _: [];
+      };
+      # populates $LUA_PATH and $LUA_CPATH
+      extraLuaPackages = {
+        general = [(_: [])];
+        magick = ps: [ps.magick];
+      };
+
+      # see :help nixCats.flake.outputs.categoryDefinitions.default_values
+      # this will enable test.default and debug.default
+      # if any subcategory of test or debug is enabled
+      # WARNING: use of categories argument in this set will cause infinite recursion
+      # The categories argument of this function is the FINAL value.
+      # You may use it in any of the other sets.
+      extraCats = {
+        test = [
+          ["test" "default"]
+        ];
+        debug = [
+          ["debug" "default"]
+        ];
+        go = [
+          ["debug" "go"] # yes it has to be a list of lists
+        ];
+      };
     };
-  };
+
+    # Now build a package with specific categories from above
+    # This entire set is also passed to nixCats for querying within the lua.
+    # It is directly translated to a Lua table, and a get function is defined.
+    # The get function is to prevent errors when querying subcategories.
+
+    # see :help nixCats.flake.outputs.packageDefinitions
+    packageDefinitions = {
+      # the name here is the name of the package
+      # and also the default command name for it.
+      nvim = {
+        pkgs,
+        name,
+        ...
+      } @ misc: {
+        # these also recieve our pkgs variable
+        # see :help nixCats.flake.outputs.packageDefinitions
+        settings = {
+          suffix-path = true;
+          suffix-LD = true;
+          # The name of the package, and the default launch name,
+          # and the name of the .desktop file, is `nixCats`,
+          # or, whatever you named the package definition in the packageDefinitions set.
+          # WARNING: MAKE SURE THESE DONT CONFLICT WITH OTHER INSTALLED PACKAGES ON YOUR PATH
+          # That would result in a failed build, as nixos and home manager modules validate for collisions on your path
+          aliases = ["vim"];
+
+          # explained below in the `regularCats` package's definition
+          # OR see :help nixCats.flake.outputs.settings for all of the settings available
+          wrapRc = true;
+          configDirName = "nvim";
+          # neovim-unwrapped = inputs.neovim-nightly-overlay.packages.${pkgs.system}.neovim;
+          # TODO: dont think i want these
+          # hosts.python3.enable = true;
+          # hosts.node.enable = true;
+        };
+        # enable the categories you want from categoryDefinitions
+        categories = {
+          general = true;
+          format = true;
+
+          infracture = true;
+          web = true;
+          # enabling this category will enable the go category,
+          # and ALSO debug.go and debug.default due to our extraCats in categoryDefinitions.
+          # go = true; # <- disabled but you could enable it with override or module on install
+          go = false;
+
+          test = {
+            subtest1 = true;
+          };
+
+          # this does not have an associated category of plugins,
+          # but lua can still check for it
+          lspDebugMode = false;
+          # you could also pass something else:
+          # see :help nixCats
+          themer = false;
+        };
+        extra = {
+          colors = inputs.colors.outputs.colors;
+          colors_opaque = inputs.colors.outputs.colors_opaque;
+
+          # TODO: luafy these
+          # transparentize = inputs.colors.outputs.transparentize;
+          # darken = inputs.colors.outputs.darken;
+
+          # to keep the categories table from being filled with non category things that you want to pass
+          # there is also an extra table you can use to pass extra stuff.
+          # but you can pass all the same stuff in any of these sets and access it in lua
+          nixdExtras = {
+            nixpkgs = ''import ${pkgs.path} {}'';
+            # or inherit nixpkgs;
+          };
+        };
+      };
+    };
+
+    defaultPackageName = "nvim";
+    # defaultPackageName is also passed to utils.mkNixosModules and utils.mkHomeModules
+    # and it controls the name of the top level option set.
+    # If you made a package named `nixCats` your default package as we did here,
+    # the modules generated would be set at:
+    # config.nixCats = {
+    #   enable = true;
+    #   packageNames = [ "nixCats" ]; # <- the packages you want installed
+    #   <see :h nixCats.module for options>
+    # }
+    # In addition, every package exports its own module via passthru, and is overrideable.
+    # so you can yourpackage.homeModule and then the namespace would be that packages name.
+  in
+    # you shouldnt need to change much past here, but you can if you wish.
+    # see :help nixCats.flake.outputs.exports
+    forEachSystem (system: let
+      nixCatsBuilder =
+        utils.baseBuilder luaPath {
+          # we pass in the things to make a pkgs variable to build nvim with later
+          inherit nixpkgs system dependencyOverlays extra_pkg_config;
+          # and also our categoryDefinitions and packageDefinitions
+        }
+        categoryDefinitions
+        packageDefinitions;
+      defaultPackage = nixCatsBuilder defaultPackageName;
+
+      # this pkgs variable is just for using utils such as pkgs.mkShell within this outputs set.
+      pkgs = import nixpkgs {inherit system;};
+      # The one used to build neovim is resolved inside the builder
+      # and is passed to our categoryDefinitions and packageDefinitions
+    in {
+      # these outputs will be wrapped with ${system} by utils.eachSystem
+
+      # this will generate a set of all the packages
+      # in the packageDefinitions defined above
+      # from the package we give it.
+      # and additionally output the original as default.
+      packages = utils.mkAllWithDefault defaultPackage;
+
+      # choose your package for devShell
+      # and add whatever else you want in it.
+      devShells = {
+        default = pkgs.mkShell {
+          name = defaultPackageName;
+          packages = [defaultPackage];
+          inputsFrom = [];
+          shellHook = ''
+          '';
+        };
+      };
+    })
+    // (let
+      # we also export a nixos module to allow reconfiguration from configuration.nix
+      nixosModule = utils.mkNixosModules {
+        moduleNamespace = [defaultPackageName];
+        inherit
+          defaultPackageName
+          dependencyOverlays
+          luaPath
+          categoryDefinitions
+          packageDefinitions
+          extra_pkg_config
+          nixpkgs
+          ;
+      };
+      # and the same for home manager
+      homeModule = utils.mkHomeModules {
+        moduleNamespace = [defaultPackageName];
+        inherit
+          defaultPackageName
+          dependencyOverlays
+          luaPath
+          categoryDefinitions
+          packageDefinitions
+          extra_pkg_config
+          nixpkgs
+          ;
+      };
+    in {
+      # these outputs will be NOT wrapped with ${system}
+
+      # this will make an overlay out of each of the packageDefinitions defined above
+      # and set the default overlay to the one named here.
+      overlays =
+        utils.makeOverlays luaPath {
+          inherit nixpkgs dependencyOverlays extra_pkg_config;
+        }
+        categoryDefinitions
+        packageDefinitions
+        defaultPackageName;
+
+      nixosModules.default = nixosModule;
+      homeModules.default = homeModule;
+
+      inherit utils nixosModule homeModule;
+      inherit (utils) templates;
+    });
 }
