@@ -134,6 +134,15 @@ autocmd({ "BufRead" }, {
 	end,
 })
 
+autocmd({ "BufReadPost" }, {
+	pattern = "*",
+	callback = function()
+		if vim.bo.fileformat == "dos" then
+			vim.bo.fileformat = "unix"
+		end
+	end,
+})
+
 autocmd("BufWritePost", {
 	group = augroup("hide_message_after_write", {
 		clear = true,
