@@ -9,7 +9,7 @@ return {
 					anthropic = function()
 						return require("codecompanion.adapters").extend("anthropic", {
 							env = {
-								api_key = "cmd:op read op://personal/anthropic/credential --no-newline",
+								api_key = "cmd:BW_SESSION=$(cat ~/.bw-session) bw get password 'CodeCompanion' --no-newline",
 							},
 						})
 					end,
