@@ -9,7 +9,7 @@ return {
 					anthropic = function()
 						return require("codecompanion.adapters").extend("anthropic", {
 							env = {
-								api_key = "cmd:pass CodeCompanion/api_key",
+								api_key = "cmd: gpg --batch --quiet --decrypt ~/secrets/api_key.gpg",
 							},
 						})
 					end,

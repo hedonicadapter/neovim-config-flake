@@ -103,7 +103,7 @@
             universal-ctags
             ripgrep
             fd
-            pass
+            gpg
           ] # Language servers
           ++ [
             nil
