@@ -30,7 +30,7 @@ require("lze").load({
 	{ import = "luaConf.plugins.spider" },
 	{ import = "luaConf.plugins.staline" },
 	{ import = "luaConf.plugins.colorizer" },
-	{ import = "luaConf.plugins.markview" },
+	{ import = "luaConf.plugins.render-markdown" },
 	{ import = "luaConf.plugins.image" },
 	{ import = "luaConf.plugins.img-clip" },
 

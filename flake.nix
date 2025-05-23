@@ -259,7 +259,7 @@
             stay-centered-nvim
             dial-nvim
             diffview-nvim
-            markview-nvim
+            render-markdown-nvim
             flash-nvim
             vim-visual-multi
             nvim-spider
