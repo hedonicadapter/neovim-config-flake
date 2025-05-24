@@ -104,6 +104,7 @@
             ripgrep
             fd
             gnupg
+            aider-chat
           ] # Language servers
           ++ [
             nil
@@ -275,7 +276,7 @@
             todo-comments-nvim
             guess-indent-nvim
             nvim-colorizer-lua
-            codecompanion-nvim
+            pkgs.awesomeNeovimPlugins.nvim-aider
 
             # If it was included in your flake inputs as plugins-hlargs,
             # this would be how to add that plugin in your config.

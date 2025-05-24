@@ -9,6 +9,12 @@ local colors = nixCats.extra("colors")
 
 o.showmode = false
 o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
+o.autoread = true
+o.guicursor = "n-v-c-sm-i-ci-ve:block,r-cr-o:hor20,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor"
+o.cmdheight = 0
+o.sidescroll = 1
+o.sidescrolloff = 20
+
 opt.autoindent = true
 opt.expandtab = true
 opt.swapfile = false
@@ -23,14 +29,11 @@ opt.number = true
 opt.cursorline = true
 opt.backspace = "indent,eol,start"
 opt.clipboard:append("unnamedplus")
-g.have_nerd_font = true
 opt.guifont = "Mx437 DOS/V re. JPN30"
-o.guicursor = "n-v-c-sm-i-ci-ve:block,r-cr-o:hor20,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor"
-o.cmdheight = 0
-o.sidescroll = 1
-o.sidescrolloff = 20
 opt.undofile = true
 opt.fillchars:append(",eob: ")
+
+g.have_nerd_font = true
 
 if g.neovide then
 	opt.linespace = 2
