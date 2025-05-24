@@ -183,7 +183,6 @@
             pkgs.awesomeNeovimPlugins.garbage-day-nvim
             nvim-ts-autotag
             nvim-ts-context-commentstring
-            codecompanion-nvim
             pkgs.awesomeNeovimPlugins.tiny-code-action-nvim
             nvim-scrollbar
             pkgs.vimExtraPlugins.reactive-nvim
@@ -276,6 +275,7 @@
             todo-comments-nvim
             guess-indent-nvim
             nvim-colorizer-lua
+            codecompanion-nvim
 
             # If it was included in your flake inputs as plugins-hlargs,
             # this would be how to add that plugin in your config.
