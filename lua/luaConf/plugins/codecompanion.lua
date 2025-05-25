@@ -3,6 +3,7 @@ return {
 		"codecompanion.nvim",
 		for_cat = "general.extra",
 		event = "VimEnter",
+		dep_of = { "render-markdown.nvim" },
 		after = function(plugin)
 			require("codecompanion").setup({
 				strategies = {

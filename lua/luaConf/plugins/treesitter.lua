@@ -7,6 +7,11 @@ return {
 			vim.cmd.packadd(name)
 			vim.cmd.packadd("nvim-treesitter-textobjects")
 			vim.cmd.packadd("nvim-ts-context-commentstring")
+			vim.cmd.packadd("nvim-treesitter-context")
+
+			if nixCats("web") then
+				vim.cmd.packadd("nvim-ts-autotag")
+			end
 		end,
 		on_require = { "nvim-treesitter", "nvim-treesitter.configs", "nvim-treesitter.install" },
 		after = function(plugin)
@@ -73,6 +78,14 @@ return {
 					},
 				},
 			})
+			require("treesitter-context").setup({
+				enable = true,
+				max_lines = 3,
+				separator = "_",
+			})
+			if nixCats("web") then
+				require("nvim-ts-autotag").setup({})
+			end
 		end,
 	},
 }

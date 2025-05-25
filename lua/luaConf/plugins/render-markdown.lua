@@ -6,6 +6,7 @@ return {
 		after = function(plugin)
 			require("render-markdown").setup({
 				completions = { blink = { enabled = true } },
+				file_types = { "markdown", "vimwiki", "codecompanion" },
 				render_modes = true,
 			})
 

@@ -113,15 +113,6 @@ require("lze").load({
 	},
 
 	{
-		"nvim-ts-autotag",
-		for_cat = "web.always",
-		event = "InsertEnter",
-		after = function(plugin)
-			require("nvim-ts-autotag").setup({})
-		end,
-	},
-
-	{
 		"vim-visual-multi",
 		for_cat = "general.always",
 		event = "BufReadPost",
@@ -131,15 +122,6 @@ require("lze").load({
 		"vim-wakatime",
 		for_cat = "general.extra",
 		event = "VimEnter",
-	},
-
-	{
-		"nvim-ts-context-commentstring",
-		for_cat = "general.extra",
-		event = "BufReadPost",
-		after = function(plugin)
-			require("nvim-treesitter.configs").setup({})
-		end,
 	},
 
 	{
@@ -175,19 +157,6 @@ require("lze").load({
 		event = "BufReadPost",
 		after = function(plugin)
 			require("debugprint").setup()
-		end,
-	},
-
-	{
-		"nvim-treesitter-context",
-		for_cat = "general.always",
-		event = "BufReadPost",
-		after = function(plugin)
-			require("treesitter-context").setup({
-				enable = true,
-				max_lines = 3,
-				separator = "_",
-			})
 		end,
 	},
 

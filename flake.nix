@@ -181,8 +181,6 @@
             vim-wakatime
             pkgs.awesomeNeovimPlugins.hawtkeys-nvim
             pkgs.awesomeNeovimPlugins.garbage-day-nvim
-            nvim-ts-autotag
-            nvim-ts-context-commentstring
             pkgs.awesomeNeovimPlugins.tiny-code-action-nvim
             nvim-scrollbar
             pkgs.vimExtraPlugins.reactive-nvim
@@ -246,6 +244,8 @@
             nvim-treesitter-context
             nvim-treesitter-textobjects
             nvim-treesitter.withAllGrammars
+            nvim-ts-autotag
+            nvim-ts-context-commentstring
           ];
           telescope = with pkgs.vimPlugins; [
             telescope-fzf-native-nvim
