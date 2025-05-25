@@ -221,12 +221,17 @@ set_keymap_for_all_modes("<leader>fr", ":Telescope resume<CR>")
 
 keymap.set("n", "<leader>o", "<CMD>SymbolsOutline<CR>", { desc = "Symbols outline", noremap = true, silent = true })
 
-keymap.set("n", "<leader>0", "<CMD>Aider toggle<CR>", { desc = "Toggle AI Chat", noremap = true, silent = true })
+keymap.set(
+	"n",
+	"<leader>0",
+	"<CMD>lua require('codecompanion').toggle()<CR>",
+	{ desc = "Toggle Copilot Chat", noremap = true, silent = true }
+)
 keymap.set(
 	{ "v", "x" },
 	"<leader>0",
-	"<CMD>Aider send<CR>",
-	{ desc = "Open AI Chat with selected inserted", noremap = true, silent = true }
+	"<CMD>CodeCompanionChat Add<CR>",
+	{ desc = "Open Copilot Chat with selected inserted", noremap = true, silent = true }
 )
 
 -- SnipRun

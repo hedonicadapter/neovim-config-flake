@@ -26,7 +26,7 @@ require("lze").load({
 	{ import = "luaConf.plugins.treesitter" },
 	{ import = "luaConf.plugins.completion" },
 	{ import = "luaConf.plugins.toggleterm" },
-	{ import = "luaConf.plugins.aider" },
+	{ import = "luaConf.plugins.codecompanion" },
 	{ import = "luaConf.plugins.spider" },
 	{ import = "luaConf.plugins.staline" },
 	{ import = "luaConf.plugins.colorizer" },
