@@ -298,6 +298,8 @@
       # this section is for environmentVariables that should be available
       # at RUN TIME for plugins. Will be available to path within neovim terminal
       environmentVariables = {
+        XDG_RUNTIME_DIR = "/tmp/"; # https://github.com/yetone/avante.nvim/issues/315
+
         test = {
           default = {
             CATTESTVARDEFAULT = "It worked!";
