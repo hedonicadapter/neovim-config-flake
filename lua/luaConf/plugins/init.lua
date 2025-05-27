@@ -332,6 +332,17 @@ require("lze").load({
 	},
 	{ "twilight.nvim" },
 	{
+		"git-blame.nvim",
+		for_cat = "general.extra",
+		event = "BufReadPost",
+		load = function(name)
+			vim.cmd.packadd(name)
+		end,
+		after = function(plugin)
+			require("gitblame").setup({})
+		end,
+	},
+	{
 		"base16-nvim",
 		for_cat = "general.extra",
 		event = "VimEnter",
