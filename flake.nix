@@ -417,7 +417,7 @@
           themer = false;
         };
         extra = {
-          colors = inputs.colors.outputs.colors;
+          colors = misc.colors or inputs.colors.outputs.colors;
           colors_opaque = inputs.colors.outputs.colors_opaque;
 
           # TODO: luafy these
