@@ -288,6 +288,12 @@ require("lze").load({
 		event = "DeferredUIEnter",
 		after = function(plugin)
 			require("quicker").setup()
+
+			-- autoclose quickfix after selection
+			vim.api.nvim_create_autocmd("FileType", {
+				pattern = { "qf" },
+				command = [[nnoremap <buffer> <CR> <CR>:cclose<CR>]],
+			})
 		end,
 	},
 
