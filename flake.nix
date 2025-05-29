@@ -492,7 +492,6 @@
       };
     })
     // (let
-      # we also export a nixos module to allow reconfiguration from configuration.nix
       nixosModule = utils.mkNixosModules {
         moduleNamespace = [defaultPackageName];
         inherit
@@ -505,7 +504,18 @@
           nixpkgs
           ;
       };
-      # and the same for home manager
+      darwinModule = utils.mkDarwinModules {
+        moduleNamespace = [defaultPackageName];
+        inherit
+          defaultPackageName
+          dependencyOverlays
+          luaPath
+          categoryDefinitions
+          packageDefinitions
+          extra_pkg_config
+          nixpkgs
+          ;
+      };
       homeModule = utils.mkHomeModules {
         moduleNamespace = [defaultPackageName];
         inherit
@@ -532,9 +542,10 @@
         defaultPackageName;
 
       nixosModules.default = nixosModule;
+      darwinModules.default = darwinModule;
       homeModules.default = homeModule;
 
-      inherit utils nixosModule homeModule;
+      inherit utils nixosModule darwinModule homeModule;
       inherit (utils) templates;
     });
 }
