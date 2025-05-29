@@ -504,18 +504,6 @@
           nixpkgs
           ;
       };
-      darwinModule = utils.mkDarwinModules {
-        moduleNamespace = [defaultPackageName];
-        inherit
-          defaultPackageName
-          dependencyOverlays
-          luaPath
-          categoryDefinitions
-          packageDefinitions
-          extra_pkg_config
-          nixpkgs
-          ;
-      };
       homeModule = utils.mkHomeModules {
         moduleNamespace = [defaultPackageName];
         inherit
@@ -542,10 +530,9 @@
         defaultPackageName;
 
       nixosModules.default = nixosModule;
-      darwinModules.default = darwinModule;
       homeModules.default = homeModule;
 
-      inherit utils nixosModule darwinModule homeModule;
+      inherit utils nixosModule homeModule;
       inherit (utils) templates;
     });
 }
