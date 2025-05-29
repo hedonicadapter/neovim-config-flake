@@ -321,11 +321,11 @@ require("lze").load({
 		for_cat = "general.extra",
 		event = "BufReadPost",
 		after = function(plugin)
-			local colors = nixCats.extra("colors")
+			local palette = nixCats.extra("palette")
 			require("hlchunk").setup({
 				chunk = {
 					enable = true,
-					style = { colors.base09 },
+					style = { palette.base09 },
 					delay = 100,
 				},
 			})
@@ -353,18 +353,18 @@ require("lze").load({
 		for_cat = "general.extra",
 		event = "VimEnter",
 		after = function(plugin)
-			local colors = nixCats.extra("colors")
-			local colors_opaque = nixCats.extra("colors_opaque")
+			local palette = nixCats.extra("palette")
+			local palette_opaque = nixCats.extra("palette_opaque")
 			local colorUtils = require("colorUtils")
 
-			require("base16-colorscheme").setup(colors)
+			require("base16-colorscheme").setup(palette)
 
 			local twilight = require("twilight")
 			twilight.setup({
 				dimming = {
 					alpha = 0.2,
-					color = { colors.base07, colors.base07 },
-					term_bg = colors.base00,
+					color = { palette.base07, palette.base07 },
+					term_bg = palette.base00,
 					inactive = false,
 				},
 				context = 16,
@@ -379,7 +379,7 @@ require("lze").load({
 					TreesitterContext = { bg = "NONE", italic = true },
 					TelescopeNormal = { bg = "NONE" },
 					TelescopePreviewNormal = { bg = "NONE" },
-					TelescopeSelection = { bg = colors.base0C, fg = colors.base00 },
+					TelescopeSelection = { bg = palette.base0C, fg = palette.base00 },
 					TelescopeSelectionCaret = { bg = "NONE" },
 					WinBar = { bg = "NONE" },
 					LineNr = { bg = "NONE" },
@@ -396,19 +396,19 @@ require("lze").load({
 					GitSignsChange = { bg = "NONE" },
 					GitSignsDelete = { bg = "NONE" },
 					VertSplit = { bg = "NONE", ctermbg = "NONE" },
-					MatchParen = { bg = colors.base09, fg = colors.base00 },
-					Visual = { bg = colorUtils.darkenColorIfOpaque(colors_opaque.base0D, 0.6) },
+					MatchParen = { bg = palette.base09, fg = palette.base00 },
+					Visual = { bg = colorUtils.darkenColorIfOpaque(palette_opaque.base0D, 0.6) },
 
-					Comment = { fg = colors.base04 },
-					TSComment = { fg = colors.base04 },
+					Comment = { fg = palette.base04 },
+					TSComment = { fg = palette.base04 },
 
 					StatusLine = { bg = "NONE" },
 
-					MiniStarterHeader = { fg = colors.base0E },
-					MiniStarterSection = { fg = colors.base0E },
-					MiniStarterItemBullet = { fg = colors.base05 },
-					MiniStarterItemPrefix = { fg = colors.base0E },
-					MiniStarterFooter = { fg = colors.base0E },
+					MiniStarterHeader = { fg = palette.base0E },
+					MiniStarterSection = { fg = palette.base0E },
+					MiniStarterItemBullet = { fg = palette.base05 },
+					MiniStarterItemPrefix = { fg = palette.base0E },
+					MiniStarterFooter = { fg = palette.base0E },
 				}
 
 				for group, settings in pairs(highlights) do

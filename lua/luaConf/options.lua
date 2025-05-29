@@ -5,7 +5,7 @@ local keymap = vim.keymap
 local autocmd = vim.api.nvim_create_autocmd
 local augroup = vim.api.nvim_create_augroup
 
-local colors = nixCats.extra("colors")
+local palette = nixCats.extra("palette")
 
 o.showmode = false
 o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
@@ -62,7 +62,7 @@ if g.neovide then
 	-- g:neovide_transparency should be 0 if you want to unify transparency of content and title bar.
 	g.neovide_transparency = 1
 	g.transparency = 1
-	g.neovide_background_color = colors.base00 -- .. alpha()
+	g.neovide_background_color = palette.base00 -- .. alpha()
 	-- g.neovide_window_blurred = true
 
 	keymap.set("n", "<C-s>", ":w<CR>") -- Save

@@ -4,17 +4,17 @@ return {
 		event = "BufReadPost",
 		for_cat = "general.extra",
 		after = function(plugin)
-			local colors_opaque = nixCats.extra("colors_opaque")
+			local palette_opaque = nixCats.extra("palette_opaque")
 			local colorUtils = require("colorUtils")
 
 			local contrast = 0.8
 
-			local n = colors_opaque.base03
-			local i = colors_opaque.base0F
-			local c = colors_opaque.base0E
-			local v = colors_opaque.base0C
-			local y = colors_opaque.base0D
-			local r = colors_opaque.base0E
+			local n = palette_opaque.base03
+			local i = palette_opaque.base0F
+			local c = palette_opaque.base0E
+			local v = palette_opaque.base0C
+			local y = palette_opaque.base0D
+			local r = palette_opaque.base0E
 
 			require("reactive").add_preset({
 				name = "customCursorLine",
@@ -26,12 +26,12 @@ return {
 						winhl = {
 							CursorLine = { bg = colorUtils.darkenColorIfOpaque(n, contrast) },
 							CursorLineNr = {
-								fg = colors_opaque.base07,
+								fg = palette_opaque.base07,
 								bg = colorUtils.darkenColorIfOpaque(n, contrast),
 							},
 						},
 						hl = {
-							Cursor = { bg = n, fg = colors_opaque.base07 },
+							Cursor = { bg = n, fg = palette_opaque.base07 },
 						},
 					},
 					i = {
@@ -40,16 +40,16 @@ return {
 							CursorLineNr = { fg = i, bg = colorUtils.darkenColorIfOpaque(i, contrast) },
 						},
 						hl = {
-							Cursor = { bg = i, fg = colors_opaque.base00 },
+							Cursor = { bg = i, fg = palette_opaque.base00 },
 						},
 					},
 					[{ "c", "C" }] = {
 						winhl = {
-							CursorLine = { bg = colorUtils.darkenColorIfOpaque(c, contrast), fg = colors_opaque.base07 },
+							CursorLine = { bg = colorUtils.darkenColorIfOpaque(c, contrast), fg = palette_opaque.base07 },
 							CursorLineNr = { fg = c, bg = colorUtils.darkenColorIfOpaque(c, contrast) },
 						},
 						hl = {
-							Cursor = { bg = c, fg = colors_opaque.base07 },
+							Cursor = { bg = c, fg = palette_opaque.base07 },
 						},
 					},
 					-- visual
@@ -59,17 +59,17 @@ return {
 							CursorLineNr = { fg = v, bg = colorUtils.darkenColorIfOpaque(v, contrast) },
 						},
 						hl = {
-							Cursor = { bg = v, fg = colors_opaque.base00 },
+							Cursor = { bg = v, fg = palette_opaque.base00 },
 						},
 					},
 					-- replace
 					R = {
 						winhl = {
-							CursorLine = { bg = colorUtils.darkenColorIfOpaque(r, contrast), fg = colors_opaque.base07 },
+							CursorLine = { bg = colorUtils.darkenColorIfOpaque(r, contrast), fg = palette_opaque.base07 },
 							CursorLineNr = { fg = r, bg = colorUtils.darkenColorIfOpaque(r, contrast) },
 						},
 						hl = {
-							Cursor = { bg = r, fg = colors_opaque.base07 },
+							Cursor = { bg = r, fg = palette_opaque.base07 },
 						},
 					},
 				},

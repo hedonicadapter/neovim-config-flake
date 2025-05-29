@@ -422,8 +422,8 @@
           themer = false;
         };
         extra = {
-          colors = misc.colors or inputs.colors.outputs.colors;
-          colors_opaque = inputs.colors.outputs.colors_opaque;
+          palette = misc.palette or inputs.colors.outputs.palette;
+          palette_opaque = inputs.colors.outputs.palette_opaque;
 
           # TODO: luafy these
           # transparentize = inputs.colors.outputs.transparentize;

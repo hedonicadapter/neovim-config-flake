@@ -4,7 +4,7 @@ return {
 		for_cat = "general.always",
 		event = "VimEnter",
 		after = function(plugin)
-			local colors = nixCats.extra("colors")
+			local palette = nixCats.extra("palette")
 
 			require("staline").setup({
 				sections = {
@@ -13,11 +13,11 @@ return {
 					right = { "- ", "-cwd", "-branch" },
 				},
 				mode_colors = {
-					i = colors.base0F,
-					n = colors.base03,
-					c = colors.base0E,
-					v = colors.base0C,
-					V = colors.base0C,
+					i = palette.base0F,
+					n = palette.base03,
+					c = palette.base0E,
+					v = palette.base0C,
+					V = palette.base0C,
 				},
 				mode_icons = {
 					n = "NORMAL",

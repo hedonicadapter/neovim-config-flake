@@ -42,31 +42,31 @@ return {
 					fg = function(buffer)
 						if buffer.is_focused then
 							if buffer.diagnostics.errors ~= 0 then
-								return vim.g.colors_base08_opaque
+								return vim.g.palette_base08_opaque
 							elseif buffer.diagnostics.warnings ~= 0 then
-								return vim.g.colors_base09_opaque
+								return vim.g.palette_base09_opaque
 							elseif buffer.is_modified then
-								return vim.g.colors_base0B_opaque
+								return vim.g.palette_base0B_opaque
 							elseif buffer.diagnostics.infos ~= 0 then
-								return vim.g.colors_base0C_opaque
+								return vim.g.palette_base0C_opaque
 							elseif buffer.diagnostics.hints ~= 0 then
-								return vim.g.colors_base0C_opaque
+								return vim.g.palette_base0C_opaque
 							else
-								return vim.g.colors_base09_opaque
+								return vim.g.palette_base09_opaque
 							end
 						else
 							if buffer.diagnostics.errors ~= 0 then
-								return vim.g.colors_base08_opaque
+								return vim.g.palette_base08_opaque
 							elseif buffer.diagnostics.warnings ~= 0 then
-								return vim.g.colors_base09_opaque
+								return vim.g.palette_base09_opaque
 							elseif buffer.is_modified then
-								return vim.g.colors_base0A_opaque
+								return vim.g.palette_base0A_opaque
 							elseif buffer.diagnostics.infos ~= 0 then
-								return vim.g.colors_base0C_opaque
+								return vim.g.palette_base0C_opaque
 							elseif buffer.diagnostics.hints ~= 0 then
-								return vim.g.colors_base0C_opaque
+								return vim.g.palette_base0C_opaque
 							else
-								return vim.g.colors_0A_opaque
+								return vim.g.palette_0A_opaque
 							end
 						end
 					end,
@@ -101,31 +101,31 @@ return {
 					fg = function(buffer)
 						if buffer.is_focused then
 							if buffer.diagnostics.errors ~= 0 then
-								return vim.g.colors_base08_opaque
+								return vim.g.palette_base08_opaque
 							elseif buffer.is_modified then
-								return vim.g.colors_base0B_opaque
+								return vim.g.palette_base0B_opaque
 							elseif buffer.diagnostics.warnings ~= 0 then
-								return vim.g.colors_base09_opaque
+								return vim.g.palette_base09_opaque
 							elseif buffer.diagnostics.infos ~= 0 then
-								return vim.g.colors_base0C_opaque
+								return vim.g.palette_base0C_opaque
 							elseif buffer.diagnostics.hints ~= 0 then
-								return vim.g.colors_base0C_opaque
+								return vim.g.palette_base0C_opaque
 							else
-								return vim.g.colors_base09
+								return vim.g.palette_base09
 							end
 						else
 							if buffer.diagnostics.errors ~= 0 then
-								return vim.g.colors_base08_opaque
+								return vim.g.palette_base08_opaque
 							elseif buffer.is_modified then
-								return vim.g.colors_base0A_opaque
+								return vim.g.palette_base0A_opaque
 							elseif buffer.diagnostics.warnings ~= 0 then
-								return vim.g.colors_base09_opaque
+								return vim.g.palette_base09_opaque
 							elseif buffer.diagnostics.infos ~= 0 then
-								return vim.g.colors_base04_opaque
+								return vim.g.palette_base04_opaque
 							elseif buffer.diagnostics.hints ~= 0 then
-								return vim.g.colors_base0C_opaque
+								return vim.g.palette_base0C_opaque
 							else
-								return vim.g.colors_base04_opaque
+								return vim.g.palette_base04_opaque
 							end
 						end
 					end,
@@ -149,31 +149,31 @@ return {
 					fg = function(buffer)
 						if buffer.is_focused then
 							if buffer.diagnostics.errors ~= 0 then
-								return vim.g.colors_base08_opaque
+								return vim.g.palette_base08_opaque
 							elseif buffer.is_modified then
-								return vim.g.colors_base0B_opaque
+								return vim.g.palette_base0B_opaque
 							elseif buffer.diagnostics.warnings ~= 0 then
-								return vim.g.colors_base09_opaque
+								return vim.g.palette_base09_opaque
 							elseif buffer.diagnostics.infos ~= 0 then
-								return vim.g.colors_base0C_opaque
+								return vim.g.palette_base0C_opaque
 							elseif buffer.diagnostics.hints ~= 0 then
-								return vim.g.colors_base0C_opaque
+								return vim.g.palette_base0C_opaque
 							else
-								return vim.g.colors_base09_opaque
+								return vim.g.palette_base09_opaque
 							end
 						else
 							if buffer.diagnostics.errors ~= 0 then
-								return vim.g.colors_base08_opaque
+								return vim.g.palette_base08_opaque
 							elseif buffer.is_modified then
-								return vim.g.colors_base0A_opaque
+								return vim.g.palette_base0A_opaque
 							elseif buffer.diagnostics.warnings ~= 0 then
-								return vim.g.colors_base09_opaque
+								return vim.g.palette_base09_opaque
 							elseif buffer.diagnostics.infos ~= 0 then
-								return vim.g.colors_base04_opaque
+								return vim.g.palette_base04_opaque
 							elseif buffer.diagnostics.hints ~= 0 then
-								return vim.g.colors_base0C_opaque
+								return vim.g.palette_base0C_opaque
 							else
-								return vim.g.colors_0A_opaque
+								return vim.g.palette_0A_opaque
 							end
 						end
 					end,
@@ -197,25 +197,25 @@ return {
 					fg = function(buffer)
 						if buffer.is_focused then
 							if buffer.diagnostics.errors ~= 0 then
-								return vim.g.colors_base08_opaque
+								return vim.g.palette_base08_opaque
 							elseif buffer.diagnostics.warnings ~= 0 then
-								return vim.g.colors_base09_opaque
+								return vim.g.palette_base09_opaque
 							elseif buffer.diagnostics.infos ~= 0 then
-								return vim.g.colors_base0C_opaque
+								return vim.g.palette_base0C_opaque
 							elseif buffer.diagnostics.hints ~= 0 then
-								return vim.g.colors_base0C_opaque
+								return vim.g.palette_base0C_opaque
 							else
 								return "NONE"
 							end
 						else
 							if buffer.diagnostics.errors ~= 0 then
-								return vim.g.colors_base08_opaque
+								return vim.g.palette_base08_opaque
 							elseif buffer.diagnostics.warnings ~= 0 then
-								return vim.g.colors_base09_opaque
+								return vim.g.palette_base09_opaque
 							elseif buffer.diagnostics.infos ~= 0 then
-								return vim.g.colors_base04_opaque
+								return vim.g.palette_base04_opaque
 							elseif buffer.diagnostics.hints ~= 0 then
-								return vim.g.colors_base0C_opaque
+								return vim.g.palette_base0C_opaque
 							else
 								return "NONE"
 							end
@@ -236,9 +236,9 @@ return {
 						end
 
 						if buffer.is_focused then
-							return vim.g.colors_base0D_opaque
+							return vim.g.palette_base0D_opaque
 						else
-							return vim.g.colors_base0D_opaque
+							return vim.g.palette_base0D_opaque
 						end
 					end,
 					truncation = { priority = 1 },
