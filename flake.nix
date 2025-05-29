@@ -300,10 +300,15 @@
       # at RUN TIME for plugins. Will be available to path within neovim terminal
       environmentVariables = {
         test = {
-          default = {
-            CATTESTVARDEFAULT = "It worked!";
-            XDG_RUNTIME_DIR = "/tmp/"; # https://github.com/yetone/avante.nvim/issues/315 and this shouldnt be in "test" but idk it didnt work outside
-          };
+          default =
+            if pkgs.stdenv.isDarwin
+            then {
+              CATTESTVARDEFAULT = "It worked!";
+              XDG_RUNTIME_DIR = "/tmp/"; # https://github.com/yetone/avante.nvim/issues/315 and this shouldnt be in "test" but idk it didnt work outside
+            }
+            else {
+              CATTESTVARDEFAULT = "It worked!";
+            };
           subtest1 = {
             CATTESTVAR = "It worked!";
           };
