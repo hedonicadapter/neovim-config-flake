@@ -1,7 +1,8 @@
 local M = {}
 
 function M.isOpaque(color)
-	return #color == 7 and color:sub(1, 1) == "#"
+	-- return #color == 7 and color:sub(1, 1) == "#"
+	return true
 end
 
 function M.hexToRGB(hex)
