@@ -9,7 +9,7 @@ return {
 
 			local contrast = 0.0
 			if colorUtils.is_dark_color(palette_opaque.base00) then
-				contrast = -0.8
+				contrast = 0.6
 			else
 				contrast = 1.0
 			end
