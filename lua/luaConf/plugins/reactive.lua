@@ -7,7 +7,7 @@ return {
 			local palette_opaque = nixCats.extra("palette_opaque")
 			local colorUtils = require("colorUtils")
 
-			local contrast = 0.8
+			local contrast = 0.4
 
 			local n = palette_opaque.base03
 			local i = palette_opaque.base0F
@@ -45,7 +45,10 @@ return {
 					},
 					[{ "c", "C" }] = {
 						winhl = {
-							CursorLine = { bg = colorUtils.darkenColorIfOpaque(c, contrast), fg = palette_opaque.base07 },
+							CursorLine = {
+								bg = colorUtils.darkenColorIfOpaque(c, contrast),
+								fg = palette_opaque.base07,
+							},
 							CursorLineNr = { fg = c, bg = colorUtils.darkenColorIfOpaque(c, contrast) },
 						},
 						hl = {
@@ -65,7 +68,10 @@ return {
 					-- replace
 					R = {
 						winhl = {
-							CursorLine = { bg = colorUtils.darkenColorIfOpaque(r, contrast), fg = palette_opaque.base07 },
+							CursorLine = {
+								bg = colorUtils.darkenColorIfOpaque(r, contrast),
+								fg = palette_opaque.base07,
+							},
 							CursorLineNr = { fg = r, bg = colorUtils.darkenColorIfOpaque(r, contrast) },
 						},
 						hl = {
