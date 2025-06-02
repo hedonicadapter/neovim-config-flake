@@ -381,16 +381,20 @@ require("lze").load({
 					TelescopePreviewNormal = { bg = "NONE" },
 					TelescopeSelection = { bg = palette.base0C, fg = palette.base00 },
 					TelescopeSelectionCaret = { bg = "NONE" },
+
 					WinBar = { bg = "NONE" },
 					LineNr = { bg = "NONE" },
 					SignColumn = { bg = "NONE" },
 					DropBarIconKindFunction = { bg = "NONE" },
 					TabLineFill = { bg = "NONE" },
+
 					DiagnosticSignError = { bg = "NONE" },
 					DiagnosticSignWarn = { bg = "NONE" },
 					DiagnosticSignInfo = { bg = "NONE" },
 					DiagnosticSignHint = { bg = "NONE" },
 					DiagnosticSignOk = { bg = "NONE" },
+					Normal = { bg = "NONE" },
+
 					Folded = { bg = "NONE" },
 					GitSignsAdd = { bg = "NONE" },
 					GitSignsChange = { bg = "NONE" },
@@ -416,11 +420,11 @@ require("lze").load({
 				end
 			end
 
-			-- vim.api.nvim_create_autocmd("BufEnter", {
-			-- 	callback = function()
-			set_highlights()
-			-- 	end,
-			-- })
+			vim.api.nvim_create_autocmd("BufEnter", {
+				callback = function()
+					set_highlights()
+				end,
+			})
 		end,
 	},
 })

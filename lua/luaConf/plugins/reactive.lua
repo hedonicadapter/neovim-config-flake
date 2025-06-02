@@ -7,7 +7,7 @@ return {
 			local palette_opaque = nixCats.extra("palette_opaque")
 			local colorUtils = require("colorUtils")
 
-			local contrast = 0.4
+			local contrast = -0.2
 
 			local n = palette_opaque.base03
 			local i = palette_opaque.base0F
