@@ -40,4 +40,16 @@ function M.darkenColorIfOpaque(color, percentage)
 	end
 end
 
+function M.is_dark_color(hex)
+	hex = hex:gsub("#", "")
+
+	local r = tonumber(hex:sub(1, 2), 16)
+	local g = tonumber(hex:sub(3, 4), 16)
+	local b = tonumber(hex:sub(5, 6), 16)
+
+	local luminance = 0.2126 * r + 0.7152 * g + 0.0722 * b
+
+	return luminance < 128
+end
+
 return M

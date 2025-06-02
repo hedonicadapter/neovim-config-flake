@@ -7,7 +7,12 @@ return {
 			local palette_opaque = nixCats.extra("palette_opaque")
 			local colorUtils = require("colorUtils")
 
-			local contrast = -0.2
+			local contrast = 0.0
+			if colorUtils.is_dark_color(palette_opaque.base00) then
+				contrast = 0.8
+			else
+				contrast = -0.8
+			end
 
 			local n = palette_opaque.base03
 			local i = palette_opaque.base0F
