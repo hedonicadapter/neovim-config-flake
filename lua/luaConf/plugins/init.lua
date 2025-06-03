@@ -381,6 +381,7 @@ require("lze").load({
 					TelescopePreviewNormal = { bg = "NONE" },
 					TelescopeSelection = { bg = palette.base0C, fg = palette.base00 },
 					TelescopeSelectionCaret = { bg = "NONE" },
+					TelescopePromptPrefix = { bg = "NONE" },
 
 					WinBar = { bg = "NONE" },
 					LineNr = { bg = "NONE" },
@@ -407,6 +408,9 @@ require("lze").load({
 					TSComment = { fg = palette.base04 },
 
 					StatusLine = { bg = "NONE" },
+					StatusLineNC = { bg = "NONE" },
+					ColorColumn = { bg = palette.base02 },
+					RenderMarkdownH2Bg = { bg = palette.base02 },
 
 					MiniStarterHeader = { fg = palette.base0E },
 					MiniStarterSection = { fg = palette.base0E },
