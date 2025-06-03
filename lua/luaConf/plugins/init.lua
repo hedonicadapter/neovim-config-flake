@@ -345,14 +345,7 @@ require("lze").load({
 			vim.cmd.packadd(name)
 		end,
 		after = function(plugin)
-			local hl_cursor_line = vim.api.nvim_get_hl(0, { name = "CursorLine" })
-			local hl_comment = vim.api.nvim_get_hl(0, { name = "Comment" })
-			local hl_combined = vim.tbl_extend("force", hl_comment, { bg = hl_cursor_line.bg })
-			vim.api.nvim_set_hl(0, "CursorLineBlame", hl_combined)
-			require("gitblame").setup({
-				enabled = true,
-				highlight_group = "CursorLineBlame",
-			})
+			require("gitblame").setup({})
 		end,
 	},
 	{
@@ -410,6 +403,7 @@ require("lze").load({
 					VertSplit = { bg = "NONE", ctermbg = "NONE" },
 					MatchParen = { bg = palette.base09, fg = palette.base00 },
 					Visual = { bg = colorUtils.darkenColorIfOpaque(palette_opaque.base0D, 0.6) },
+					CursorLine = { bg = "NONE" },
 
 					Comment = { fg = palette.base04 },
 					TSComment = { fg = palette.base04 },
