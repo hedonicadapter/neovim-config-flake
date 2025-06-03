@@ -423,8 +423,8 @@
         };
         extra = {
           palette = misc.palette or inputs.colors.outputs.palette;
-          palette_opaque = inputs.colors.outputs.palette_opaque;
-          contrast = misc.contrast;
+          palette_opaque = misc.palette_opaque or inputs.colors.outputs.palette_opaque;
+          contrast = misc.contrast or 0.6;
 
           # TODO: luafy these
           # transparentize = inputs.colors.outputs.transparentize;
