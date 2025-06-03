@@ -424,6 +424,7 @@
         extra = {
           palette = misc.palette or inputs.colors.outputs.palette;
           palette_opaque = inputs.colors.outputs.palette_opaque;
+          contrast = misc.contrast;
 
           # TODO: luafy these
           # transparentize = inputs.colors.outputs.transparentize;
