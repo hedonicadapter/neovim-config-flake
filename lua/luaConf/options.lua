@@ -109,6 +109,12 @@ autocmd("LspAttach", {
 				async = true,
 			})
 		end, opts)
+
+		-- TODO: for neovim 0.12
+		-- local client = vim.lsp.get_client_by_id(ev.data.client_id)
+		-- if client and client:supports_method("textDocument/documentColor") then
+		-- 	vim.lsp.document_color.enable(true, ev.buf)
+		-- end
 	end,
 })
 
