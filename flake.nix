@@ -425,6 +425,25 @@
           palette = misc.palette or inputs.colors.outputs.palette;
           palette_opaque = misc.palette_opaque or inputs.colors.outputs.palette_opaque;
           contrast = misc.contrast or 0.6;
+          modeColors =
+            misc.modeColors or {
+              n = misc.palette_opaque.base03 or inputs.colors.outputs.palette_opaque.base03;
+              i = misc.palette_opaque.base0F or inputs.colors.outputs.palette_opaque.base0F;
+
+              c = misc.palette_opaque.base0E or inputs.colors.outputs.palette_opaque.base0E;
+              C = misc.palette_opaque.base0E or inputs.colors.outputs.palette_opaque.base0E;
+
+              v = misc.palette_opaque.base0C or inputs.colors.outputs.palette_opaque.base0C;
+              V = misc.palette_opaque.base0C or inputs.colors.outputs.palette_opaque.base0C;
+
+              r = misc.palette_opaque.base0E or inputs.colors.outputs.palette_opaque.base0E;
+              R = misc.palette_opaque.base0E or inputs.colors.outputs.palette_opaque.base0E;
+
+              s = misc.palette_opaque.base0E or inputs.colors.outputs.palette_opaque.base0E;
+              S = misc.palette_opaque.base0E or inputs.colors.outputs.palette_opaque.base0E;
+
+              y = misc.palette_opaque.base0D or inputs.colors.outputs.palette_opaque.base0D;
+            };
 
           # TODO: luafy these
           # transparentize = inputs.colors.outputs.transparentize;

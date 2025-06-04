@@ -7,13 +7,7 @@ return {
 			local palette_opaque = nixCats.extra("palette_opaque")
 			local colorUtils = require("colorUtils")
 			local contrast = nixCats.extra("contrast")
-
-			local n = palette_opaque.base03
-			local i = palette_opaque.base0F
-			local c = palette_opaque.base0E
-			local v = palette_opaque.base0C
-			local y = palette_opaque.base0D
-			local r = palette_opaque.base0E
+			local modeColors = nixCats.extra("modeColors")
 
 			require("reactive").add_preset({
 				name = "customCursorLine",
@@ -23,58 +17,155 @@ return {
 				modes = {
 					n = {
 						winhl = {
-							CursorLine = { bg = colorUtils.darkenColorIfOpaque(n, contrast) },
+							CursorLine = { bg = colorUtils.darkenColorIfOpaque(modeColors.n, contrast) },
 							CursorLineNr = {
 								fg = palette_opaque.base07,
-								bg = colorUtils.darkenColorIfOpaque(n, contrast),
+								bg = colorUtils.darkenColorIfOpaque(modeColors.n, contrast),
 							},
 						},
 						hl = {
-							Cursor = { bg = n, fg = palette_opaque.base07 },
+							Cursor = { bg = modeColors.n, fg = palette_opaque.base07 },
 						},
 					},
 					i = {
 						winhl = {
-							CursorLine = { bg = colorUtils.darkenColorIfOpaque(i, contrast) },
-							CursorLineNr = { fg = i, bg = colorUtils.darkenColorIfOpaque(i, contrast) },
+							CursorLine = { bg = colorUtils.darkenColorIfOpaque(modeColors.i, contrast) },
+							CursorLineNr = {
+								fg = modeColors.i,
+								bg = colorUtils.darkenColorIfOpaque(modeColors.i, contrast),
+							},
 						},
 						hl = {
-							Cursor = { bg = i, fg = palette_opaque.base00 },
+							Cursor = { bg = modeColors.i, fg = palette_opaque.base00 },
 						},
 					},
-					[{ "c", "C" }] = {
+					c = {
 						winhl = {
 							CursorLine = {
-								bg = colorUtils.darkenColorIfOpaque(c, contrast),
+								bg = colorUtils.darkenColorIfOpaque(modeColors.c, contrast),
 								fg = palette_opaque.base07,
 							},
-							CursorLineNr = { fg = c, bg = colorUtils.darkenColorIfOpaque(c, contrast) },
+							CursorLineNr = {
+								fg = modeColors.c,
+								bg = colorUtils.darkenColorIfOpaque(modeColors.c, contrast),
+							},
 						},
 						hl = {
-							Cursor = { bg = c, fg = palette_opaque.base07 },
+							Cursor = { bg = modeColors.c, fg = palette_opaque.base07 },
 						},
 					},
-					-- visual
-					[{ "v", "V", "\x16" }] = {
+					C = {
 						winhl = {
-							Visual = { bg = colorUtils.darkenColorIfOpaque(v, contrast) },
-							CursorLineNr = { fg = v, bg = colorUtils.darkenColorIfOpaque(v, contrast) },
+							CursorLine = {
+								bg = colorUtils.darkenColorIfOpaque(modeColors.C, contrast),
+								fg = palette_opaque.base07,
+							},
+							CursorLineNr = {
+								fg = modeColors.C,
+								bg = colorUtils.darkenColorIfOpaque(modeColors.C, contrast),
+							},
 						},
 						hl = {
-							Cursor = { bg = v, fg = palette_opaque.base00 },
+							Cursor = { bg = modeColors.C, fg = palette_opaque.base07 },
 						},
 					},
-					-- replace
+					v = {
+						winhl = {
+							Visual = { bg = colorUtils.darkenColorIfOpaque(modeColors.v, contrast) },
+							CursorLineNr = {
+								fg = modeColors.v,
+								bg = colorUtils.darkenColorIfOpaque(modeColors.v, contrast),
+							},
+						},
+						hl = {
+							Cursor = { bg = modeColors.v, fg = palette_opaque.base00 },
+						},
+					},
+					[{ "V", "\x16" }] = {
+						winhl = {
+							Visual = { bg = colorUtils.darkenColorIfOpaque(modeColors.V, contrast) },
+							CursorLineNr = {
+								fg = modeColors.V,
+								bg = colorUtils.darkenColorIfOpaque(modeColors.V, contrast),
+							},
+						},
+						hl = {
+							Cursor = { bg = modeColors.V, fg = palette_opaque.base00 },
+						},
+					},
+					r = {
+						winhl = {
+							CursorLine = {
+								bg = colorUtils.darkenColorIfOpaque(modeColors.r, contrast),
+								fg = palette_opaque.base07,
+							},
+							CursorLineNr = {
+								fg = modeColors.r,
+								bg = colorUtils.darkenColorIfOpaque(modeColors.r, contrast),
+							},
+						},
+						hl = {
+							Cursor = { bg = modeColors.r, fg = palette_opaque.base07 },
+						},
+					},
 					R = {
 						winhl = {
 							CursorLine = {
-								bg = colorUtils.darkenColorIfOpaque(r, contrast),
+								bg = colorUtils.darkenColorIfOpaque(modeColors.R, contrast),
 								fg = palette_opaque.base07,
 							},
-							CursorLineNr = { fg = r, bg = colorUtils.darkenColorIfOpaque(r, contrast) },
+							CursorLineNr = {
+								fg = modeColors.R,
+								bg = colorUtils.darkenColorIfOpaque(modeColors.R, contrast),
+							},
 						},
 						hl = {
-							Cursor = { bg = r, fg = palette_opaque.base07 },
+							Cursor = { bg = modeColors.R, fg = palette_opaque.base07 },
+						},
+					},
+					s = {
+						winhl = {
+							CursorLine = {
+								bg = colorUtils.darkenColorIfOpaque(modeColors.s, contrast),
+								fg = palette_opaque.base07,
+							},
+							CursorLineNr = {
+								fg = modeColors.s,
+								bg = colorUtils.darkenColorIfOpaque(modeColors.s, contrast),
+							},
+						},
+						hl = {
+							Cursor = { bg = modeColors.s, fg = palette_opaque.base07 },
+						},
+					},
+					S = {
+						winhl = {
+							CursorLine = {
+								bg = colorUtils.darkenColorIfOpaque(modeColors.S, contrast),
+								fg = palette_opaque.base07,
+							},
+							CursorLineNr = {
+								fg = modeColors.S,
+								bg = colorUtils.darkenColorIfOpaque(modeColors.S, contrast),
+							},
+						},
+						hl = {
+							Cursor = { bg = modeColors.S, fg = palette_opaque.base07 },
+						},
+					},
+					y = {
+						winhl = {
+							CursorLine = {
+								bg = colorUtils.darkenColorIfOpaque(modeColors.y, contrast),
+								fg = palette_opaque.base07,
+							},
+							CursorLineNr = {
+								fg = modeColors.y,
+								bg = colorUtils.darkenColorIfOpaque(modeColors.y, contrast),
+							},
+						},
+						hl = {
+							Cursor = { bg = modeColors.y, fg = palette_opaque.base07 },
 						},
 					},
 				},
