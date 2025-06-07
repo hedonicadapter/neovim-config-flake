@@ -3,9 +3,6 @@ return {
 		"auto-session",
 		for_cat = "general.always",
 		event = "VimEnter",
-		load = function(name)
-			vim.cmd.packadd(name)
-		end,
 		after = function(plugin)
 			require("auto-session").setup({
 				auto_restore = false,

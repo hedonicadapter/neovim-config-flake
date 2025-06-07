@@ -3,6 +3,7 @@ return {
 		"codecompanion.nvim",
 		for_cat = "general.extra",
 		on_require = { "codecompanion", "codecompanion.adapters" },
+		cmd = { "CodeCompanion", "CodeCompanionChat", "CodeCompanionCmd", "CodeCompanionActions" },
 		after = function(plugin)
 			require("codecompanion").setup({
 				strategies = {

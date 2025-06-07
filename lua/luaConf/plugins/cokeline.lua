@@ -2,10 +2,7 @@ return {
 	{
 		"nvim-cokeline",
 		for_cat = "general.always",
-		event = "BufWinEnter",
-		load = function(name)
-			vim.cmd.packadd(name)
-		end,
+		event = "BufAdd",
 		after = function(plugin)
 			local get_hex = function(hlgroup_name, attr)
 				local hlgroup_ID = vim.fn.synIDtrans(vim.fn.hlID(hlgroup_name))

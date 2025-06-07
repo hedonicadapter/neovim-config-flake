@@ -3,9 +3,6 @@ return {
 		"nvim-colorizer.lua",
 		for_cat = "general.extra",
 		event = "BufReadPost",
-		load = function(name)
-			vim.cmd.packadd(name)
-		end,
 		after = function(plugin)
 			require("colorizer").setup({
 				filetypes = {

@@ -75,12 +75,7 @@ return {
 			})
 
 			vim.cmd("autocmd User MiniStarterOpened set showtabline=0")
-		end,
-	},
-	{
-		"mini.nvim",
-		event = "BufReadPost",
-		after = function(plugin)
+
 			require("mini.move").setup({
 				mappings = {
 					down = "J",
@@ -92,4 +87,19 @@ return {
 			require("mini.cursorword").setup()
 		end,
 	},
+	-- {
+	-- 	"mini.nvim",
+	-- 	event = "BufReadPost",
+	-- 	after = function(plugin)
+	-- 		require("mini.move").setup({
+	-- 			mappings = {
+	-- 				down = "J",
+	-- 				up = "K",
+	-- 			},
+	-- 		})
+	-- 		require("mini.ai").setup()
+	-- 		require("mini.surround").setup()
+	-- 		require("mini.cursorword").setup()
+	-- 	end,
+	-- },
 }

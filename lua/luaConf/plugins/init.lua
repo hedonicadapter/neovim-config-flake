@@ -1,22 +1,3 @@
-if nixCats("general") then
-	-- I didnt want to bother with lazy loading this.
-	-- I could put it in opt and put it in a spec anyway
-	-- and then not set any handlers and it would load at startup,
-	-- but why... I guess I could make it load
-	-- after the other lze definitions in the next call using priority value?
-	-- didnt seem necessary.
-	vim.g.loaded_netrwPlugin = 1
-	require("oil").setup({
-		delete_to_trash = true,
-		show_hidden = true,
-		natural_order = true,
-		is_always_hidden = function(name, _)
-			return name == ".." or name == ".git"
-		end,
-	})
-	vim.keymap.set("n", "-", "<CMD>Oil --float<CR>", { desc = "Open parent directory" })
-end
-
 require("lze").load({
 	{ import = "luaConf.plugins.mini" },
 	{ import = "luaConf.plugins.auto-session" },
@@ -35,10 +16,28 @@ require("lze").load({
 	{ import = "luaConf.plugins.img-clip" },
 
 	{
+		"oil.nvim",
+		for_cat = "general.always",
+		event = "VimEnter",
+		after = function()
+			vim.g.loaded_netrwPlugin = 1
+			require("oil").setup({
+				delete_to_trash = true,
+				show_hidden = true,
+				natural_order = true,
+				is_always_hidden = function(name, _)
+					return name == ".." or name == ".git"
+				end,
+			})
+			vim.keymap.set("n", "-", "<CMD>Oil --float<CR>", { desc = "Open parent directory" })
+		end,
+	},
+
+	{
 		"comment.nvim",
 		for_cat = "general.extra",
 		event = "DeferredUIEnter",
-		after = function(plugin)
+		after = function()
 			require("Comment").setup()
 		end,
 	},
@@ -46,7 +45,7 @@ require("lze").load({
 		"git-conflict.nvim",
 		for_cat = "general.always",
 		event = "BufReadPost",
-		after = function(plugin)
+		after = function()
 			require("git-conflict").setup()
 		end,
 	},
@@ -54,7 +53,7 @@ require("lze").load({
 		"ts-error-translator-nvim",
 		for_cat = "web.always",
 		event = "BufEnter",
-		after = function(plugin)
+		after = function()
 			require("ts-error-translator").setup()
 		end,
 	},
@@ -63,15 +62,15 @@ require("lze").load({
 		"gitsigns.nvim",
 		for_cat = "general.always",
 		event = "DeferredUIEnter",
-		after = function(plugin)
+		after = function()
 			require("gitsigns").setup()
 		end,
 	},
 	{
 		"nvim-ufo",
 		for_cat = "general.always",
-		event = "BufEnter",
-		after = function(plugin)
+		event = "BufReadPost",
+		after = function()
 			vim.o.foldcolumn = "0"
 			vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
 			vim.o.foldlevelstart = 99
@@ -88,7 +87,7 @@ require("lze").load({
 		"garbage-day-nvim",
 		for_cat = "general.extra",
 		event = "DeferredUIEnter",
-		after = function(plugin)
+		after = function()
 			require("garbage-day").setup({})
 		end,
 	},
@@ -97,7 +96,7 @@ require("lze").load({
 		"hawtkeys-nvim",
 		for_cat = "general.extra",
 		event = "DeferredUIEnter",
-		after = function(plugin)
+		after = function()
 			require("hawtkeys").setup({})
 		end,
 	},
@@ -107,7 +106,7 @@ require("lze").load({
 		for_cat = "general.always",
 		event = "BufReadPost",
 		cmd = "SnipRun",
-		after = function(plugin)
+		after = function()
 			require("sniprun").setup({})
 		end,
 	},
@@ -128,7 +127,7 @@ require("lze").load({
 		"flash.nvim",
 		for_cat = "general.always",
 		event = "BufReadPost",
-		after = function(plugin)
+		after = function()
 			require("flash").setup({
 				prompt = {
 					enabled = true,
@@ -149,7 +148,7 @@ require("lze").load({
 		"debugprint.nvim",
 		for_cat = "general.extra",
 		event = "BufReadPost",
-		after = function(plugin)
+		after = function()
 			require("debugprint").setup()
 		end,
 	},
@@ -158,7 +157,7 @@ require("lze").load({
 		"tiny-code-action-nvim",
 		for_cat = "general.extra",
 		event = "LspAttach",
-		after = function(plugin)
+		after = function()
 			require("tiny-code-action").setup()
 		end,
 	},
@@ -167,7 +166,7 @@ require("lze").load({
 		"nvim-neoclip-lua",
 		for_cat = "general.always",
 		event = "TextYankPost",
-		after = function(plugin)
+		after = function()
 			require("neoclip").setup()
 		end,
 	},
@@ -176,7 +175,7 @@ require("lze").load({
 		"snacks.nvim",
 		for_cat = "general.always",
 		event = "VimEnter",
-		after = function(plugin)
+		after = function()
 			require("snacks").setup({
 				zen = {},
 			})
@@ -187,7 +186,7 @@ require("lze").load({
 		"zoxide.vim",
 		for_cat = "general.always",
 		event = "CmdlineEnter", -- Load when the command line is entered, as it provides a command
-		after = function(plugin)
+		after = function()
 			vim.cmd([[command! -bang -nargs=* -complete=customlist,zoxide#complete Z zoxide#vim_cd <args>]])
 		end,
 	},
@@ -196,14 +195,14 @@ require("lze").load({
 		"guess-indent.nvim",
 		for_cat = "general.extra",
 		event = "BufReadPost",
-		after = function(plugin)
+		after = function()
 			require("guess-indent").setup()
 
-			vim.api.nvim_exec(
+			vim.api.nvim_exec2(
 				[[
 			autocmd BufEnter * silent! :GuessIndent
 		]],
-				false
+				{ output = false }
 			)
 		end,
 	},
@@ -212,7 +211,7 @@ require("lze").load({
 		"eyeliner.nvim",
 		for_cat = "general.always",
 		event = "BufReadPost",
-		after = function(plugin)
+		after = function()
 			require("eyeliner").setup({
 				highlight_on_key = true,
 				dim = true,
@@ -224,7 +223,7 @@ require("lze").load({
 		"nvim-scrollbar",
 		for_cat = "general.extra",
 		event = "BufReadPost",
-		after = function(plugin)
+		after = function()
 			require("scrollbar").setup({
 				hide_if_all_visible = true,
 				handle = {
@@ -239,7 +238,7 @@ require("lze").load({
 		"dropbar.nvim",
 		for_cat = "general.always",
 		event = "BufReadPost",
-		after = function(plugin)
+		after = function()
 			require("dropbar").setup()
 		end,
 	},
@@ -248,7 +247,7 @@ require("lze").load({
 		"dial.nvim",
 		for_cat = "general.always",
 		event = "BufReadPost",
-		after = function(plugin)
+		after = function()
 			vim.keymap.set("n", "<C-a>", function()
 				require("dial.map").manipulate("increment", "normal")
 			end)
@@ -280,7 +279,7 @@ require("lze").load({
 		"quicker.nvim",
 		for_cat = "general.always",
 		event = "DeferredUIEnter",
-		after = function(plugin)
+		after = function()
 			require("quicker").setup()
 
 			-- autoclose quickfix after selection
@@ -295,7 +294,7 @@ require("lze").load({
 		"todo-comments.nvim",
 		for_cat = "general.extra",
 		event = "BufReadPost",
-		after = function(plugin)
+		after = function()
 			require("todo-comments").setup()
 		end,
 	},
@@ -304,7 +303,7 @@ require("lze").load({
 		"stay-centered.nvim",
 		for_cat = "general.always",
 		event = "BufReadPost",
-		after = function(plugin)
+		after = function()
 			require("stay-centered").setup({
 				skip_filetypes = { "ministarter" },
 			})
@@ -314,7 +313,7 @@ require("lze").load({
 		"hlchunk.nvim",
 		for_cat = "general.extra",
 		event = "BufReadPost",
-		after = function(plugin)
+		after = function()
 			local palette = nixCats.extra("palette")
 			require("hlchunk").setup({
 				chunk = {
@@ -335,10 +334,7 @@ require("lze").load({
 		"git-blame.nvim",
 		for_cat = "general.extra",
 		event = "BufReadPost",
-		load = function(name)
-			vim.cmd.packadd(name)
-		end,
-		after = function(plugin)
+		after = function()
 			require("gitblame").setup({
 				enabled = true,
 				highlight_group = "ReactiveCursorLine@preset.customCursorLine.@mode.n",
@@ -348,8 +344,8 @@ require("lze").load({
 	{
 		"base16-nvim",
 		for_cat = "general.extra",
-		event = "VimEnter",
-		after = function(plugin)
+		event = "DeferredUIEnter",
+		after = function()
 			local palette = nixCats.extra("palette")
 			local palette_opaque = nixCats.extra("palette_opaque")
 			local colorUtils = require("colorUtils")
