@@ -87,7 +87,7 @@ require("lze").load({
 	{
 		"garbage-day-nvim",
 		for_cat = "general.extra",
-		event = "VimEnter",
+		event = "DeferredUIEnter",
 		after = function(plugin)
 			require("garbage-day").setup({})
 		end,
@@ -96,7 +96,7 @@ require("lze").load({
 	{
 		"hawtkeys-nvim",
 		for_cat = "general.extra",
-		event = "VimEnter",
+		event = "DeferredUIEnter",
 		after = function(plugin)
 			require("hawtkeys").setup({})
 		end,
@@ -121,12 +121,6 @@ require("lze").load({
 	{
 		"vim-wakatime",
 		for_cat = "general.extra",
-		event = "VimEnter",
-	},
-
-	{
-		"sqlite.lua",
-		for_cat = "general.always",
 		event = "VimEnter",
 	},
 
@@ -253,7 +247,7 @@ require("lze").load({
 	{
 		"dial.nvim",
 		for_cat = "general.always",
-		event = "VimEnter",
+		event = "BufReadPost",
 		after = function(plugin)
 			vim.keymap.set("n", "<C-a>", function()
 				require("dial.map").manipulate("increment", "normal")

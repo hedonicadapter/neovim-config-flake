@@ -2,7 +2,7 @@ return {
 	{
 		"staline.nvim",
 		for_cat = "general.always",
-		event = "VimEnter",
+		event = "BufEnter",
 		after = function(plugin)
 			local palette_opaque = nixCats.extra("palette_opaque")
 			local colorUtils = require("colorUtils")

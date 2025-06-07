@@ -3,6 +3,7 @@ return {
 		"render-markdown.nvim",
 		for_cat = "general.always",
 		event = "BufReadPost",
+		ft = { "markdown", "vimwiki", "codecompanion" },
 		after = function(plugin)
 			require("render-markdown").setup({
 				completions = { blink = { enabled = true } },

@@ -2,7 +2,10 @@ return {
 	{
 		"mini.nvim",
 		for_cat = "general.always",
+		event = "VimEnter",
 		after = function(plugin)
+			local starter = require("mini.starter")
+
 			local getFilesInDirectory = function(directory)
 				local files = {}
 				for dir in io.popen("ls -pa " .. directory .. " | grep -v /"):lines() do
@@ -39,8 +42,6 @@ return {
 				end
 				return limited_sessions
 			end
-
-			local starter = require("mini.starter")
 			starter.setup({
 				header = [[
 
@@ -74,7 +75,12 @@ return {
 			})
 
 			vim.cmd("autocmd User MiniStarterOpened set showtabline=0")
-
+		end,
+	},
+	{
+		"mini.nvim",
+		event = "BufReadPost",
+		after = function(plugin)
 			require("mini.move").setup({
 				mappings = {
 					down = "J",
@@ -83,16 +89,7 @@ return {
 			})
 			require("mini.ai").setup()
 			require("mini.surround").setup()
-			require("mini.clue").setup({ window = { delay = 250 } })
 			require("mini.cursorword").setup()
-			local map = require("mini.map")
-			map.setup({
-				integrations = {
-					map.gen_integration.builtin_search(),
-					map.gen_integration.gitsigns(),
-					map.gen_integration.diagnostic(),
-				},
-			})
 		end,
 	},
 }

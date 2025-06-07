@@ -39,8 +39,7 @@ return {
 		"telescope.nvim",
 		for_cat = "general.telescope",
 		cmd = { "Telescope" },
-		on_require = { "telescope", "telescope.builtin" },
-		keys = {},
+		on_require = { "telescope", "telescope.builtin", "telescope.actions" },
 		load = function(name)
 			vim.cmd.packadd(name)
 			vim.cmd.packadd("telescope-fzf-native.nvim")
