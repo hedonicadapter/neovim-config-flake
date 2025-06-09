@@ -300,9 +300,12 @@ return {
 					},
 					buffers = {
 						entry_maker = function(entry)
+							local cwd = vim.fn.getcwd()
 							local bufname = vim.api.nvim_buf_get_name(entry.bufnr)
+							local relative_bufname = bufname:gsub("^" .. vim.pesc(cwd), "")
+
 							local is_modified = vim.bo[entry.bufnr].modified
-							local display_name = bufname == "" and "[No Name]" or bufname
+							local display_name = relative_bufname == "" and "[No Name]" or relative_bufname
 							if is_modified then
 								display_name = "● " .. display_name
 							else
