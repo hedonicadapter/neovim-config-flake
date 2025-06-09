@@ -3,7 +3,7 @@ return {
 		"mini.nvim",
 		for_cat = "general.always",
 		event = "VimEnter",
-		after = function(plugin)
+		after = function()
 			local starter = require("mini.starter")
 
 			local getFilesInDirectory = function(directory)
@@ -75,7 +75,15 @@ return {
 			})
 
 			vim.cmd("autocmd User MiniStarterOpened set showtabline=0")
-
+		end,
+	},
+	{
+		"mini.nvim2", -- https://github.com/BirdeeHub/lze/discussions/92#discussioncomment-13399833
+		event = "BufReadPost",
+		load = function()
+			vim.cmd.packadd("mini.nvim")
+		end,
+		after = function(plugin)
 			require("mini.move").setup({
 				mappings = {
 					down = "J",
@@ -87,19 +95,4 @@ return {
 			require("mini.cursorword").setup()
 		end,
 	},
-	-- {
-	-- 	"mini.nvim",
-	-- 	event = "BufReadPost",
-	-- 	after = function(plugin)
-	-- 		require("mini.move").setup({
-	-- 			mappings = {
-	-- 				down = "J",
-	-- 				up = "K",
-	-- 			},
-	-- 		})
-	-- 		require("mini.ai").setup()
-	-- 		require("mini.surround").setup()
-	-- 		require("mini.cursorword").setup()
-	-- 	end,
-	-- },
 }
