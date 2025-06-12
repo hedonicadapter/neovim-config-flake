@@ -42,6 +42,7 @@ return {
 
 				signature = {
 					enabled = true,
+					window = { border = "single" },
 				},
 
 				completion = {
@@ -51,8 +52,6 @@ return {
 							border = "single",
 						},
 					},
-
-					signature = { window = { border = "single" } },
 
 					menu = {
 						border = "single",
