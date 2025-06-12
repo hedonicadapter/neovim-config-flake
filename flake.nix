@@ -123,31 +123,14 @@
             nerd-fonts.symbols-only
           ];
 
-        infrastructure = with pkgs; [
-          # dockerfile-language-server-nodejs
-          # docker-compose-language-service
-          # nodePackages.bash-language-server
-          # terraform-ls
-          # terraform-lsp
-          # # gopls
-          # ansible-language-server
-          # ansible-lint
-          # sqls
-        ];
+        infrastructure = with pkgs; [];
 
         web = with pkgs; [
-          # tailwindcss-language-server
-          # nodePackages.typescript-language-server
-          # nodePackages."@astrojs/language-server"
-          # vscode-langservers-extracted
-          # htmx-lsp
+          # prettier
+          prettierd
         ];
 
-        go = with pkgs; [
-          # gopls
-          # gotools
-          # go-tools
-        ];
+        go = with pkgs; [];
       };
 
       # This is for plugins that will load at startup without using packadd:
