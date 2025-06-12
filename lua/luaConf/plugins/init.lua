@@ -382,6 +382,9 @@ require("lze").load({
 					DropBarIconKindFunction = { bg = "NONE" },
 					TabLineFill = { bg = "NONE" },
 
+					BlinkCmpMenu = { bg = "NONE" },
+					BlinkCmpMenuBorder = { bg = "NONE" },
+
 					DiagnosticSignError = { bg = "NONE" },
 					DiagnosticSignWarn = { bg = "NONE" },
 					DiagnosticSignInfo = { bg = "NONE" },
