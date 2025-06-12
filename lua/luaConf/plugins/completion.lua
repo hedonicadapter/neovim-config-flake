@@ -48,13 +48,14 @@ return {
 					documentation = {
 						auto_show = true,
 						window = {
-							border = "solid",
-							winhighlight = "Normal:BlinkCmpDoc,FloatBorder:BlinkCmpDocBorder,CursorLine:BlinkCmpDocCursorLine,Search:None",
+							border = "single",
 						},
 					},
 
+					signature = { window = { border = "single" } },
+
 					menu = {
-						border = "solid",
+						border = "single",
 						draw = {
 							columns = {
 								{
