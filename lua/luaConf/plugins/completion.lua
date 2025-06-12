@@ -47,9 +47,14 @@ return {
 				completion = {
 					documentation = {
 						auto_show = true,
+						window = {
+							border = "solid",
+							winhighlight = "Normal:BlinkCmpDoc,FloatBorder:BlinkCmpDocBorder,CursorLine:BlinkCmpDocCursorLine,Search:None",
+						},
 					},
 
 					menu = {
+						border = "solid",
 						draw = {
 							columns = {
 								{
