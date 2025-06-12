@@ -299,6 +299,7 @@ return {
 						hidden = true,
 					},
 					buffers = {
+						previewer = require("telescope.previewers").vim_buffer_content.new({}),
 						entry_maker = function(entry)
 							local cwd = vim.fn.getcwd()
 							local bufname = vim.api.nvim_buf_get_name(entry.bufnr)
