@@ -9,6 +9,7 @@ return {
 				auto_restore = true,
 				auto_restore_last_session = false,
 				log_level = "warn",
+				lazy_support = false,
 				root_dir = vim.fn.stdpath("data") .. "/sessions/",
 			})
 		end,
