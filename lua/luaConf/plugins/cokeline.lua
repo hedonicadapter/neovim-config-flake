@@ -3,7 +3,7 @@ return {
 		"nvim-cokeline",
 		for_cat = "general.always",
 		event = "BufAdd",
-		after = function(plugin)
+		after = function()
 			local get_hex = function(hlgroup_name, attr)
 				local hlgroup_ID = vim.fn.synIDtrans(vim.fn.hlID(hlgroup_name))
 				local hex = vim.fn.synIDattr(hlgroup_ID, attr)
@@ -30,12 +30,11 @@ return {
 						elseif buffer.diagnostics.infos ~= 0 then
 							return "(｡- .•) "
 						elseif buffer.diagnostics.hints ~= 0 then
-							return "ヾ( ‾ ｡‾)◞ "
+							return "\\( ‾ ｡‾)◞ "
 						else
 							return "(~‾⌣‾)> "
 						end
 					end,
-					bg = "NONE",
 					fg = function(buffer)
 						if buffer.is_focused then
 							if buffer.diagnostics.errors ~= 0 then
@@ -256,8 +255,9 @@ return {
 					fg = function(buffer)
 						return buffer.is_focused and get_hex("Normal", "fg") or get_hex("Comment", "fg")
 					end,
-
-					bg = "NONE",
+					bg = function(buffer)
+						return buffer.is_focused and vim.g.palette_base01_opaque or "NONE"
+					end,
 				},
 
 				components = {
