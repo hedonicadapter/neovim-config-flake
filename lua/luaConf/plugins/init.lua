@@ -368,8 +368,8 @@ require("lze").load({
 
 			local function set_highlights()
 				local highlights = {
-					TreesitterContextBottom = { sp = "NONE" },
-					TreesitterContext = { bg = "NONE", italic = true },
+					-- TreesitterContextBottom = { sp = "NONE" },
+					-- TreesitterContext = { bg = "NONE", italic = true },
 					TelescopeNormal = { bg = "NONE" },
 					TelescopePreviewNormal = { bg = "NONE" },
 					TelescopeSelection = { bg = palette.base0C, fg = palette.base00 },
