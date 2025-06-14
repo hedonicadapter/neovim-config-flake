@@ -355,7 +355,7 @@ require("lze").load({
 			local twilight = require("twilight")
 			twilight.setup({
 				dimming = {
-					alpha = 0.2,
+					alpha = 0.3,
 					color = { palette.base07, palette.base07 },
 					term_bg = palette.base00,
 					inactive = false,

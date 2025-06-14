@@ -35,6 +35,7 @@ return {
 							return "(~‾⌣‾)> "
 						end
 					end,
+					bg = "NONE",
 					fg = function(buffer)
 						if buffer.is_focused then
 							if buffer.diagnostics.errors ~= 0 then
@@ -255,9 +256,8 @@ return {
 					fg = function(buffer)
 						return buffer.is_focused and get_hex("Normal", "fg") or get_hex("Comment", "fg")
 					end,
-					bg = function(buffer)
-						return buffer.is_focused and vim.g.palette_base01_opaque or "NONE"
-					end,
+
+					bg = "NONE",
 				},
 
 				components = {
