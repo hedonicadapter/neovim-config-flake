@@ -357,7 +357,7 @@ require("lze").load({
 				dimming = {
 					alpha = 0.3,
 					color = { palette.base07, palette.base07 },
-					term_bg = palette.base00,
+					term_bg = palette.base01,
 					inactive = false,
 				},
 				context = 16,
