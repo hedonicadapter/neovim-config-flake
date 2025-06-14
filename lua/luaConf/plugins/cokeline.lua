@@ -266,6 +266,7 @@ return {
 					components.index,
 					components.lil_guy,
 					components.devicon_or_pick_letter,
+					components.separator,
 					components.filename_root,
 					components.filename_extension,
 					components.separator,

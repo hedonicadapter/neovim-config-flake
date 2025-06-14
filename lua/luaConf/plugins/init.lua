@@ -239,7 +239,15 @@ require("lze").load({
 		for_cat = "general.always",
 		event = "BufReadPost",
 		after = function()
-			require("dropbar").setup()
+			require("dropbar").setup({
+				icons = {
+					ui = {
+						bar = {
+							separator = " > ",
+						},
+					},
+				},
+			})
 		end,
 	},
 
