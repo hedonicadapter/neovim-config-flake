@@ -126,8 +126,8 @@
         infrastructure = with pkgs; [];
 
         web = with pkgs; [
-          # prettier
           prettierd
+          # prettier
         ];
 
         go = with pkgs; [];
