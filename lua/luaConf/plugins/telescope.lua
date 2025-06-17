@@ -291,6 +291,7 @@ return {
 						return TSLayout(layout)
 					end,
 				},
+
 				pickers = {
 					find_files = {
 						hidden = true,
@@ -298,29 +299,27 @@ return {
 					live_grep = {
 						hidden = true,
 					},
-					buffers = {
-						previewer = require("telescope.previewers").vim_buffer_content.new({}),
-						entry_maker = function(entry)
-							local cwd = vim.fn.getcwd()
-							local bufname = vim.api.nvim_buf_get_name(entry.bufnr)
-							local relative_bufname = bufname:gsub("^" .. vim.pesc(cwd), "")
-
-							local is_modified = vim.bo[entry.bufnr].modified
-							local display_name = relative_bufname == "" and "[No Name]" or relative_bufname
-							if is_modified then
-								display_name = "● " .. display_name
-							else
-								display_name = "  " .. display_name
-							end
-							return {
-								value = entry,
-								ordinal = display_name,
-								display = display_name,
-								filename = bufname,
-								path = bufname,
-							}
-						end,
-					},
+					entry_maker = function(entry)
+						local cwd = vim.fn.getcwd()
+						local bufname = vim.api.nvim_buf_get_name(entry.bufnr)
+						local relative_bufname = bufname:gsub("^" .. vim.pesc(cwd), "")
+						local is_modified = vim.bo[entry.bufnr].modified
+						local display_name = relative_bufname == "" and "[No Name]" or relative_bufname
+						if is_modified then
+							display_name = "● " .. display_name
+						else
+							display_name = "  " .. display_name
+						end
+						return {
+							value = entry,
+							ordinal = display_name,
+							display = display_name,
+							filename = bufname,
+							path = bufname,
+							lnum = entry.lnum or 1,
+							col = entry.col or 1,
+						}
+					end,
 				},
 				mappings = {
 					i = {

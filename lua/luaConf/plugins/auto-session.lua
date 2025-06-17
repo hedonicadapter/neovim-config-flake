@@ -5,11 +5,12 @@ return {
 		event = "VimEnter",
 		after = function(plugin)
 			require("auto-session").setup({
-				auto_restore = false,
 				auto_save = true,
-				log_level = "error",
+				auto_restore = true,
+				auto_restore_last_session = false,
+				log_level = "warn",
+				-- lazy_support = false,
 				root_dir = vim.fn.stdpath("data") .. "/sessions/",
-				suppressed_dirs = { "~/", "~/Documents/coding", "~/Downloads", "/" },
 			})
 		end,
 	},

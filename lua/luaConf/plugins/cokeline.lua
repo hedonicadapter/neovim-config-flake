@@ -3,7 +3,7 @@ return {
 		"nvim-cokeline",
 		for_cat = "general.always",
 		event = "BufAdd",
-		after = function(plugin)
+		after = function()
 			local get_hex = function(hlgroup_name, attr)
 				local hlgroup_ID = vim.fn.synIDtrans(vim.fn.hlID(hlgroup_name))
 				local hex = vim.fn.synIDattr(hlgroup_ID, attr)
@@ -30,7 +30,7 @@ return {
 						elseif buffer.diagnostics.infos ~= 0 then
 							return "(｡- .•) "
 						elseif buffer.diagnostics.hints ~= 0 then
-							return "ヾ( ‾ ｡‾)◞ "
+							return "\\( ‾ ｡‾)◞ "
 						else
 							return "(~‾⌣‾)> "
 						end
@@ -266,6 +266,7 @@ return {
 					components.index,
 					components.lil_guy,
 					components.devicon_or_pick_letter,
+					components.separator,
 					components.filename_root,
 					components.filename_extension,
 					components.separator,

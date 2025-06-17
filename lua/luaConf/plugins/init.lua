@@ -239,7 +239,15 @@ require("lze").load({
 		for_cat = "general.always",
 		event = "BufReadPost",
 		after = function()
-			require("dropbar").setup()
+			require("dropbar").setup({
+				icons = {
+					ui = {
+						bar = {
+							separator = " > ",
+						},
+					},
+				},
+			})
 		end,
 	},
 
@@ -364,9 +372,9 @@ require("lze").load({
 			local twilight = require("twilight")
 			twilight.setup({
 				dimming = {
-					alpha = 0.2,
+					alpha = 0.3,
 					color = { palette.base07, palette.base07 },
-					term_bg = palette.base00,
+					term_bg = palette.base01,
 					inactive = false,
 				},
 				context = 16,
@@ -390,6 +398,9 @@ require("lze").load({
 					SignColumn = { bg = "NONE" },
 					DropBarIconKindFunction = { bg = "NONE" },
 					TabLineFill = { bg = "NONE" },
+
+					BlinkCmpMenu = { bg = "NONE" },
+					BlinkCmpMenuBorder = { bg = "NONE" },
 
 					DiagnosticSignError = { bg = "NONE" },
 					DiagnosticSignWarn = { bg = "NONE" },
