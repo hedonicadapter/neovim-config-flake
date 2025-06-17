@@ -418,8 +418,8 @@ require("lze").load({
 					Visual = { bg = colorUtils.darkenColorIfOpaque(palette_opaque.base0D, 0.6) },
 					CursorLine = { bg = "NONE" },
 
-					Comment = { fg = palette.base03 },
-					TSComment = { fg = palette.base03 },
+					Comment = { fg = palette.base02 },
+					TSComment = { fg = palette.base02 },
 
 					StatusLine = { bg = "NONE" },
 					StatusLineNC = { bg = "NONE" },
