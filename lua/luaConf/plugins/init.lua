@@ -335,9 +335,18 @@ require("lze").load({
 		for_cat = "general.extra",
 		event = "BufReadPost",
 		after = function()
+			local comment_highlight = vim.api.nvim_get_hl(0, { name = "Comment", link = false })
+			local original_highlight =
+				vim.api.nvim_get_hl(0, { name = "ReactiveCursorLine@preset.customCursorLine.@mode.n", link = false })
+
+			vim.api.nvim_set_hl(0, "GitBlameReactive", {
+				fg = comment_highlight.fg,
+				bg = original_highlight.bg,
+			})
+
 			require("gitblame").setup({
 				enabled = true,
-				highlight_group = "ReactiveCursorLine@preset.customCursorLine.@mode.n",
+				highlight_group = "GitBlameReactive",
 			})
 		end,
 	},
