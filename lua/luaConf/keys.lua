@@ -279,3 +279,16 @@ keymap.set("n", "<leader>tt", ":ToggleTerm<CR>", {
 
 keymap.set("n", "<leader>cn", "<cmd>lua require('todo-comments').jump_next()<CR>", { noremap = true, silent = true })
 keymap.set("n", "<leader>cp", "<cmd>lua require('todo-comments').jump_prev()<CR>", { noremap = true, silent = true })
+
+keymap.set("n", "<leader>dv", function()
+	local lib = require("diffview.lib")
+	local view = lib.get_current_view()
+	if view then
+		vim.cmd.DiffviewClose()
+	else
+		vim.cmd.DiffviewOpen()
+	end
+end, {
+	noremap = true,
+	silent = true,
+})

@@ -336,6 +336,10 @@ require("lze").load({
 		"diffview.nvim",
 		for_cat = "general.always",
 		cmd = { "DiffviewOpen", "DiffviewFileHistory" },
+		on_require = "diffview.lib",
+		after = function()
+			vim.opt.fillchars:append("diff:╱")
+		end,
 	},
 	{ "twilight.nvim" },
 	{
@@ -343,9 +347,18 @@ require("lze").load({
 		for_cat = "general.extra",
 		event = "BufReadPost",
 		after = function()
+			local comment_highlight = vim.api.nvim_get_hl(0, { name = "Comment", link = false })
+			local original_highlight =
+				vim.api.nvim_get_hl(0, { name = "ReactiveCursorLine@preset.customCursorLine.@mode.n", link = false })
+
+			vim.api.nvim_set_hl(0, "GitBlameReactive", {
+				fg = comment_highlight.fg,
+				bg = original_highlight.bg,
+			})
+
 			require("gitblame").setup({
 				enabled = true,
-				highlight_group = "ReactiveCursorLine@preset.customCursorLine.@mode.n",
+				highlight_group = "GitBlameReactive",
 			})
 		end,
 	},
@@ -409,8 +422,8 @@ require("lze").load({
 					Visual = { bg = colorUtils.darkenColorIfOpaque(palette_opaque.base0D, 0.6) },
 					CursorLine = { bg = "NONE" },
 
-					Comment = { fg = palette.base04 },
-					TSComment = { fg = palette.base04 },
+					Comment = { fg = palette.base03 },
+					TSComment = { fg = palette.base03 },
 
 					StatusLine = { bg = "NONE" },
 					StatusLineNC = { bg = "NONE" },
@@ -422,6 +435,8 @@ require("lze").load({
 					MiniStarterItemBullet = { fg = palette.base05 },
 					MiniStarterItemPrefix = { fg = palette.base0E },
 					MiniStarterFooter = { fg = palette.base0E },
+
+					DiffviewPanelFileName = { fg = palette.base07 },
 				}
 
 				for group, settings in pairs(highlights) do
