@@ -336,6 +336,10 @@ require("lze").load({
 		"diffview.nvim",
 		for_cat = "general.always",
 		cmd = { "DiffviewOpen", "DiffviewFileHistory" },
+		on_require = "diffview.lib",
+		after = function()
+			vim.opt.fillchars:append("diff:╱")
+		end,
 	},
 	{ "twilight.nvim" },
 	{
@@ -431,6 +435,8 @@ require("lze").load({
 					MiniStarterItemBullet = { fg = palette.base05 },
 					MiniStarterItemPrefix = { fg = palette.base0E },
 					MiniStarterFooter = { fg = palette.base0E },
+
+					DiffviewPanelFileName = { fg = palette.base07 },
 				}
 
 				for group, settings in pairs(highlights) do
