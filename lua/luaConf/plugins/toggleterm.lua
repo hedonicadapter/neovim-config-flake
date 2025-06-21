@@ -20,6 +20,7 @@ return {
 				end,
 				hide_numbers = true,
 				autochdir = true,
+				persist_mode = false,
 			})
 		end,
 	},

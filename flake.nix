@@ -155,7 +155,7 @@
             snacks-nvim
             zoxide-vim
             eyeliner-nvim
-            dropbar-nvim
+            dropbar-nvim # breadcrumbs
             quicker-nvim
           ];
           extra = [
