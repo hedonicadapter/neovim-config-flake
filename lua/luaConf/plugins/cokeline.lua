@@ -8,8 +8,8 @@ return {
 			local comments_fg = colorUtils.get_hex_of_hlgroup("Comment", "fg")
 
 			local mainColors = function(buffer)
-				local bufferStr = vim.inspect(buffer)
-				vim.notify(bufferStr)
+				-- local bufferStr = vim.inspect(buffer)
+				-- vim.notify(bufferStr)
 				if buffer.is_focused then
 					if buffer.diagnostics.errors ~= 0 then
 						return vim.g.palette_base08_opaque
