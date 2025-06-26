@@ -189,6 +189,13 @@ return {
 					new_buffers_position = "next",
 				},
 
+				default_hl = {
+					bg = mainColors,
+					fg = function(buffer)
+						return buffer.is_focused and vim.g.palette_base00_opaque or vim.g.palette_base02_opaque
+					end,
+				},
+
 				components = {
 					components.separator,
 					components.separator,
