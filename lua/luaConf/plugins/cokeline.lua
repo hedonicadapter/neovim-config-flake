@@ -6,10 +6,9 @@ return {
 		after = function()
 			local colorUtils = require("colorUtils")
 			local comments_fg = colorUtils.get_hex_of_hlgroup("Comment", "fg")
+			local contrast = nixCats.extra("contrast")
 
 			local mainColors = function(buffer)
-				-- local bufferStr = vim.inspect(buffer)
-				-- vim.notify(bufferStr)
 				if buffer.is_focused then
 					if buffer.diagnostics.errors ~= 0 then
 						return vim.g.palette_base08_opaque
@@ -41,10 +40,43 @@ return {
 				end
 			end
 
+			local mainColorsContrasted = function(buffer)
+				if buffer.is_focused then
+					if buffer.diagnostics.errors ~= 0 then
+						return colorUtils.darkenColorIfOpaque(vim.g.palette_base08_opaque, contrast)
+					elseif buffer.is_modified then
+						return colorUtils.darkenColorIfOpaque(vim.g.palette_base0B_opaque, contrast)
+					elseif buffer.diagnostics.warnings ~= 0 then
+						return colorUtils.darkenColorIfOpaque(vim.g.palette_base09_opaque, contrast)
+					elseif buffer.diagnostics.infos ~= 0 then
+						return colorUtils.darkenColorIfOpaque(vim.g.palette_base0C_opaque, contrast)
+					elseif buffer.diagnostics.hints ~= 0 then
+						return colorUtils.darkenColorIfOpaque(vim.g.palette_base0C_opaque, contrast)
+					else
+						return colorUtils.darkenColorIfOpaque(vim.g.palette_base09_opaque, contrast)
+					end
+				else
+					if buffer.diagnostics.errors ~= 0 then
+						return colorUtils.darkenColorIfOpaque(vim.g.palette_base08_opaque, contrast)
+					elseif buffer.is_modified then
+						return colorUtils.darkenColorIfOpaque(vim.g.palette_base0A_opaque, contrast)
+					elseif buffer.diagnostics.warnings ~= 0 then
+						return colorUtils.darkenColorIfOpaque(vim.g.palette_base09_opaque, contrast)
+					elseif buffer.diagnostics.infos ~= 0 then
+						return colorUtils.darkenColorIfOpaque(vim.g.palette_base0C_opaque, contrast)
+					elseif buffer.diagnostics.hints ~= 0 then
+						return colorUtils.darkenColorIfOpaque(vim.g.palette_base0C_opaque, contrast)
+					else
+						return colorUtils.darkenColorIfOpaque(vim.g.palette_base0A_opaque, contrast)
+					end
+				end
+			end
+
 			local components = {
 				separator_external = {
 					text = " ",
 					truncation = { priority = 1 },
+					bg = "NONE",
 				},
 				separator_internal = {
 					text = " ",
@@ -71,6 +103,7 @@ return {
 						end
 					end,
 					bg = mainColors,
+					fg = mainColorsContrasted,
 					truncation = { priority = 1 },
 				},
 
@@ -198,6 +231,10 @@ return {
 					focus_on_delete = "next",
 					new_buffers_position = "next",
 				},
+
+				-- default_hl = {
+				-- 	bg = "NONE",
+				-- },
 
 				components = {
 					components.separator_internal,
