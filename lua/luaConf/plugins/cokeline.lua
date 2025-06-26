@@ -71,6 +71,7 @@ return {
 					text = function(buffer)
 						return buffer.devicon.icon
 					end,
+					bg = mainColors,
 					fg = function(buffer)
 						return (buffer.is_focused and buffer.devicon.color or comments_fg)
 					end,
@@ -84,6 +85,7 @@ return {
 					text = function(buffer)
 						return buffer.index .. " "
 					end,
+					bg = mainColors,
 					fg = comments_fg,
 					truncation = { priority = 1 },
 				},
@@ -110,7 +112,7 @@ return {
 						local ext = vim.fn.fnamemodify(buffer.filename, ":e")
 						return ext ~= "" and "." .. ext or ""
 					end,
-					fg = mainColors,
+					bg = mainColors,
 					style = function(buffer)
 						return (buffer.is_focused and buffer.diagnostics.errors ~= 0 and "bold,underline") or nil
 					end,
@@ -164,6 +166,7 @@ return {
 					text = function(buffer)
 						return buffer.is_modified and "● " or ""
 					end,
+					bg = mainColors,
 					fg = function(buffer)
 						if not buffer.is_modified then
 							return nil
