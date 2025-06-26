@@ -191,9 +191,9 @@ return {
 
 				default_hl = {
 					-- bg = mainColors,
-					fg = function(buffer)
-						return buffer.is_focused and vim.g.palette_base00_opaque or vim.g.palette_base02_opaque
-					end,
+					-- fg = function(buffer)
+					-- 	return buffer.is_focused and vim.g.palette_base00_opaque or vim.g.palette_base02_opaque
+					-- end,
 				},
 
 				components = {
