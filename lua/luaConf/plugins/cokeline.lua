@@ -9,7 +9,7 @@ return {
 			local comments_fg = colorUtils.get_hex_of_hlgroup("Comment", "fg")
 			local contrast = nixCats.extra("contrast")
 
-			local mainColors = function(buffer)
+			local bgColors = function(buffer)
 				if buffer.is_focused then
 					if buffer.diagnostics.errors ~= 0 then
 						return palette_opaque.base08
@@ -26,24 +26,6 @@ return {
 					end
 				else
 					if buffer.diagnostics.errors ~= 0 then
-						return palette_opaque.base08
-					elseif buffer.is_modified then
-						return palette_opaque.base0A
-					elseif buffer.diagnostics.warnings ~= 0 then
-						return palette_opaque.base09
-					elseif buffer.diagnostics.infos ~= 0 then
-						return palette_opaque.base0C
-					elseif buffer.diagnostics.hints ~= 0 then
-						return palette_opaque.base0C
-					else
-						return palette_opaque.base0A
-					end
-				end
-			end
-
-			local mainColorsContrasted = function(buffer)
-				if buffer.is_focused then
-					if buffer.diagnostics.errors ~= 0 then
 						return colorUtils.darkenColorIfOpaque(palette_opaque.base08, contrast)
 					elseif buffer.is_modified then
 						return colorUtils.darkenColorIfOpaque(palette_opaque.base0B, contrast)
@@ -55,20 +37,6 @@ return {
 						return colorUtils.darkenColorIfOpaque(palette_opaque.base0C, contrast)
 					else
 						return colorUtils.darkenColorIfOpaque(palette_opaque.base09, contrast)
-					end
-				else
-					if buffer.diagnostics.errors ~= 0 then
-						return colorUtils.darkenColorIfOpaque(palette_opaque.base08, contrast)
-					elseif buffer.is_modified then
-						return colorUtils.darkenColorIfOpaque(palette_opaque.base0A, contrast)
-					elseif buffer.diagnostics.warnings ~= 0 then
-						return colorUtils.darkenColorIfOpaque(palette_opaque.base09, contrast)
-					elseif buffer.diagnostics.infos ~= 0 then
-						return colorUtils.darkenColorIfOpaque(palette_opaque.base0C, contrast)
-					elseif buffer.diagnostics.hints ~= 0 then
-						return colorUtils.darkenColorIfOpaque(palette_opaque.base0C, contrast)
-					else
-						return colorUtils.darkenColorIfOpaque(palette_opaque.base0A, contrast)
 					end
 				end
 			end
@@ -82,7 +50,6 @@ return {
 				separator_internal = {
 					text = " ",
 					truncation = { priority = 1 },
-					-- bg = mainColors,
 				},
 
 				lil_guy = {
@@ -103,8 +70,6 @@ return {
 							return "(~‾⌣‾)> "
 						end
 					end,
-					-- bg = mainColors,
-					-- fg = mainColorsContrasted,
 					truncation = { priority = 1 },
 				},
 
@@ -112,7 +77,6 @@ return {
 					text = function(buffer)
 						return buffer.devicon.icon
 					end,
-					-- bg = mainColors,
 					fg = function(buffer)
 						return (buffer.is_focused and buffer.devicon.color or comments_fg)
 					end,
@@ -126,8 +90,9 @@ return {
 					text = function(buffer)
 						return buffer.index .. " "
 					end,
-					-- bg = mainColors,
-					fg = comments_fg,
+					fg = function(buffer)
+						return buffer.is_focused and palette_opaque.base07 or comments_fg
+					end,
 					truncation = { priority = 1 },
 				},
 
@@ -135,7 +100,6 @@ return {
 					text = function(buffer)
 						return vim.fn.fnamemodify(buffer.filename, ":r")
 					end,
-					-- bg = mainColors,
 					style = function(buffer)
 						return ((buffer.is_focused and buffer.diagnostics.errors ~= 0) and "bold,underline")
 							or (buffer.is_focused and "bold,italic")
@@ -153,7 +117,6 @@ return {
 						local ext = vim.fn.fnamemodify(buffer.filename, ":e")
 						return ext ~= "" and "." .. ext or ""
 					end,
-					-- bg = mainColors,
 					style = function(buffer)
 						return (buffer.is_focused and buffer.diagnostics.errors ~= 0 and "bold,underline") or nil
 					end,
@@ -171,7 +134,6 @@ return {
 							or (buffer.diagnostics.hints ~= 0 and "󱠂 " .. buffer.diagnostics.hints .. " ")
 							or ""
 					end,
-					-- bg = mainColors,
 					fg = function(buffer)
 						if buffer.is_focused then
 							if buffer.diagnostics.errors ~= 0 then
@@ -207,7 +169,6 @@ return {
 					text = function(buffer)
 						return buffer.is_modified and "● " or ""
 					end,
-					-- bg = mainColors,
 					fg = function(buffer)
 						if not buffer.is_modified then
 							return nil
@@ -234,7 +195,7 @@ return {
 				},
 
 				default_hl = {
-					bg = mainColors,
+					bg = bgColors,
 				},
 
 				components = {
