@@ -40,9 +40,14 @@ return {
 			end
 
 			local components = {
-				separator = {
+				separator_external = {
 					text = " ",
 					truncation = { priority = 1 },
+				},
+				separator_internal = {
+					text = " ",
+					truncation = { priority = 1 },
+					bg = mainColors,
 				},
 
 				lil_guy = {
@@ -130,7 +135,7 @@ return {
 							or (buffer.diagnostics.hints ~= 0 and "󱠂 " .. buffer.diagnostics.hints .. " ")
 							or ""
 					end,
-					bg = "NONE",
+					bg = mainColors,
 					fg = function(buffer)
 						if buffer.is_focused then
 							if buffer.diagnostics.errors ~= 0 then
@@ -200,18 +205,18 @@ return {
 				},
 
 				components = {
-					components.separator,
-					components.separator,
+					components.separator_internal,
 					components.index,
 					components.lil_guy,
 					components.devicon_or_pick_letter,
-					components.separator,
+					components.separator_internal,
 					components.filename_root,
 					components.filename_extension,
-					components.separator,
+					components.separator_internal,
 					components.diagnostics,
 					components.close_or_unsaved,
-					components.separator,
+					components.separator_internal,
+					components.separator_external,
 				},
 			})
 		end,
