@@ -250,8 +250,31 @@ return {
 
 				default_hl = {
 					bg = function(buffer)
-						return buffer.is_focused and colorUtils.get_hex_of_hlgroup("Normal", "bg")
-							or colorUtils.get_hex_of_hlgroup("Comment", "bg")
+						if buffer.is_focused then
+							if buffer.diagnostics.errors ~= 0 then
+								return vim.g.palette_base08_opaque
+							elseif buffer.diagnostics.warnings ~= 0 then
+								return vim.g.palette_base09_opaque
+							elseif buffer.diagnostics.infos ~= 0 then
+								return vim.g.palette_base0C_opaque
+							elseif buffer.diagnostics.hints ~= 0 then
+								return vim.g.palette_base0C_opaque
+							else
+								return "NONE"
+							end
+						else
+							if buffer.diagnostics.errors ~= 0 then
+								return vim.g.palette_base08_opaque
+							elseif buffer.diagnostics.warnings ~= 0 then
+								return vim.g.palette_base09_opaque
+							elseif buffer.diagnostics.infos ~= 0 then
+								return vim.g.palette_base04_opaque
+							elseif buffer.diagnostics.hints ~= 0 then
+								return vim.g.palette_base0C_opaque
+							else
+								return "NONE"
+							end
+						end
 					end,
 					fg = function(buffer)
 						return buffer.is_focused and colorUtils.get_hex_of_hlgroup("Normal", "fg")
