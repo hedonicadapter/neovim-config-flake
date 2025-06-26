@@ -18,11 +18,17 @@ local buffer_picker_opts = {
 local function shift_selection(forward)
 	local prompt_bufnr = vim.api.nvim_get_current_buf()
 	local actions = require("telescope.actions")
+	local ok, _
+
 	if forward then
-		actions.move_selection_next(prompt_bufnr)
+		ok = pcall(actions.move_selection_next, prompt_bufnr)
 	else
-		actions.move_selection_previous(prompt_bufnr)
+		ok = pcall(actions.move_selection_previous, prompt_bufnr)
 	end
+
+	-- if not ok then
+	--     print("An error occurred while shifting the selection.")
+	-- end
 end
 
 vim.keymap.set({ "n", "v" }, "<Tab>", function()
