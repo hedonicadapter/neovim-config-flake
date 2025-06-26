@@ -44,31 +44,31 @@ return {
 			local fgColors = function(buffer)
 				if buffer.is_focused then
 					if buffer.diagnostics.errors ~= 0 then
-						return colorUtils.darkenColorIfOpaque(palette_opaque.base08, contrast * -0.5)
+						return colorUtils.darkenColorIfOpaque(palette_opaque.base08, contrast * 0.75)
 					elseif buffer.is_modified then
-						return colorUtils.darkenColorIfOpaque(palette_opaque.base0B, contrast * -0.5)
+						return colorUtils.darkenColorIfOpaque(palette_opaque.base0B, contrast * 0.75)
 					elseif buffer.diagnostics.warnings ~= 0 then
-						return colorUtils.darkenColorIfOpaque(palette_opaque.base09, contrast * -0.5)
+						return colorUtils.darkenColorIfOpaque(palette_opaque.base09, contrast * 0.75)
 					elseif buffer.diagnostics.infos ~= 0 then
-						return colorUtils.darkenColorIfOpaque(palette_opaque.base0C, contrast * -0.5)
+						return colorUtils.darkenColorIfOpaque(palette_opaque.base0C, contrast * 0.75)
 					elseif buffer.diagnostics.hints ~= 0 then
-						return colorUtils.darkenColorIfOpaque(palette_opaque.base0C, contrast * -0.5)
+						return colorUtils.darkenColorIfOpaque(palette_opaque.base0C, contrast * 0.75)
 					else
-						return colorUtils.darkenColorIfOpaque(palette_opaque.base09, contrast * -0.5)
+						return colorUtils.darkenColorIfOpaque(palette_opaque.base09, contrast * 0.75)
 					end
 				else
 					if buffer.diagnostics.errors ~= 0 then
-						return colorUtils.darkenColorIfOpaque(palette_opaque.base08, contrast * 0.25)
+						return colorUtils.darkenColorIfOpaque(palette_opaque.base08, contrast * 0.2)
 					elseif buffer.is_modified then
-						return colorUtils.darkenColorIfOpaque(palette_opaque.base0B, contrast * 0.25)
+						return colorUtils.darkenColorIfOpaque(palette_opaque.base0B, contrast * 0.2)
 					elseif buffer.diagnostics.warnings ~= 0 then
-						return colorUtils.darkenColorIfOpaque(palette_opaque.base09, contrast * 0.25)
+						return colorUtils.darkenColorIfOpaque(palette_opaque.base09, contrast * 0.2)
 					elseif buffer.diagnostics.infos ~= 0 then
-						return colorUtils.darkenColorIfOpaque(palette_opaque.base0C, contrast * 0.25)
+						return colorUtils.darkenColorIfOpaque(palette_opaque.base0C, contrast * 0.2)
 					elseif buffer.diagnostics.hints ~= 0 then
-						return colorUtils.darkenColorIfOpaque(palette_opaque.base0C, contrast * 0.25)
+						return colorUtils.darkenColorIfOpaque(palette_opaque.base0C, contrast * 0.2)
 					else
-						return colorUtils.darkenColorIfOpaque(palette_opaque.base09, contrast * 0.25)
+						return colorUtils.darkenColorIfOpaque(palette_opaque.base09, contrast * 0.2)
 					end
 				end
 			end
@@ -229,13 +229,16 @@ return {
 				default_hl = {
 					bg = bgColors,
 					fg = fgColors,
+					bold = function(buffer)
+						return buffer.is_focused
+					end,
 				},
 
 				components = {
 					components.separator_internal,
 					components.index,
 					components.lil_guy,
-					components.devicon_or_pick_letter,
+					-- components.devicon_or_pick_letter,
 					components.separator_internal,
 					components.filename_root,
 					components.filename_extension,
