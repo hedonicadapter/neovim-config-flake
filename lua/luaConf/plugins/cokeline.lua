@@ -4,12 +4,8 @@ return {
 		for_cat = "general.always",
 		event = "BufAdd",
 		after = function()
-			local get_hex = function(hlgroup_name, attr)
-				local hlgroup_ID = vim.fn.synIDtrans(vim.fn.hlID(hlgroup_name))
-				local hex = vim.fn.synIDattr(hlgroup_ID, attr)
-				return hex ~= "" and hex or "NONE"
-			end
-			local comments_fg = get_hex("Comment", "fg")
+			local colorUtils = require("colorUtils")
+			local comments_fg = colorUtils.get_hex_of_hlgroup("Comment", "fg")
 
 			local components = {
 				separator = {
@@ -191,6 +187,7 @@ return {
 							or (buffer.diagnostics.hints ~= 0 and "󱠂 " .. buffer.diagnostics.hints .. " ")
 							or ""
 					end,
+					bg = "NONE",
 					fg = function(buffer)
 						if buffer.is_focused then
 							if buffer.diagnostics.errors ~= 0 then
@@ -218,7 +215,6 @@ return {
 							end
 						end
 					end,
-					bg = "NONE",
 					style = "bold",
 					truncation = { priority = 1 },
 				},
@@ -253,11 +249,14 @@ return {
 				},
 
 				default_hl = {
-					fg = function(buffer)
-						return buffer.is_focused and get_hex("Normal", "fg") or get_hex("Comment", "fg")
+					bg = function(buffer)
+						return buffer.is_focused and colorUtils.get_hex_of_hlgroup("Normal", "bg")
+							or colorUtils.get_hex_of_hlgroup("Comment", "bg")
 					end,
-
-					bg = "NONE",
+					fg = function(buffer)
+						return buffer.is_focused and colorUtils.get_hex_of_hlgroup("Normal", "fg")
+							or colorUtils.get_hex_of_hlgroup("Comment", "fg")
+					end,
 				},
 
 				components = {

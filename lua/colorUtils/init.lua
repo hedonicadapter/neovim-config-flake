@@ -52,4 +52,10 @@ function M.is_dark_color(hex)
 	return luminance < 128
 end
 
+function M.get_hex_of_hlgroup(hlgroup_name, attr)
+	local hlgroup_ID = vim.fn.synIDtrans(vim.fn.hlID(hlgroup_name))
+	local hex = vim.fn.synIDattr(hlgroup_ID, attr)
+	return hex ~= "" and hex or "NONE"
+end
+
 return M

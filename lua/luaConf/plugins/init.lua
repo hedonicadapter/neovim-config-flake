@@ -378,55 +378,55 @@ require("lze").load({
 				dimming = {
 					alpha = 0.3,
 					color = { palette.base07, palette.base07 },
-					term_bg = palette.base01,
+					term_bg = colorUtils.get_hex_of_hlgroup("Normal", "bg"),
 					inactive = false,
 				},
 				context = 16,
 				treesitter = true,
 			})
-			vim.api.nvim_set_hl(0, "Twilight", { bg = "NONE" })
+			vim.api.nvim_set_hl(0, "Twilight", { bg = colorUtils.get_hex_of_hlgroup("Normal", "bg") })
 			twilight.enable()
 
 			local function set_highlights()
 				local highlights = {
 					TreesitterContextBottom = { sp = "NONE" },
-					TreesitterContext = { bg = "NONE", italic = true },
-					TelescopeNormal = { bg = "NONE" },
-					TelescopePreviewNormal = { bg = "NONE" },
+					TreesitterContext = { bg = colorUtils.get_hex_of_hlgroup("Normal", "bg"), italic = true },
+					TelescopeNormal = { bg = colorUtils.get_hex_of_hlgroup("Normal", "bg") },
+					TelescopePreviewNormal = { bg = colorUtils.get_hex_of_hlgroup("Normal", "bg") },
 					TelescopeSelection = { bg = palette.base0C, fg = palette.base00 },
-					TelescopeSelectionCaret = { bg = "NONE" },
-					TelescopePromptPrefix = { bg = "NONE" },
+					TelescopeSelectionCaret = { bg = colorUtils.get_hex_of_hlgroup("Normal", "bg") },
+					TelescopePromptPrefix = { bg = colorUtils.get_hex_of_hlgroup("Normal", "bg") },
 
-					WinBar = { bg = "NONE" },
-					LineNr = { bg = "NONE" },
-					SignColumn = { bg = "NONE" },
-					DropBarIconKindFunction = { bg = "NONE" },
-					TabLineFill = { bg = "NONE" },
+					WinBar = { bg = colorUtils.get_hex_of_hlgroup("Normal", "bg") },
+					LineNr = { bg = colorUtils.get_hex_of_hlgroup("Normal", "bg") },
+					SignColumn = { bg = colorUtils.get_hex_of_hlgroup("Normal", "bg") },
+					DropBarIconKindFunction = { bg = colorUtils.get_hex_of_hlgroup("Normal", "bg") },
+					TabLineFill = { bg = colorUtils.get_hex_of_hlgroup("Normal", "bg") },
 
-					BlinkCmpMenu = { bg = "NONE" },
-					BlinkCmpMenuBorder = { bg = "NONE" },
+					BlinkCmpMenu = { bg = colorUtils.get_hex_of_hlgroup("Normal", "bg") },
+					BlinkCmpMenuBorder = { bg = colorUtils.get_hex_of_hlgroup("Normal", "bg") },
 
-					DiagnosticSignError = { bg = "NONE" },
-					DiagnosticSignWarn = { bg = "NONE" },
-					DiagnosticSignInfo = { bg = "NONE" },
-					DiagnosticSignHint = { bg = "NONE" },
-					DiagnosticSignOk = { bg = "NONE" },
-					Normal = { bg = "NONE" },
+					DiagnosticSignError = { bg = colorUtils.get_hex_of_hlgroup("Normal", "bg") },
+					DiagnosticSignWarn = { bg = colorUtils.get_hex_of_hlgroup("Normal", "bg") },
+					DiagnosticSignInfo = { bg = colorUtils.get_hex_of_hlgroup("Normal", "bg") },
+					DiagnosticSignHint = { bg = colorUtils.get_hex_of_hlgroup("Normal", "bg") },
+					DiagnosticSignOk = { bg = colorUtils.get_hex_of_hlgroup("Normal", "bg") },
+					Normal = { bg = colorUtils.get_hex_of_hlgroup("Normal", "bg") },
 
-					Folded = { bg = "NONE" },
-					GitSignsAdd = { bg = "NONE" },
-					GitSignsChange = { bg = "NONE" },
-					GitSignsDelete = { bg = "NONE" },
-					VertSplit = { bg = "NONE", ctermbg = "NONE" },
+					Folded = { bg = colorUtils.get_hex_of_hlgroup("Normal", "bg") },
+					GitSignsAdd = { bg = colorUtils.get_hex_of_hlgroup("Normal", "bg") },
+					GitSignsChange = { bg = colorUtils.get_hex_of_hlgroup("Normal", "bg") },
+					GitSignsDelete = { bg = colorUtils.get_hex_of_hlgroup("Normal", "bg") },
+					VertSplit = { bg = colorUtils.get_hex_of_hlgroup("Normal", "bg"), ctermbg = "NONE" },
 					MatchParen = { bg = palette.base09, fg = palette.base00 },
 					Visual = { bg = colorUtils.darkenColorIfOpaque(palette_opaque.base0D, 0.6) },
-					CursorLine = { bg = "NONE" },
+					CursorLine = { bg = colorUtils.get_hex_of_hlgroup("Normal", "bg") },
 
 					Comment = { fg = palette.base03 },
 					TSComment = { fg = palette.base03 },
 
-					StatusLine = { bg = "NONE" },
-					StatusLineNC = { bg = "NONE" },
+					StatusLine = { bg = colorUtils.get_hex_of_hlgroup("Normal", "bg") },
+					StatusLineNC = { bg = colorUtils.get_hex_of_hlgroup("Normal", "bg") },
 					ColorColumn = { bg = palette.base02 },
 					RenderMarkdownH2Bg = { bg = palette.base02 },
 
