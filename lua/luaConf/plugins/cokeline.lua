@@ -40,6 +40,15 @@ return {
 				end
 			end
 
+			vim.notify("08")
+			vim.notify(colorUtils.darkenColorIfOpaque(vim.g.palette_base08_opaque, contrast))
+			vim.notify("0B")
+			vim.notify(colorUtils.darkenColorIfOpaque(vim.g.palette_base0B_opaque, contrast))
+			vim.notify("09")
+			vim.notify(colorUtils.darkenColorIfOpaque(vim.g.palette_base09_opaque, contrast))
+			vim.notify("0C")
+			vim.notify(colorUtils.darkenColorIfOpaque(vim.g.palette_base0C_opaque, contrast))
+
 			local mainColorsContrasted = function(buffer)
 				if buffer.is_focused then
 					if buffer.diagnostics.errors ~= 0 then
@@ -103,7 +112,7 @@ return {
 						end
 					end,
 					bg = mainColors,
-					fg = mainColorsContrasted,
+					-- fg = mainColorsContrasted,
 					truncation = { priority = 1 },
 				},
 
