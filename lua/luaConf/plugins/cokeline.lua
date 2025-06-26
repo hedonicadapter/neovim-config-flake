@@ -4,6 +4,7 @@ return {
 		for_cat = "general.always",
 		event = "BufAdd",
 		after = function()
+			local palette_opaque = nixCats.extra("palette_opaque")
 			local colorUtils = require("colorUtils")
 			local comments_fg = colorUtils.get_hex_of_hlgroup("Comment", "fg")
 			local contrast = nixCats.extra("contrast")
@@ -11,72 +12,63 @@ return {
 			local mainColors = function(buffer)
 				if buffer.is_focused then
 					if buffer.diagnostics.errors ~= 0 then
-						return vim.g.palette_base08_opaque
+						return palette_opaque.base08
 					elseif buffer.is_modified then
-						return vim.g.palette_base0B_opaque
+						return palette_opaque.base0B
 					elseif buffer.diagnostics.warnings ~= 0 then
-						return vim.g.palette_base09_opaque
+						return palette_opaque.base09
 					elseif buffer.diagnostics.infos ~= 0 then
-						return vim.g.palette_base0C_opaque
+						return palette_opaque.base0C
 					elseif buffer.diagnostics.hints ~= 0 then
-						return vim.g.palette_base0C_opaque
+						return palette_opaque.base0C
 					else
-						return vim.g.palette_base09_opaque
+						return palette_opaque.base09
 					end
 				else
 					if buffer.diagnostics.errors ~= 0 then
-						return vim.g.palette_base08_opaque
+						return palette_opaque.base08
 					elseif buffer.is_modified then
-						return vim.g.palette_base0A_opaque
+						return palette_opaque.base0A
 					elseif buffer.diagnostics.warnings ~= 0 then
-						return vim.g.palette_base09_opaque
+						return palette_opaque.base09
 					elseif buffer.diagnostics.infos ~= 0 then
-						return vim.g.palette_base0C_opaque
+						return palette_opaque.base0C
 					elseif buffer.diagnostics.hints ~= 0 then
-						return vim.g.palette_base0C_opaque
+						return palette_opaque.base0C
 					else
-						return vim.g.palette_0A_opaque
+						return palette_opaque.base0A
 					end
 				end
 			end
 
-			vim.notify("08")
-			vim.notify(colorUtils.darkenColorIfOpaque(vim.g.palette_base08_opaque, contrast))
-			vim.notify("0B")
-			vim.notify(colorUtils.darkenColorIfOpaque(vim.g.palette_base0B_opaque, contrast))
-			vim.notify("09")
-			vim.notify(colorUtils.darkenColorIfOpaque(vim.g.palette_base09_opaque, contrast))
-			vim.notify("0C")
-			vim.notify(colorUtils.darkenColorIfOpaque(vim.g.palette_base0C_opaque, contrast))
-
 			local mainColorsContrasted = function(buffer)
 				if buffer.is_focused then
 					if buffer.diagnostics.errors ~= 0 then
-						return colorUtils.darkenColorIfOpaque(vim.g.palette_base08_opaque, contrast)
+						return colorUtils.darkenColorIfOpaque(palette_opaque.base08, contrast)
 					elseif buffer.is_modified then
-						return colorUtils.darkenColorIfOpaque(vim.g.palette_base0B_opaque, contrast)
+						return colorUtils.darkenColorIfOpaque(palette_opaque.base0B, contrast)
 					elseif buffer.diagnostics.warnings ~= 0 then
-						return colorUtils.darkenColorIfOpaque(vim.g.palette_base09_opaque, contrast)
+						return colorUtils.darkenColorIfOpaque(palette_opaque.base09, contrast)
 					elseif buffer.diagnostics.infos ~= 0 then
-						return colorUtils.darkenColorIfOpaque(vim.g.palette_base0C_opaque, contrast)
+						return colorUtils.darkenColorIfOpaque(palette_opaque.base0C, contrast)
 					elseif buffer.diagnostics.hints ~= 0 then
-						return colorUtils.darkenColorIfOpaque(vim.g.palette_base0C_opaque, contrast)
+						return colorUtils.darkenColorIfOpaque(palette_opaque.base0C, contrast)
 					else
-						return colorUtils.darkenColorIfOpaque(vim.g.palette_base09_opaque, contrast)
+						return colorUtils.darkenColorIfOpaque(palette_opaque.base09, contrast)
 					end
 				else
 					if buffer.diagnostics.errors ~= 0 then
-						return colorUtils.darkenColorIfOpaque(vim.g.palette_base08_opaque, contrast)
+						return colorUtils.darkenColorIfOpaque(palette_opaque.base08, contrast)
 					elseif buffer.is_modified then
-						return colorUtils.darkenColorIfOpaque(vim.g.palette_base0A_opaque, contrast)
+						return colorUtils.darkenColorIfOpaque(palette_opaque.base0A, contrast)
 					elseif buffer.diagnostics.warnings ~= 0 then
-						return colorUtils.darkenColorIfOpaque(vim.g.palette_base09_opaque, contrast)
+						return colorUtils.darkenColorIfOpaque(palette_opaque.base09, contrast)
 					elseif buffer.diagnostics.infos ~= 0 then
-						return colorUtils.darkenColorIfOpaque(vim.g.palette_base0C_opaque, contrast)
+						return colorUtils.darkenColorIfOpaque(palette_opaque.base0C, contrast)
 					elseif buffer.diagnostics.hints ~= 0 then
-						return colorUtils.darkenColorIfOpaque(vim.g.palette_base0C_opaque, contrast)
+						return colorUtils.darkenColorIfOpaque(palette_opaque.base0C, contrast)
 					else
-						return colorUtils.darkenColorIfOpaque(vim.g.palette_base0A_opaque, contrast)
+						return colorUtils.darkenColorIfOpaque(palette_opaque.base0A, contrast)
 					end
 				end
 			end
@@ -112,7 +104,7 @@ return {
 						end
 					end,
 					bg = mainColors,
-					-- fg = mainColorsContrasted,
+					fg = mainColorsContrasted,
 					truncation = { priority = 1 },
 				},
 
@@ -183,25 +175,25 @@ return {
 					fg = function(buffer)
 						if buffer.is_focused then
 							if buffer.diagnostics.errors ~= 0 then
-								return vim.g.palette_base08_opaque
+								return palette_opaque.base08
 							elseif buffer.diagnostics.warnings ~= 0 then
-								return vim.g.palette_base09_opaque
+								return palette_opaque.base09
 							elseif buffer.diagnostics.infos ~= 0 then
-								return vim.g.palette_base0C_opaque
+								return palette_opaque.base0C
 							elseif buffer.diagnostics.hints ~= 0 then
-								return vim.g.palette_base0C_opaque
+								return palette_opaque.base0C
 							else
 								return "NONE"
 							end
 						else
 							if buffer.diagnostics.errors ~= 0 then
-								return vim.g.palette_base08_opaque
+								return palette_opaque.base08
 							elseif buffer.diagnostics.warnings ~= 0 then
-								return vim.g.palette_base09_opaque
+								return palette_opaque.base09
 							elseif buffer.diagnostics.infos ~= 0 then
-								return vim.g.palette_base04_opaque
+								return palette_opaque.base04
 							elseif buffer.diagnostics.hints ~= 0 then
-								return vim.g.palette_base0C_opaque
+								return palette_opaque.base0C
 							else
 								return "NONE"
 							end
@@ -222,9 +214,9 @@ return {
 						end
 
 						if buffer.is_focused then
-							return vim.g.palette_base0D_opaque
+							return palette_opaque.base0D
 						else
-							return vim.g.palette_base0D_opaque
+							return palette_opaque.base0D
 						end
 					end,
 					truncation = { priority = 1 },
