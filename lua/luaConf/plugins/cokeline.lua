@@ -7,6 +7,38 @@ return {
 			local colorUtils = require("colorUtils")
 			local comments_fg = colorUtils.get_hex_of_hlgroup("Comment", "fg")
 
+			local mainColors = function(buffer)
+				if buffer.is_focused then
+					if buffer.diagnostics.errors ~= 0 then
+						return vim.g.palette_base08_opaque
+					elseif buffer.is_modified then
+						return vim.g.palette_base0B_opaque
+					elseif buffer.diagnostics.warnings ~= 0 then
+						return vim.g.palette_base09_opaque
+					elseif buffer.diagnostics.infos ~= 0 then
+						return vim.g.palette_base0C_opaque
+					elseif buffer.diagnostics.hints ~= 0 then
+						return vim.g.palette_base0C_opaque
+					else
+						return vim.g.palette_base09_opaque
+					end
+				else
+					if buffer.diagnostics.errors ~= 0 then
+						return vim.g.palette_base08_opaque
+					elseif buffer.is_modified then
+						return vim.g.palette_base0A_opaque
+					elseif buffer.diagnostics.warnings ~= 0 then
+						return vim.g.palette_base09_opaque
+					elseif buffer.diagnostics.infos ~= 0 then
+						return vim.g.palette_base0C_opaque
+					elseif buffer.diagnostics.hints ~= 0 then
+						return vim.g.palette_base0C_opaque
+					else
+						return vim.g.palette_0A_opaque
+					end
+				end
+			end
+
 			local components = {
 				separator = {
 					text = " ",
@@ -31,38 +63,7 @@ return {
 							return "(~‾⌣‾)> "
 						end
 					end,
-					bg = "NONE",
-					fg = function(buffer)
-						if buffer.is_focused then
-							if buffer.diagnostics.errors ~= 0 then
-								return vim.g.palette_base08_opaque
-							elseif buffer.diagnostics.warnings ~= 0 then
-								return vim.g.palette_base09_opaque
-							elseif buffer.is_modified then
-								return vim.g.palette_base0B_opaque
-							elseif buffer.diagnostics.infos ~= 0 then
-								return vim.g.palette_base0C_opaque
-							elseif buffer.diagnostics.hints ~= 0 then
-								return vim.g.palette_base0C_opaque
-							else
-								return vim.g.palette_base09_opaque
-							end
-						else
-							if buffer.diagnostics.errors ~= 0 then
-								return vim.g.palette_base08_opaque
-							elseif buffer.diagnostics.warnings ~= 0 then
-								return vim.g.palette_base09_opaque
-							elseif buffer.is_modified then
-								return vim.g.palette_base0A_opaque
-							elseif buffer.diagnostics.infos ~= 0 then
-								return vim.g.palette_base0C_opaque
-							elseif buffer.diagnostics.hints ~= 0 then
-								return vim.g.palette_base0C_opaque
-							else
-								return vim.g.palette_0A_opaque
-							end
-						end
-					end,
+					bg = mainColors,
 					truncation = { priority = 1 },
 				},
 
@@ -91,37 +92,7 @@ return {
 					text = function(buffer)
 						return vim.fn.fnamemodify(buffer.filename, ":r")
 					end,
-					fg = function(buffer)
-						if buffer.is_focused then
-							if buffer.diagnostics.errors ~= 0 then
-								return vim.g.palette_base08_opaque
-							elseif buffer.is_modified then
-								return vim.g.palette_base0B_opaque
-							elseif buffer.diagnostics.warnings ~= 0 then
-								return vim.g.palette_base09_opaque
-							elseif buffer.diagnostics.infos ~= 0 then
-								return vim.g.palette_base0C_opaque
-							elseif buffer.diagnostics.hints ~= 0 then
-								return vim.g.palette_base0C_opaque
-							else
-								return vim.g.palette_base09
-							end
-						else
-							if buffer.diagnostics.errors ~= 0 then
-								return vim.g.palette_base08_opaque
-							elseif buffer.is_modified then
-								return vim.g.palette_base0A_opaque
-							elseif buffer.diagnostics.warnings ~= 0 then
-								return vim.g.palette_base09_opaque
-							elseif buffer.diagnostics.infos ~= 0 then
-								return vim.g.palette_base04_opaque
-							elseif buffer.diagnostics.hints ~= 0 then
-								return vim.g.palette_base0C_opaque
-							else
-								return vim.g.palette_base04_opaque
-							end
-						end
-					end,
+					fg = mainColors,
 					style = function(buffer)
 						return ((buffer.is_focused and buffer.diagnostics.errors ~= 0) and "bold,underline")
 							or (buffer.is_focused and "bold,italic")
@@ -139,37 +110,7 @@ return {
 						local ext = vim.fn.fnamemodify(buffer.filename, ":e")
 						return ext ~= "" and "." .. ext or ""
 					end,
-					fg = function(buffer)
-						if buffer.is_focused then
-							if buffer.diagnostics.errors ~= 0 then
-								return vim.g.palette_base08_opaque
-							elseif buffer.is_modified then
-								return vim.g.palette_base0B_opaque
-							elseif buffer.diagnostics.warnings ~= 0 then
-								return vim.g.palette_base09_opaque
-							elseif buffer.diagnostics.infos ~= 0 then
-								return vim.g.palette_base0C_opaque
-							elseif buffer.diagnostics.hints ~= 0 then
-								return vim.g.palette_base0C_opaque
-							else
-								return vim.g.palette_base09_opaque
-							end
-						else
-							if buffer.diagnostics.errors ~= 0 then
-								return vim.g.palette_base08_opaque
-							elseif buffer.is_modified then
-								return vim.g.palette_base0A_opaque
-							elseif buffer.diagnostics.warnings ~= 0 then
-								return vim.g.palette_base09_opaque
-							elseif buffer.diagnostics.infos ~= 0 then
-								return vim.g.palette_base04_opaque
-							elseif buffer.diagnostics.hints ~= 0 then
-								return vim.g.palette_base0C_opaque
-							else
-								return vim.g.palette_0A_opaque
-							end
-						end
-					end,
+					fg = mainColors,
 					style = function(buffer)
 						return (buffer.is_focused and buffer.diagnostics.errors ~= 0 and "bold,underline") or nil
 					end,
