@@ -82,7 +82,7 @@ return {
 				separator_internal = {
 					text = " ",
 					truncation = { priority = 1 },
-					bg = mainColors,
+					-- bg = mainColors,
 				},
 
 				lil_guy = {
@@ -103,8 +103,8 @@ return {
 							return "(~‾⌣‾)> "
 						end
 					end,
-					bg = mainColors,
-					fg = mainColorsContrasted,
+					-- bg = mainColors,
+					-- fg = mainColorsContrasted,
 					truncation = { priority = 1 },
 				},
 
@@ -112,7 +112,7 @@ return {
 					text = function(buffer)
 						return buffer.devicon.icon
 					end,
-					bg = mainColors,
+					-- bg = mainColors,
 					fg = function(buffer)
 						return (buffer.is_focused and buffer.devicon.color or comments_fg)
 					end,
@@ -126,7 +126,7 @@ return {
 					text = function(buffer)
 						return buffer.index .. " "
 					end,
-					bg = mainColors,
+					-- bg = mainColors,
 					fg = comments_fg,
 					truncation = { priority = 1 },
 				},
@@ -135,7 +135,7 @@ return {
 					text = function(buffer)
 						return vim.fn.fnamemodify(buffer.filename, ":r")
 					end,
-					bg = mainColors,
+					-- bg = mainColors,
 					style = function(buffer)
 						return ((buffer.is_focused and buffer.diagnostics.errors ~= 0) and "bold,underline")
 							or (buffer.is_focused and "bold,italic")
@@ -153,7 +153,7 @@ return {
 						local ext = vim.fn.fnamemodify(buffer.filename, ":e")
 						return ext ~= "" and "." .. ext or ""
 					end,
-					bg = mainColors,
+					-- bg = mainColors,
 					style = function(buffer)
 						return (buffer.is_focused and buffer.diagnostics.errors ~= 0 and "bold,underline") or nil
 					end,
@@ -171,7 +171,7 @@ return {
 							or (buffer.diagnostics.hints ~= 0 and "󱠂 " .. buffer.diagnostics.hints .. " ")
 							or ""
 					end,
-					bg = mainColors,
+					-- bg = mainColors,
 					fg = function(buffer)
 						if buffer.is_focused then
 							if buffer.diagnostics.errors ~= 0 then
@@ -207,7 +207,7 @@ return {
 					text = function(buffer)
 						return buffer.is_modified and "● " or ""
 					end,
-					bg = mainColors,
+					-- bg = mainColors,
 					fg = function(buffer)
 						if not buffer.is_modified then
 							return nil
@@ -233,9 +233,9 @@ return {
 					new_buffers_position = "next",
 				},
 
-				-- default_hl = {
-				-- 	bg = "NONE",
-				-- },
+				default_hl = {
+					bg = mainColors,
+				},
 
 				components = {
 					components.separator_internal,
