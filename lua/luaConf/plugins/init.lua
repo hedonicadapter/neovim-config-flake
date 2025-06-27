@@ -392,7 +392,7 @@ require("lze").load({
 				context = 16,
 				treesitter = true,
 			})
-			vim.api.nvim_set_hl(0, "Twilight", { bg = "NONE" })
+			vim.api.nvim_set_hl(0, "Twilight", { bg = colorUtils.get_hex_of_hlgroup("Normal", "bg") })
 			twilight.enable()
 
 			local function set_highlights()
