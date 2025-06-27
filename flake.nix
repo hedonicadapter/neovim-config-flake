@@ -260,6 +260,7 @@
             nvim-colorizer-lua
             codecompanion-nvim
             git-blame-nvim
+            fidget-nvim
 
             # If it was included in your flake inputs as plugins-hlargs,
             # this would be how to add that plugin in your config.

@@ -341,6 +341,18 @@ require("lze").load({
 			vim.opt.fillchars:append("diff:╱")
 		end,
 	},
+	{
+		"fidget.nvim",
+		for_cat = "general.extra",
+		event = "VimEnter",
+		after = function()
+			require("fidget").setup({
+				notification = {
+					override_vim_notify = true,
+				},
+			})
+		end,
+	},
 	{ "twilight.nvim" },
 	{
 		"git-blame.nvim",
