@@ -165,7 +165,6 @@
             pkgs.awesomeNeovimPlugins.hawtkeys-nvim
             pkgs.awesomeNeovimPlugins.garbage-day-nvim
             pkgs.awesomeNeovimPlugins.tiny-code-action-nvim
-            nvim-scrollbar
             pkgs.vimExtraPlugins.reactive-nvim
             hlchunk-nvim
             base16-nvim
@@ -249,6 +248,7 @@
             toggleterm-nvim
             staline-nvim
             gitsigns-nvim
+            nvim-scrollbar
             nvim-ufo
           ];
           extra = with pkgs.vimPlugins; [
