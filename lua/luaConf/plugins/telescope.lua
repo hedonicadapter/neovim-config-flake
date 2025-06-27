@@ -40,6 +40,21 @@ vim.keymap.set({ "n", "v" }, "<S-Tab>", function()
 	shift_selection(false)
 end, { noremap = true, silent = true })
 
+local function jump_to_buffer_by_index(index)
+	local buffers = vim.fn.getbufinfo({ buflisted = 1 })
+	if index <= #buffers and index > 0 then
+		vim.api.nvim_set_current_buf(buffers[index].bufnr)
+	else
+		print("Buffer " .. index .. " does not exist")
+	end
+end
+
+for i = 1, 9 do
+	vim.keymap.set({ "n", "v" }, "<Leader>" .. i, function()
+		jump_to_buffer_by_index(i)
+	end, { noremap = true, silent = true, desc = "Jump to buffer " .. i })
+end
+
 return {
 	{
 		"telescope.nvim",
