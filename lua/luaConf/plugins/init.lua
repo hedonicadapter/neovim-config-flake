@@ -67,8 +67,19 @@ require("lze").load({
 		"gitsigns.nvim",
 		for_cat = "general.always",
 		event = "DeferredUIEnter",
+		load = function(name)
+			vim.cmd.packadd(name)
+			vim.cmd.packadd("nvim-scrollbar")
+		end,
 		after = function()
 			require("gitsigns").setup()
+			require("scrollbar").setup({
+				hide_if_all_visible = true,
+				handle = {
+					blend = 60,
+				},
+			})
+			require("scrollbar.handlers.gitsigns").setup()
 		end,
 	},
 	{
@@ -225,21 +236,6 @@ require("lze").load({
 	},
 
 	{
-		"nvim-scrollbar",
-		for_cat = "general.extra",
-		event = "BufReadPost",
-		after = function()
-			require("scrollbar").setup({
-				hide_if_all_visible = true,
-				handle = {
-					blend = 60,
-				},
-			})
-			require("scrollbar.handlers.gitsigns").setup()
-		end,
-	},
-
-	{
 		"dropbar.nvim",
 		for_cat = "general.always",
 		event = "BufReadPost",
@@ -346,7 +342,22 @@ require("lze").load({
 			vim.opt.fillchars:append("diff:╱")
 		end,
 	},
-	{ "twilight.nvim" },
+	{
+		"fidget.nvim",
+		for_cat = "general.extra",
+		event = "VimEnter",
+		after = function()
+			require("fidget").setup({
+				notification = {
+					override_vim_notify = true,
+					-- window = {
+					-- 	align = "top",
+					-- 	border = "single",
+					-- },
+				},
+			})
+		end,
+	},
 	{
 		"git-blame.nvim",
 		for_cat = "general.extra",
@@ -371,6 +382,10 @@ require("lze").load({
 		"base16-nvim",
 		for_cat = "general.extra",
 		event = "DeferredUIEnter",
+		load = function(name)
+			vim.cmd.packadd(name)
+			vim.cmd.packadd("twilight.nvim")
+		end,
 		after = function()
 			local palette = nixCats.extra("palette")
 			local palette_opaque = nixCats.extra("palette_opaque")
@@ -389,7 +404,7 @@ require("lze").load({
 				context = 16,
 				treesitter = true,
 			})
-			vim.api.nvim_set_hl(0, "Twilight", { bg = "NONE" })
+			-- vim.api.nvim_set_hl(0, "Twilight", { bg = colorUtils.get_hex_of_hlgroup("Normal", "bg") })
 			twilight.enable()
 
 			local function set_highlights()

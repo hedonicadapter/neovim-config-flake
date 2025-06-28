@@ -165,7 +165,6 @@
             pkgs.awesomeNeovimPlugins.hawtkeys-nvim
             pkgs.awesomeNeovimPlugins.garbage-day-nvim
             pkgs.awesomeNeovimPlugins.tiny-code-action-nvim
-            nvim-scrollbar
             pkgs.vimExtraPlugins.reactive-nvim
             hlchunk-nvim
             base16-nvim
@@ -249,6 +248,7 @@
             toggleterm-nvim
             staline-nvim
             gitsigns-nvim
+            nvim-scrollbar
             nvim-ufo
           ];
           extra = with pkgs.vimPlugins; [
@@ -260,6 +260,7 @@
             nvim-colorizer-lua
             codecompanion-nvim
             git-blame-nvim
+            fidget-nvim
 
             # If it was included in your flake inputs as plugins-hlargs,
             # this would be how to add that plugin in your config.

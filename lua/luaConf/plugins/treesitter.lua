@@ -14,7 +14,7 @@ return {
 			end
 		end,
 		on_require = { "nvim-treesitter", "nvim-treesitter.configs", "nvim-treesitter.install" },
-		after = function(plugin)
+		after = function()
 			require("nvim-treesitter.install").compilers = { "gcc" }
 			require("nvim-treesitter.configs").setup({
 				highlight = { enable = true },

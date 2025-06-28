@@ -362,6 +362,7 @@ return {
 			pcall(require("telescope").load_extension, "fzf")
 			pcall(require("telescope").load_extension, "undo")
 			pcall(require("telescope").load_extension, "session-lens")
+			pcall(require("telescope").load_extension, "fidget")
 		end,
 	},
 }

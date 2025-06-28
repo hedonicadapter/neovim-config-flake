@@ -14,8 +14,11 @@ local function set_keymap_for_all_modes(key, cmd)
 	end
 end
 
-keymap.set("n", "<leader>sf", "<cmd>w<CR>", {
-	desc = "save",
+keymap.set("n", "<leader>sf", function()
+	vim.cmd("w")
+	vim.notify("saved")
+end, {
+	desc = "Save and notify",
 	noremap = true,
 	silent = true,
 })
@@ -31,6 +34,10 @@ keymap.set("n", "<leader>fc", "<cmd>Telescope neoclip<CR>", {
 	silent = true,
 })
 keymap.set("n", "<leader>fp", "<cmd>Telescope commands<CR>", {
+	noremap = true,
+	silent = true,
+})
+keymap.set("n", "<leader>fn", "<cmd>Telescope fidget<CR>", {
 	noremap = true,
 	silent = true,
 })
