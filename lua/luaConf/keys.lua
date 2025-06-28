@@ -60,9 +60,16 @@ keymap.set("n", "<leader>sx", ":close<CR>", {
 	desc = "close window",
 })
 
-keymap.set("n", "<leader>bd", ":bd<CR><CR>", {
+-- keymap.set("n", "<leader>bd", ":bd<CR><CR>", {
+-- 	noremap = true,
+-- 	desc = "close buffer",
+-- })
+--
+keymap.set("n", "<leader>bd", function()
+	require("snacks").bufdelete()
+end, {
 	noremap = true,
-	desc = "close buffer",
+	desc = "Delete buffer with save promopt",
 })
 
 keymap.set("v", "y", "ygv<esc>", {
