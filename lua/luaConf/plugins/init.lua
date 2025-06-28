@@ -193,7 +193,14 @@ require("lze").load({
 		event = "VimEnter",
 		after = function()
 			require("snacks").setup({
-				zen = {},
+				scroll = {
+					enabled = true,
+				},
+				animate = {
+					duration = { step = 7, total = 150 },
+					easing = "outQuint",
+					fps = "144",
+				},
 			})
 		end,
 	},
