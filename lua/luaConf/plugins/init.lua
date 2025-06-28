@@ -46,7 +46,12 @@ require("lze").load({
 		for_cat = "general.always",
 		event = "BufReadPost",
 		after = function()
-			require("git-conflict").setup()
+			require("git-conflict").setup({
+				highlights = {
+					incoming = "DiffAdd",
+					current = "DiffText",
+				},
+			})
 		end,
 	},
 	{
