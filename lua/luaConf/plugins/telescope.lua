@@ -32,11 +32,11 @@ local function shift_selection(forward)
 end
 
 vim.keymap.set({ "n", "v" }, "<Tab>", function()
-	require("telescope.builtin").buffers(buffer_picker_opts)
+	require("telescope.builtin").buffers()
 	shift_selection(true)
 end, { noremap = true, silent = true })
 vim.keymap.set({ "n", "v" }, "<S-Tab>", function()
-	require("telescope.builtin").buffers(buffer_picker_opts)
+	require("telescope.builtin").buffers()
 	shift_selection(false)
 end, { noremap = true, silent = true })
 
@@ -361,7 +361,6 @@ return {
 			-- Enable telescope extensions, if they are installed
 			pcall(require("telescope").load_extension, "fzf")
 			pcall(require("telescope").load_extension, "undo")
-			pcall(require("telescope").load_extension, "session-lens")
 			pcall(require("telescope").load_extension, "fidget")
 		end,
 	},

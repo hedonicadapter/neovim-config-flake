@@ -14,6 +14,7 @@ require("lze").load({
 	{ import = "luaConf.plugins.render-markdown" },
 	{ import = "luaConf.plugins.image" },
 	{ import = "luaConf.plugins.img-clip" },
+	{ import = "luaConf.plugins.snacks" },
 
 	{
 		"oil.nvim",
@@ -184,24 +185,6 @@ require("lze").load({
 		event = "TextYankPost",
 		after = function()
 			require("neoclip").setup()
-		end,
-	},
-
-	{
-		"snacks.nvim",
-		for_cat = "general.always",
-		event = "VimEnter",
-		after = function()
-			require("snacks").setup({
-				scroll = {
-					enabled = false,
-				},
-				animate = {
-					duration = { step = 7, total = 150 },
-					easing = "outQuint",
-					fps = "144",
-				},
-			})
 		end,
 	},
 
