@@ -194,7 +194,7 @@ require("lze").load({
 		after = function()
 			require("snacks").setup({
 				scroll = {
-					enabled = true,
+					enabled = false,
 				},
 				animate = {
 					duration = { step = 7, total = 150 },
