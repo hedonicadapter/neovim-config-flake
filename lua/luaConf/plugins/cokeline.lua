@@ -2,7 +2,7 @@ return {
 	{
 		"nvim-cokeline",
 		for_cat = "general.always",
-		event = "BufAdd",
+		event = "DeferredUIEnter",
 		after = function()
 			local palette_opaque = nixCats.extra("palette_opaque")
 			local colorUtils = require("colorUtils")
