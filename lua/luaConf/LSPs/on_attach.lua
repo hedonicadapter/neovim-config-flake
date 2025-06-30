@@ -8,7 +8,6 @@ return function(_, bufnr)
 	end
 
 	bufmap("<leader>rn", vim.lsp.buf.rename)
-	--[[ 	bufmap("<leader>ca", vim.lsp.buf.code_action) ]]
 	bufmap("<leader>ca", function()
 		require("tiny-code-action").code_action()
 	end)

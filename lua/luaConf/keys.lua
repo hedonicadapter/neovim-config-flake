@@ -15,23 +15,6 @@ end, {
 
 utils.set_keymap_for_all_modes("<leader>qq", "<cmd>qa<CR>")
 
-utils.keymap.set("n", "<leader>fu", "<cmd>Telescope undo<CR>", {
-	noremap = true,
-	silent = true,
-})
-utils.keymap.set("n", "<leader>fc", "<cmd>Telescope neoclip<CR>", {
-	noremap = true,
-	silent = true,
-})
-utils.keymap.set("n", "<leader>fp", "<cmd>Telescope commands<CR>", {
-	noremap = true,
-	silent = true,
-})
-utils.keymap.set("n", "<leader>fn", "<cmd>Telescope fidget<CR>", {
-	noremap = true,
-	silent = true,
-})
-
 utils.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>", {
 	noremap = true,
 	silent = true,
@@ -127,109 +110,6 @@ utils.keymap.set("n", "<leader>p", "<Cmd>call search('[([{<\\|\"\\|'']', 'b') <C
 	desc = "Jump to previous brace, quote, or paren",
 })
 
--- Telescope
-vim.api.nvim_exec2(
-	[[
-            function! GetVisualSelection()
-                let [lnum1, col1] = getpos("'<")[1:2]
-                let [lnum2, col2] = getpos("'>")[1:2]
-                let lines = getline(lnum1, lnum2)
-                if len(lines) == 0
-                    return ''
-                endif
-                let lines[-1] = lines[-1][: col2 - (&selection == 'inclusive' ? 1 : 2)]
-                let lines[0] = lines[0][col1 - 1:]
-                return join(lines, "\n")
-            endfunction
-        ]],
-	{ output = false }
-)
-
-utils.keymap.set("n", "<leader>ss", "<cmd>Telescope session-lens<cr>", { noremap = true, silent = true })
-
-utils.keymap.set(
-	"n",
-	"<leader>fw",
-	[[:lua require('telescope.builtin').live_grep({ default_text = vim.fn.expand('<cword>') })<CR>]],
-	{
-		noremap = true,
-		silent = true,
-		desc = "find word under cursor",
-	}
-)
-
-utils.keymap.set(
-	"v",
-	"<leader>fs",
-	[[:lua require('telescope.builtin').live_grep({ default_text = vim.fn.GetVisualSelection() })<CR>]],
-	{
-		noremap = true,
-		silent = true,
-		desc = "find selection",
-	}
-)
-
-local my_find_files
-my_find_files = function(opts, no_ignore)
-	opts = opts or {}
-	no_ignore = vim.F.if_nil(no_ignore, false)
-	opts.attach_mappings = function(_, map)
-		map({ "n", "i" }, "<C-h>", function(prompt_bufnr)
-			local prompt = require("telescope.actions.state").get_current_line()
-			require("telescope.actions").close(prompt_bufnr)
-			no_ignore = not no_ignore
-			my_find_files({ default_text = prompt }, no_ignore)
-		end)
-		return true
-	end
-
-	if no_ignore then
-		opts.no_ignore = true
-		opts.hidden = true
-		opts.prompt_title = "Find Files <ALL>"
-		require("telescope.builtin").find_files(opts)
-	else
-		opts.prompt_title = "Find Files"
-		require("telescope.builtin").find_files(opts)
-	end
-end
-
-local my_live_grep
-my_live_grep = function(opts, no_ignore)
-	opts = opts or {}
-	no_ignore = vim.F.if_nil(no_ignore, false)
-	opts.attach_mappings = function(_, map)
-		map({ "n", "i" }, "<C-h>", function(prompt_bufnr)
-			local prompt = require("telescope.actions.state").get_current_line()
-			require("telescope.actions").close(prompt_bufnr)
-			no_ignore = not no_ignore
-			my_live_grep({ default_text = prompt }, no_ignore)
-		end)
-		return true
-	end
-
-	if no_ignore then
-		opts.no_ignore = true
-		opts.hidden = true
-		opts.prompt_title = "Live Grep <ALL>"
-		require("telescope.builtin").live_grep(opts)
-	else
-		opts.prompt_title = "Live Grep"
-		require("telescope.builtin").live_grep(opts)
-	end
-end
-
-utils.keymap.set({ "n", "v" }, "<leader>ff", my_find_files, { noremap = true, silent = true })
-utils.keymap.set({ "n", "v" }, "<leader>lg", my_live_grep, { noremap = true, silent = true })
-utils.set_keymap_for_all_modes("<leader>fr", ":Telescope resume<CR>")
-
-utils.keymap.set(
-	"n",
-	"<leader>o",
-	"<CMD>SymbolsOutline<CR>",
-	{ desc = "Symbols outline", noremap = true, silent = true }
-)
-
 utils.keymap.set(
 	"n",
 	"<leader>0",
@@ -311,3 +191,18 @@ end, {
 	noremap = true,
 	silent = true,
 })
+
+local function jump_to_buffer_by_index(index)
+	local buffers = vim.fn.getbufinfo({ buflisted = 1 })
+	if index <= #buffers and index > 0 then
+		vim.api.nvim_set_current_buf(buffers[index].bufnr)
+	else
+		print("Buffer " .. index .. " does not exist")
+	end
+end
+
+for i = 1, 9 do
+	utils.keymap.set({ "n", "v" }, "<Leader>" .. i, function()
+		jump_to_buffer_by_index(i)
+	end, { noremap = true, silent = true, desc = "Jump to buffer " .. i })
+end

@@ -1,5 +1,6 @@
 local Layout = require("nui.layout")
 local Popup = require("nui.popup")
+local utils = require("utils")
 
 local function make_popup(options)
 	local popup = Popup(options)
@@ -10,50 +11,132 @@ local function make_popup(options)
 	return TSLayout.Window(popup)
 end
 
-local buffer_picker_opts = {
-	sort_mru = true,
-	ignore_current_buffer = true,
-}
+-- fix telescope auto insert mode
+vim.api.nvim_create_autocmd("WinLeave", {
+	callback = function()
+		if vim.bo.ft == "TelescopePrompt" and vim.fn.mode() == "i" then
+			vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "i", false)
+		end
+	end,
+})
 
-local function shift_selection(forward)
-	local prompt_bufnr = vim.api.nvim_get_current_buf()
-	local actions = require("telescope.actions")
-	local ok, _
-
-	if forward then
-		ok = pcall(actions.move_selection_next, prompt_bufnr)
-	else
-		ok = pcall(actions.move_selection_previous, prompt_bufnr)
+local my_find_files
+my_find_files = function(opts, no_ignore)
+	opts = opts or {}
+	no_ignore = vim.F.if_nil(no_ignore, false)
+	opts.attach_mappings = function(_, map)
+		map({ "n", "i" }, "<C-h>", function(prompt_bufnr)
+			local prompt = require("telescope.actions.state").get_current_line()
+			require("telescope.actions").close(prompt_bufnr)
+			no_ignore = not no_ignore
+			my_find_files({ default_text = prompt }, no_ignore)
+		end)
+		return true
 	end
 
-	-- if not ok then
-	--     print("An error occurred while shifting the selection.")
-	-- end
-end
-
-vim.keymap.set({ "n", "v" }, "<Tab>", function()
-	require("telescope.builtin").buffers()
-	shift_selection(true)
-end, { noremap = true, silent = true })
-vim.keymap.set({ "n", "v" }, "<S-Tab>", function()
-	require("telescope.builtin").buffers()
-	shift_selection(false)
-end, { noremap = true, silent = true })
-
-local function jump_to_buffer_by_index(index)
-	local buffers = vim.fn.getbufinfo({ buflisted = 1 })
-	if index <= #buffers and index > 0 then
-		vim.api.nvim_set_current_buf(buffers[index].bufnr)
+	if no_ignore then
+		opts.no_ignore = true
+		opts.hidden = true
+		opts.prompt_title = "Find Files <ALL>"
+		require("telescope.builtin").find_files(opts)
 	else
-		print("Buffer " .. index .. " does not exist")
+		opts.prompt_title = "Find Files"
+		require("telescope.builtin").find_files(opts)
 	end
 end
 
-for i = 1, 9 do
-	vim.keymap.set({ "n", "v" }, "<Leader>" .. i, function()
-		jump_to_buffer_by_index(i)
-	end, { noremap = true, silent = true, desc = "Jump to buffer " .. i })
+local my_live_grep
+my_live_grep = function(opts, no_ignore)
+	opts = opts or {}
+	no_ignore = vim.F.if_nil(no_ignore, false)
+	opts.attach_mappings = function(_, map)
+		map({ "n", "i" }, "<C-h>", function(prompt_bufnr)
+			local prompt = require("telescope.actions.state").get_current_line()
+			require("telescope.actions").close(prompt_bufnr)
+			no_ignore = not no_ignore
+			my_live_grep({ default_text = prompt }, no_ignore)
+		end)
+		return true
+	end
+
+	if no_ignore then
+		opts.no_ignore = true
+		opts.hidden = true
+		opts.prompt_title = "Live Grep <ALL>"
+		require("telescope.builtin").live_grep(opts)
+	else
+		opts.prompt_title = "Live Grep"
+		require("telescope.builtin").live_grep(opts)
+	end
 end
+
+utils.keymap.set({ "n", "v" }, "<leader>ff", my_find_files, { noremap = true, silent = true })
+utils.keymap.set({ "n", "v" }, "<leader>lg", my_live_grep, { noremap = true, silent = true })
+
+utils.keymap.set({ "n", "v" }, "<leader>fr", ":Telescope resume<CR>", {
+	noremap = true,
+	silent = true,
+})
+
+utils.keymap.set("n", "<leader>fu", "<cmd>Telescope undo<cr>", {
+	noremap = true,
+	silent = true,
+})
+
+utils.keymap.set("n", "<leader>fp", "<cmd>Telescope commands<CR>", {
+	noremap = true,
+	silent = true,
+})
+
+utils.keymap.set({ "n", "v" }, "<leader>fb", "<cmd>Telescope buffers<CR>", { noremap = true, silent = true })
+
+utils.keymap.set(
+	"n",
+	"<leader>fw",
+	[[:lua require('telescope.builtin').live_grep({ default_text = vim.fn.expand('<cword>') })<CR>]],
+	{
+		noremap = true,
+		silent = true,
+		desc = "find word under cursor",
+	}
+)
+
+vim.api.nvim_exec2(
+	[[
+	    function! GetVisualSelection()
+		let [lnum1, col1] = getpos("'<")[1:2]
+		let [lnum2, col2] = getpos("'>")[1:2]
+		let lines = getline(lnum1, lnum2)
+		if len(lines) == 0
+		    return ''
+		endif
+		let lines[-1] = lines[-1][: col2 - (&selection == 'inclusive' ? 1 : 2)]
+		let lines[0] = lines[0][col1 - 1:]
+		return join(lines, "\n")
+	    endfunction
+	]],
+	{ output = false }
+)
+utils.keymap.set(
+	"v",
+	"<leader>fs",
+	[[:lua require('telescope.builtin').live_grep({ default_text = vim.fn.GetVisualSelection() })<CR>]],
+	{
+		noremap = true,
+		silent = true,
+		desc = "find selection",
+	}
+)
+
+utils.keymap.set("n", "<leader>fc", "<cmd>Telescope neoclip<CR>", {
+	noremap = true,
+	silent = true,
+})
+
+utils.keymap.set("n", "<leader>fn", "<cmd>Telescope fidget<CR>", {
+	noremap = true,
+	silent = true,
+})
 
 return {
 	{

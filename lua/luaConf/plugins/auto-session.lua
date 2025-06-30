@@ -12,6 +12,13 @@ return {
 				lazy_support = false,
 				root_dir = vim.fn.stdpath("data") .. "/sessions/",
 			})
+
+			require("utils").keymap.set(
+				"n",
+				"<leader>ss",
+				"<cmd>Autosession search<cr>",
+				{ noremap = true, silent = true }
+			)
 		end,
 	},
 }
