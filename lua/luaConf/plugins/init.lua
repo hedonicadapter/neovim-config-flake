@@ -14,7 +14,7 @@ require("lze").load({
 	{ import = "luaConf.plugins.render-markdown" },
 	{ import = "luaConf.plugins.image" },
 	{ import = "luaConf.plugins.img-clip" },
-	{ import = "luaConf.plugins.snacks" },
+	-- { import = "luaConf.plugins.snacks" },
 
 	{
 		"oil.nvim",
