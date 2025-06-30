@@ -38,9 +38,7 @@ utils.keymap.set("n", "<leader>sx", ":close<CR>", {
 -- 	desc = "close buffer",
 -- })
 --
-utils.keymap.set("n", "<leader>bd", function()
-	require("snacks").bufdelete()
-end, {
+utils.keymap.set("n", "<leader>bd", "<cmd>confirm bd<CR>", {
 	noremap = true,
 	desc = "Delete buffer with save promopt",
 })
