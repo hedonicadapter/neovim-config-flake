@@ -15,6 +15,7 @@ require("lze").load({
 	{ import = "luaConf.plugins.image" },
 	{ import = "luaConf.plugins.img-clip" },
 	-- { import = "luaConf.plugins.snacks" },
+	{ import = "luaConf.plugins.img-clip" },
 
 	{
 		"oil.nvim",
@@ -366,6 +367,15 @@ require("lze").load({
 				enabled = true,
 				highlight_group = "GitBlameReactive",
 			})
+		end,
+	},
+
+	{
+		"tiny-glimmer-nvim",
+		for_cat = "general.extra",
+		event = "DeferredUIEnter",
+		after = function()
+			require("tiny-glimmer").setup()
 		end,
 	},
 	{
