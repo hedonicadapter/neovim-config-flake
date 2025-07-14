@@ -319,14 +319,17 @@ require("lze").load({
 					enable = true,
 					style = { palette.base09 },
 					delay = 100,
+					use_treesitter = false,
 				},
 				indent = {
 					enable = true,
 					style = { palette.base01 },
+					use_treesitter = false,
 				},
 				line_num = {
 					enable = true,
 					style = { palette.base09 },
+					use_treesitter = false,
 				},
 			})
 		end,
