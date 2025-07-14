@@ -14,7 +14,7 @@ require("lze").load({
 	{ import = "luaConf.plugins.render-markdown" },
 	{ import = "luaConf.plugins.image" },
 	{ import = "luaConf.plugins.img-clip" },
-	-- { import = "luaConf.plugins.snacks" },
+	{ import = "luaConf.plugins.snacks" },
 
 	{
 		"oil.nvim",
@@ -383,30 +383,12 @@ require("lze").load({
 		"base16-nvim",
 		for_cat = "general.extra",
 		event = "DeferredUIEnter",
-		load = function(name)
-			vim.cmd.packadd(name)
-			vim.cmd.packadd("twilight.nvim")
-		end,
 		after = function()
 			local palette = nixCats.extra("palette")
 			local palette_opaque = nixCats.extra("palette_opaque")
 			local colorUtils = require("colorUtils")
 
 			require("base16-colorscheme").setup(palette)
-
-			local twilight = require("twilight")
-			twilight.setup({
-				dimming = {
-					alpha = 0.3,
-					color = { palette.base07, palette.base07 },
-					term_bg = colorUtils.get_hex_of_hlgroup("Normal", "bg"),
-					inactive = false,
-				},
-				context = 16,
-				treesitter = true,
-			})
-			-- vim.api.nvim_set_hl(0, "Twilight", { bg = colorUtils.get_hex_of_hlgroup("Normal", "bg") })
-			twilight.enable()
 
 			local function set_highlights()
 				local highlights = {

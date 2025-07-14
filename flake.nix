@@ -253,7 +253,6 @@
           ];
           extra = with pkgs.vimPlugins; [
             debugprint-nvim
-            twilight-nvim
             comment-nvim
             todo-comments-nvim
             guess-indent-nvim
