@@ -320,6 +320,14 @@ require("lze").load({
 					style = { palette.base09 },
 					delay = 100,
 				},
+				indent = {
+					enable = true,
+					style = { palette.base01 },
+				},
+				line_num = {
+					enable = true,
+					style = { palette.base09 },
+				},
 			})
 		end,
 	},
