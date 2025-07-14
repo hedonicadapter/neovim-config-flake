@@ -419,7 +419,10 @@ require("lze").load({
 					TelescopePromptPrefix = { bg = colorUtils.get_hex_of_hlgroup("Normal", "bg") },
 
 					WinBar = { bg = colorUtils.get_hex_of_hlgroup("Normal", "bg") },
-					LineNr = { bg = colorUtils.get_hex_of_hlgroup("Normal", "bg") },
+					LineNr = {
+						bg = colorUtils.get_hex_of_hlgroup("Normal", "bg"),
+						fg = colorUtils.get_hex_of_hlgroup("Comment", "fg"),
+					},
 					SignColumn = { bg = colorUtils.get_hex_of_hlgroup("Normal", "bg") },
 					DropBarIconKindFunction = { bg = colorUtils.get_hex_of_hlgroup("Normal", "bg") },
 					TabLineFill = { bg = colorUtils.get_hex_of_hlgroup("Normal", "bg") },
