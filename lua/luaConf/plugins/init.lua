@@ -401,6 +401,8 @@ require("lze").load({
 
 			local function set_highlights()
 				local highlights = {
+					Normal = { bg = colorUtils.get_hex_of_hlgroup("Normal", "bg") },
+
 					TreesitterContextBottom = { sp = "NONE" },
 					TreesitterContext = { bg = colorUtils.get_hex_of_hlgroup("Normal", "bg"), italic = true },
 					TelescopeNormal = { bg = colorUtils.get_hex_of_hlgroup("Normal", "bg") },
@@ -441,7 +443,6 @@ require("lze").load({
 					DropBarKindMethod = { fg = colorUtils.get_hex_of_hlgroup("Comment", "fg") },
 					DropBarKindModule = { fg = colorUtils.get_hex_of_hlgroup("Comment", "fg") },
 					DropBarKindNumber = { fg = colorUtils.get_hex_of_hlgroup("Comment", "fg") },
-					DropBarKindObject = { fg = colorUtils.get_hex_of_hlgroup("Comment", "fg") },
 					DropBarKindRepeat = { fg = colorUtils.get_hex_of_hlgroup("Comment", "fg") },
 					DropBarKindString = { fg = colorUtils.get_hex_of_hlgroup("Comment", "fg") },
 					DropBarKindStruct = { fg = colorUtils.get_hex_of_hlgroup("Comment", "fg") },
@@ -488,17 +489,16 @@ require("lze").load({
 					BlinkCmpMenu = { bg = colorUtils.get_hex_of_hlgroup("Normal", "bg") },
 					BlinkCmpMenuBorder = { bg = colorUtils.get_hex_of_hlgroup("Normal", "bg") },
 
-					DiagnosticSignError = { bg = colorUtils.get_hex_of_hlgroup("Normal", "bg") },
-					DiagnosticSignWarn = { bg = colorUtils.get_hex_of_hlgroup("Normal", "bg") },
-					DiagnosticSignInfo = { bg = colorUtils.get_hex_of_hlgroup("Normal", "bg") },
-					DiagnosticSignHint = { bg = colorUtils.get_hex_of_hlgroup("Normal", "bg") },
-					DiagnosticSignOk = { bg = colorUtils.get_hex_of_hlgroup("Normal", "bg") },
-					Normal = { bg = colorUtils.get_hex_of_hlgroup("Normal", "bg") },
+					-- DiagnosticSignError = { bg = colorUtils.get_hex_of_hlgroup("Normal", "bg") },
+					-- DiagnosticSignWarn = { bg = colorUtils.get_hex_of_hlgroup("Normal", "bg") },
+					-- DiagnosticSignInfo = { bg = colorUtils.get_hex_of_hlgroup("Normal", "bg") },
+					-- DiagnosticSignHint = { bg = colorUtils.get_hex_of_hlgroup("Normal", "bg") },
+					-- DiagnosticSignOk = { bg = colorUtils.get_hex_of_hlgroup("Normal", "bg") },
 
 					Folded = { bg = colorUtils.get_hex_of_hlgroup("Normal", "bg") },
-					GitSignsAdd = { bg = colorUtils.get_hex_of_hlgroup("Normal", "bg") },
-					GitSignsChange = { bg = colorUtils.get_hex_of_hlgroup("Normal", "bg") },
-					GitSignsDelete = { bg = colorUtils.get_hex_of_hlgroup("Normal", "bg") },
+					-- GitSignsAdd = { bg = colorUtils.get_hex_of_hlgroup("Normal", "bg") },
+					-- GitSignsChange = { bg = colorUtils.get_hex_of_hlgroup("Normal", "bg") },
+					-- GitSignsDelete = { bg = colorUtils.get_hex_of_hlgroup("Normal", "bg") },
 					VertSplit = { bg = colorUtils.get_hex_of_hlgroup("Normal", "bg"), ctermbg = "NONE" },
 					MatchParen = { bg = palette.base09, fg = palette.base00 },
 					Visual = { bg = colorUtils.darkenColorIfOpaque(palette_opaque.base0D, 0.6) },
