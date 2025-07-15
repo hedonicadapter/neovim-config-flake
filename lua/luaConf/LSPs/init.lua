@@ -18,6 +18,11 @@ vim.diagnostic.config({
 	inlay_hints = {
 		enabled = false,
 	},
+	float = {
+		severity_sort = true,
+		border = "single",
+		focusable = true,
+	},
 })
 
 -- NOTE: This file uses lzextras.lsp handler https://github.com/BirdeeHub/lzextras?tab=readme-ov-file#lsp-handler
