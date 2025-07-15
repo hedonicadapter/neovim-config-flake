@@ -98,8 +98,8 @@ utils.keymap.set("x", "<leader>p", '"_dP') -- Paste without copying
 utils.keymap.set("n", "<leader>ra", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
-utils.keymap.set("n", "<space>e", vim.diagnostic.open_float)
-utils.keymap.set("n", "<space>q", vim.diagnostic.setloclist)
+utils.keymap.set("n", "<leader>e", vim.diagnostic.open_float)
+utils.keymap.set("n", "<leader>q", vim.diagnostic.setloclist)
 
 utils.keymap.set("n", "<leader>n", "<Cmd>call search('[([{<\\|\"\\|'']')<CR>", {
 	desc = "Jump to next brace, quote, or paren",
