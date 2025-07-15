@@ -378,6 +378,23 @@ require("lze").load({
 			require("tiny-glimmer").setup()
 		end,
 	},
+
+	{
+		"kubectl-nvim",
+		for_cat = "infrastructure.always",
+		event = "DeferredUIEnter",
+		after = function()
+			local utils = require("utils")
+			require("kubectl").setup()
+			utils.keymap.set(
+				"n",
+				"<leader>kc",
+				'<cmd>lua require("kubectl").toggle({ tab: boolean })<CR>',
+				{ noremap = true, silent = true }
+			)
+		end,
+	},
+
 	{
 		"base16-nvim",
 		for_cat = "general.extra",

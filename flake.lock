@@ -514,6 +514,22 @@
         "type": "github"
       }
     },
+    "plugins-kubectl-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1751799341,
+        "narHash": "sha256-D+EkKZQxwAz3+vcOGMwHUoSowinml6PrimYqguoIYJc=",
+        "owner": "ramilito",
+        "repo": "kubectl.nvim",
+        "rev": "a5269c6a85786c5a7a32abf588be5c7853164b03",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ramilito",
+        "repo": "kubectl.nvim",
+        "type": "github"
+      }
+    },
     "poetry2nix": {
       "inputs": {
         "flake-utils": [
@@ -548,7 +564,8 @@
         "nixCats": "nixCats",
         "nixneovimplugins": "nixneovimplugins",
         "nixpkgs": "nixpkgs_5",
-        "nur": "nur"
+        "nur": "nur",
+        "plugins-kubectl-nvim": "plugins-kubectl-nvim"
       }
     },
     "systems": {
