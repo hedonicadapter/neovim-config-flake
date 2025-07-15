@@ -14,8 +14,7 @@ require("lze").load({
 	{ import = "luaConf.plugins.render-markdown" },
 	{ import = "luaConf.plugins.image" },
 	{ import = "luaConf.plugins.img-clip" },
-	-- { import = "luaConf.plugins.snacks" },
-	{ import = "luaConf.plugins.img-clip" },
+	{ import = "luaConf.plugins.snacks" },
 
 	{
 		"oil.nvim",
@@ -320,6 +319,17 @@ require("lze").load({
 					enable = true,
 					style = { palette.base09 },
 					delay = 100,
+					use_treesitter = false,
+				},
+				indent = {
+					enable = true,
+					style = { palette.base01 },
+					use_treesitter = false,
+				},
+				line_num = {
+					enable = true,
+					style = { palette.base09 },
+					use_treesitter = false,
 				},
 			})
 		end,
@@ -382,30 +392,12 @@ require("lze").load({
 		"base16-nvim",
 		for_cat = "general.extra",
 		event = "DeferredUIEnter",
-		load = function(name)
-			vim.cmd.packadd(name)
-			vim.cmd.packadd("twilight.nvim")
-		end,
 		after = function()
 			local palette = nixCats.extra("palette")
 			local palette_opaque = nixCats.extra("palette_opaque")
 			local colorUtils = require("colorUtils")
 
 			require("base16-colorscheme").setup(palette)
-
-			local twilight = require("twilight")
-			twilight.setup({
-				dimming = {
-					alpha = 0.3,
-					color = { palette.base07, palette.base07 },
-					term_bg = colorUtils.get_hex_of_hlgroup("Normal", "bg"),
-					inactive = false,
-				},
-				context = 16,
-				treesitter = true,
-			})
-			-- vim.api.nvim_set_hl(0, "Twilight", { bg = colorUtils.get_hex_of_hlgroup("Normal", "bg") })
-			twilight.enable()
 
 			local function set_highlights()
 				local highlights = {
@@ -418,10 +410,80 @@ require("lze").load({
 					TelescopePromptPrefix = { bg = colorUtils.get_hex_of_hlgroup("Normal", "bg") },
 
 					WinBar = { bg = colorUtils.get_hex_of_hlgroup("Normal", "bg") },
-					LineNr = { bg = colorUtils.get_hex_of_hlgroup("Normal", "bg") },
+					LineNr = {
+						bg = colorUtils.get_hex_of_hlgroup("Normal", "bg"),
+						fg = colorUtils.get_hex_of_hlgroup("Comment", "fg"),
+					},
 					SignColumn = { bg = colorUtils.get_hex_of_hlgroup("Normal", "bg") },
-					DropBarIconKindFunction = { bg = colorUtils.get_hex_of_hlgroup("Normal", "bg") },
 					TabLineFill = { bg = colorUtils.get_hex_of_hlgroup("Normal", "bg") },
+
+					DropBarIconKindFunction = { bg = colorUtils.get_hex_of_hlgroup("Normal", "bg") },
+					DropBarKind = { fg = colorUtils.get_hex_of_hlgroup("Comment", "fg") },
+					DropBarKindCall = { fg = colorUtils.get_hex_of_hlgroup("Comment", "fg") },
+					DropBarKindEnum = { fg = colorUtils.get_hex_of_hlgroup("Comment", "fg") },
+					DropBarKindFile = { fg = colorUtils.get_hex_of_hlgroup("Comment", "fg") },
+					DropBarKindList = { fg = colorUtils.get_hex_of_hlgroup("Comment", "fg") },
+					DropBarKindNull = { fg = colorUtils.get_hex_of_hlgroup("Comment", "fg") },
+					DropBarKindObject = { fg = colorUtils.get_hex_of_hlgroup("Comment", "fg") },
+					DropBarKindPair = { fg = colorUtils.get_hex_of_hlgroup("Comment", "fg") },
+					DropBarKindType = { fg = colorUtils.get_hex_of_hlgroup("Comment", "fg") },
+					DropBarKindUnit = { fg = colorUtils.get_hex_of_hlgroup("Comment", "fg") },
+					DropBarKindArray = { fg = colorUtils.get_hex_of_hlgroup("Comment", "fg") },
+					DropBarKindClass = { fg = colorUtils.get_hex_of_hlgroup("Comment", "fg") },
+					DropBarKindEvent = { fg = colorUtils.get_hex_of_hlgroup("Comment", "fg") },
+					DropBarKindField = { fg = colorUtils.get_hex_of_hlgroup("Comment", "fg") },
+					DropBarKindMacro = { fg = colorUtils.get_hex_of_hlgroup("Comment", "fg") },
+					DropBarKindScope = { fg = colorUtils.get_hex_of_hlgroup("Comment", "fg") },
+					DropBarKindTable = { fg = colorUtils.get_hex_of_hlgroup("Comment", "fg") },
+					DropBarKindValue = { fg = colorUtils.get_hex_of_hlgroup("Comment", "fg") },
+					DropBarKindDelete = { fg = colorUtils.get_hex_of_hlgroup("Comment", "fg") },
+					DropBarKindFolder = { fg = colorUtils.get_hex_of_hlgroup("Comment", "fg") },
+					DropBarKindMethod = { fg = colorUtils.get_hex_of_hlgroup("Comment", "fg") },
+					DropBarKindModule = { fg = colorUtils.get_hex_of_hlgroup("Comment", "fg") },
+					DropBarKindNumber = { fg = colorUtils.get_hex_of_hlgroup("Comment", "fg") },
+					DropBarKindObject = { fg = colorUtils.get_hex_of_hlgroup("Comment", "fg") },
+					DropBarKindRepeat = { fg = colorUtils.get_hex_of_hlgroup("Comment", "fg") },
+					DropBarKindString = { fg = colorUtils.get_hex_of_hlgroup("Comment", "fg") },
+					DropBarKindStruct = { fg = colorUtils.get_hex_of_hlgroup("Comment", "fg") },
+					DropBarKindBoolean = { fg = colorUtils.get_hex_of_hlgroup("Comment", "fg") },
+					DropBarKindElement = { fg = colorUtils.get_hex_of_hlgroup("Comment", "fg") },
+					DropBarKindKeyword = { fg = colorUtils.get_hex_of_hlgroup("Comment", "fg") },
+					DropBarKindPackage = { fg = colorUtils.get_hex_of_hlgroup("Comment", "fg") },
+					DropBarKindRuleSet = { fg = colorUtils.get_hex_of_hlgroup("Comment", "fg") },
+					DropBarKindSection = { fg = colorUtils.get_hex_of_hlgroup("Comment", "fg") },
+					DropBarKindConstant = { fg = colorUtils.get_hex_of_hlgroup("Comment", "fg") },
+					DropBarKindFunction = { fg = colorUtils.get_hex_of_hlgroup("Comment", "fg") },
+					DropBarKindOperator = { fg = colorUtils.get_hex_of_hlgroup("Comment", "fg") },
+					DropBarKindProperty = { fg = colorUtils.get_hex_of_hlgroup("Comment", "fg") },
+					DropBarKindVariable = { fg = colorUtils.get_hex_of_hlgroup("Comment", "fg") },
+					DropBarKindInterface = { fg = colorUtils.get_hex_of_hlgroup("Comment", "fg") },
+					DropBarKindNamespace = { fg = colorUtils.get_hex_of_hlgroup("Comment", "fg") },
+					DropBarKindReference = { fg = colorUtils.get_hex_of_hlgroup("Comment", "fg") },
+					DropBarKindSpecifier = { fg = colorUtils.get_hex_of_hlgroup("Comment", "fg") },
+					DropBarKindStatement = { fg = colorUtils.get_hex_of_hlgroup("Comment", "fg") },
+					DropBarKindEnumMember = { fg = colorUtils.get_hex_of_hlgroup("Comment", "fg") },
+					DropBarKindIdentifier = { fg = colorUtils.get_hex_of_hlgroup("Comment", "fg") },
+					DropBarKindMarkdownH1 = { fg = colorUtils.get_hex_of_hlgroup("Comment", "fg") },
+					DropBarKindMarkdownH2 = { fg = colorUtils.get_hex_of_hlgroup("Comment", "fg") },
+					DropBarKindMarkdownH3 = { fg = colorUtils.get_hex_of_hlgroup("Comment", "fg") },
+					DropBarKindMarkdownH4 = { fg = colorUtils.get_hex_of_hlgroup("Comment", "fg") },
+					DropBarKindMarkdownH5 = { fg = colorUtils.get_hex_of_hlgroup("Comment", "fg") },
+					DropBarKindMarkdownH6 = { fg = colorUtils.get_hex_of_hlgroup("Comment", "fg") },
+					DropBarKindConstructor = { fg = colorUtils.get_hex_of_hlgroup("Comment", "fg") },
+					DropBarKindDeclaration = { fg = colorUtils.get_hex_of_hlgroup("Comment", "fg") },
+					DropBarKindDoStatement = { fg = colorUtils.get_hex_of_hlgroup("Comment", "fg") },
+					DropBarKindIfStatement = { fg = colorUtils.get_hex_of_hlgroup("Comment", "fg") },
+					DropBarKindForStatement = { fg = colorUtils.get_hex_of_hlgroup("Comment", "fg") },
+					DropBarKindCaseStatement = { fg = colorUtils.get_hex_of_hlgroup("Comment", "fg") },
+					DropBarKindElseStatement = { fg = colorUtils.get_hex_of_hlgroup("Comment", "fg") },
+					DropBarKindGotoStatement = { fg = colorUtils.get_hex_of_hlgroup("Comment", "fg") },
+					DropBarKindTypeParameter = { fg = colorUtils.get_hex_of_hlgroup("Comment", "fg") },
+					DropBarKindBreakStatement = { fg = colorUtils.get_hex_of_hlgroup("Comment", "fg") },
+					DropBarKindWhileStatement = { fg = colorUtils.get_hex_of_hlgroup("Comment", "fg") },
+					DropBarKindReturnStatement = { fg = colorUtils.get_hex_of_hlgroup("Comment", "fg") },
+					DropBarKindSwitchStatement = { fg = colorUtils.get_hex_of_hlgroup("Comment", "fg") },
+					DropBarKindBlockMappingPair = { fg = colorUtils.get_hex_of_hlgroup("Comment", "fg") },
+					DropBarKindContinueStatement = { fg = colorUtils.get_hex_of_hlgroup("Comment", "fg") },
 
 					BlinkCmpMenu = { bg = colorUtils.get_hex_of_hlgroup("Normal", "bg") },
 					BlinkCmpMenuBorder = { bg = colorUtils.get_hex_of_hlgroup("Normal", "bg") },

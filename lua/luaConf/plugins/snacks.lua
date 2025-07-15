@@ -9,11 +9,13 @@ return {
 					enabled = false,
 				},
 				animate = {
+					enabled = true,
 					duration = { step = 7, total = 150 },
 					easing = "outQuint",
 					fps = "144",
 				},
 				picker = {
+					enabled = false,
 					prompt = "> ",
 					focus = "input",
 					layout = {
@@ -273,6 +275,22 @@ return {
 						extmarks = false,
 					},
 				},
+				dim = {
+					enabled = true,
+
+					scope = {
+						min_size = 4,
+						max_size = 30,
+						siblings = true,
+					},
+				},
+			})
+
+			vim.api.nvim_create_autocmd({ "BufRead" }, {
+				pattern = { "*" },
+				callback = function()
+					require("snacks").dim()
+				end,
 			})
 		end,
 	},
