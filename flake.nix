@@ -13,13 +13,10 @@
     nixneovimplugins.url = "github:jooooscha/nixpkgs-vim-extra-plugins";
     colors.url = "github:hedonicadapter/colors-flake";
 
-    # No longer fetched to avoid forcing people to import it, but this remains here as a tutorial.
-    # How to import it into your config is shown farther down in the startupPlugins set.
-    # You put it here like this, and then below you would use it with `pkgs.neovimPlugins.hlargs`
-    # "plugins-hlargs" = {
-    #   url = "github:m-demare/hlargs.nvim";
-    #   flake = false;
-    # };
+    "plugins-kubectl-nvim" = {
+      url = "github:ramilito/kubectl.nvim";
+      flake = false;
+    };
   };
 
   # see :help nixCats.flake.outputs
@@ -172,7 +169,9 @@
         };
 
         infrastructure = with pkgs.vimPlugins; {
-          always = [];
+          always = [
+            pkgs.neovimPlugins.kubectl-nvim
+          ];
           extra = [];
         };
 
@@ -276,6 +275,9 @@
           # <- this would be included if any of the subcategories of general are
           # libgit2
           imagemagick
+        ];
+        infrastructure = with pkgs; [
+          kubectl
         ];
       };
 
@@ -387,7 +389,7 @@
           general = true;
           format = true;
 
-          infracture = true;
+          infrastructure = true;
           web = true;
           # enabling this category will enable the go category,
           # and ALSO debug.go and debug.default due to our extraCats in categoryDefinitions.

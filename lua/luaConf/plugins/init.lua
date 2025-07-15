@@ -388,6 +388,7 @@ require("lze").load({
 			require("tiny-glimmer").setup()
 		end,
 	},
+
 	{
 		"base16-nvim",
 		for_cat = "general.extra",
