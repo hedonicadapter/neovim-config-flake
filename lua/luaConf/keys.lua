@@ -98,7 +98,7 @@ utils.keymap.set({ "n", "x" }, "y", function()
 	local lastYankedText = vim.fn.getreg('"')
 
 	if initialLastYankedText ~= lastYankedText then
-		vim.notify("Yanked text: " .. lastYankedText)
+		vim.notify("Yanked text")
 	else
 		vim.notify("Nothing new yanked")
 	end
