@@ -92,7 +92,17 @@ utils.keymap.set("v", "<", "<gv", {
 -- paste and then reselect pasted text
 utils.keymap.set({ "n", "x" }, "p", "p`[v`]o", { noremap = true, silent = true })
 -- yank and then reselect yanked text
-utils.keymap.set({ "n", "x" }, "y", "y`[v`]", { noremap = true, silent = true })
+utils.keymap.set({ "n", "x" }, "y", function()
+	local initialLastYankedText = vim.fn.getreg('"')
+	vim.api.nvim_command("normal! y`[v`]")
+	local lastYankedText = vim.fn.getreg('"')
+
+	if initialLastYankedText ~= lastYankedText then
+		vim.notify("Yanked text: " .. lastYankedText)
+	else
+		vim.notify("Nothing new yanked")
+	end
+end, { noremap = true, silent = true })
 
 utils.keymap.set("x", "<leader>p", '"_dP') -- Paste without copying
 utils.keymap.set("n", "<leader>ra", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
