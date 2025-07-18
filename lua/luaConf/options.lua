@@ -17,6 +17,8 @@ o.sidescrolloff = 20
 
 opt.autoindent = true
 opt.expandtab = true
+opt.shiftwidth = 2
+opt.tabstop = 2
 opt.swapfile = false
 opt.wrap = false
 opt.termguicolors = true
