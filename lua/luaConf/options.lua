@@ -31,7 +31,7 @@ opt.number = true
 opt.cursorline = true
 opt.backspace = "indent,eol,start"
 opt.clipboard:append("unnamedplus")
-opt.guifont = "Mx437 DOS/V re. JPN30"
+opt.guifont = nixCats.extra("font")
 opt.undofile = true
 opt.fillchars:append(",eob: ")
 
@@ -39,7 +39,7 @@ g.have_nerd_font = true
 
 if g.neovide then
 	opt.linespace = 2
-	opt.guifont = "Mx437 DOS/V re. JPN30:h16"
+	opt.guifont = nixCats.extra("font") .. ":h16"
 
 	g.neovide_padding_top = 10
 	g.neovide_padding_bottom = 0

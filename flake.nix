@@ -118,6 +118,7 @@
           # Fonts
           ++ [
             nerd-fonts.symbols-only
+            dejavu_fonts
           ];
 
         infrastructure = with pkgs; [];
@@ -407,6 +408,9 @@
           # see :help nixCats
           themer = false;
         };
+
+        font = misc.font or "DejaVu Sans Mono";
+
         extra = {
           palette = misc.palette or inputs.colors.outputs.palette;
           palette_opaque = misc.palette_opaque or inputs.colors.outputs.palette_opaque;
