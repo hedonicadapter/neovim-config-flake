@@ -500,13 +500,7 @@ require("lze").load({
 					BlinkCmpMenu = { bg = colorUtils.get_hex_of_hlgroup("Normal", "bg") },
 					BlinkCmpMenuBorder = { bg = colorUtils.get_hex_of_hlgroup("Normal", "bg") },
 
-					-- DiagnosticSignError = { bg = colorUtils.get_hex_of_hlgroup("Normal", "bg") },
-					-- DiagnosticSignWarn = { bg = colorUtils.get_hex_of_hlgroup("Normal", "bg") },
-					-- DiagnosticSignInfo = { bg = colorUtils.get_hex_of_hlgroup("Normal", "bg") },
-					-- DiagnosticSignHint = { bg = colorUtils.get_hex_of_hlgroup("Normal", "bg") },
-					-- DiagnosticSignOk = { bg = colorUtils.get_hex_of_hlgroup("Normal", "bg") },
-
-					Folded = { bg = colorUtils.get_hex_of_hlgroup("Normal", "bg") },
+					Folded = { bg = palette.base01 },
 					-- GitSignsAdd = { bg = colorUtils.get_hex_of_hlgroup("Normal", "bg") },
 					-- GitSignsChange = { bg = colorUtils.get_hex_of_hlgroup("Normal", "bg") },
 					-- GitSignsDelete = { bg = colorUtils.get_hex_of_hlgroup("Normal", "bg") },
