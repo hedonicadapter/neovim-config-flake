@@ -34,6 +34,7 @@ opt.clipboard:append("unnamedplus")
 opt.guifont = nixCats.extra("font")
 opt.undofile = true
 opt.fillchars:append(",eob: ")
+opt.laststatus = 3
 
 g.have_nerd_font = true
 
