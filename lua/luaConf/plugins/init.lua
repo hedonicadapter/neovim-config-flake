@@ -94,6 +94,9 @@ require("lze").load({
 			vim.o.foldlevelstart = 99
 			vim.o.foldenable = true
 
+			vim.opt.foldmethod = "expr"
+			vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+
 			require("ufo").setup()
 
 			vim.keymap.set("n", "zR", require("ufo").openAllFolds)
