@@ -87,6 +87,7 @@ require("lze").load({
 		"nvim-ufo",
 		for_cat = "general.always",
 		event = "BufReadPost",
+		dep_of = "nvim-lspconfig",
 		after = function()
 			vim.o.foldcolumn = "0"
 			vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
@@ -97,6 +98,15 @@ require("lze").load({
 
 			vim.keymap.set("n", "zR", require("ufo").openAllFolds)
 			vim.keymap.set("n", "zM", require("ufo").closeAllFolds)
+
+			vim.api.nvim_create_autocmd("FileType", {
+				group = vim.api.nvim_create_augroup("markdown.fold", {}),
+				pattern = "markdown",
+				callback = function()
+					vim.opt_local.foldmethod = "expr"
+					vim.opt_local.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+				end,
+			})
 		end,
 	},
 
