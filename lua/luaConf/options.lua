@@ -36,6 +36,14 @@ opt.undofile = true
 opt.fillchars:append(",eob: ")
 opt.laststatus = 3
 
+o.foldcolumn = "0"
+o.foldlevel = 99
+o.foldlevelstart = 99
+o.foldenable = true
+
+opt.foldmethod = "expr"
+opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+
 g.have_nerd_font = true
 
 if g.neovide then

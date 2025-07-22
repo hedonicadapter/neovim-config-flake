@@ -83,26 +83,6 @@ require("lze").load({
 			require("scrollbar.handlers.gitsigns").setup()
 		end,
 	},
-	{
-		"nvim-ufo",
-		for_cat = "general.always",
-		event = "BufReadPost",
-		dep_of = "nvim-lspconfig",
-		after = function()
-			vim.o.foldcolumn = "0"
-			vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
-			vim.o.foldlevelstart = 99
-			vim.o.foldenable = true
-
-			vim.opt.foldmethod = "expr"
-			vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-
-			require("ufo").setup()
-
-			vim.keymap.set("n", "zR", require("ufo").openAllFolds)
-			vim.keymap.set("n", "zM", require("ufo").closeAllFolds)
-		end,
-	},
 
 	{
 		"garbage-day-nvim",
