@@ -9,6 +9,12 @@ return {
 				completions = { blink = { enabled = true } },
 				file_types = { "markdown", "vimwiki", "codecompanion" },
 				render_modes = true,
+
+				heading = { border = true },
+				indent = {
+					enabled = true,
+					skip_heading = true,
+				},
 			})
 
 			vim.api.nvim_create_autocmd("FileType", {

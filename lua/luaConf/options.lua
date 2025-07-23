@@ -34,15 +34,7 @@ opt.clipboard:append("unnamedplus")
 opt.guifont = nixCats.extra("font")
 opt.undofile = true
 opt.fillchars:append(",eob: ")
-opt.laststatus = 3
-
-o.foldcolumn = "0"
-o.foldlevel = 99
-o.foldlevelstart = 99
-o.foldenable = true
-
-opt.foldmethod = "expr"
-opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+opt.laststatus = 3 -- split border
 
 g.have_nerd_font = true
 
@@ -201,3 +193,16 @@ vim.api.nvim_create_user_command("ListLoadedModules", function()
 	vim.api.nvim_buf_set_option(buf, "bufhidden", "wipe")
 	vim.api.nvim_buf_set_option(buf, "filetype", "lua")
 end, {})
+
+local group = vim.api.nvim_create_augroup("markdown.fold", {})
+
+vim.api.nvim_create_autocmd("FileType", {
+	group = group,
+	pattern = "markdown",
+	callback = function()
+		print("Markdown file detected, setting fold settings.")
+		vim.opt_local.foldmethod = "expr"
+		vim.opt_local.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+		print("Fold settings applied.")
+	end,
+})
