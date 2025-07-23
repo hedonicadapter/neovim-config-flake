@@ -101,6 +101,7 @@
             ripgrep
             fd
             gnupg
+            curl
           ] # Language servers
           ++ [
             nil
