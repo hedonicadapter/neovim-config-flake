@@ -24,13 +24,70 @@ require("lze").load({
 			vim.g.loaded_netrwPlugin = 1
 			require("oil").setup({
 				delete_to_trash = true,
-				show_hidden = true,
 				natural_order = true,
 				is_always_hidden = function(name, _)
 					return name == ".." or name == ".git"
 				end,
+				columns = {
+					"icon",
+					"permissions",
+					"size",
+					"mtime",
+				},
+
+				watch_for_changes = true,
+				view_options = {
+					show_hidden = true,
+					is_hidden_file = function(name, bufnr)
+						local m = name:match("^%.")
+						return m ~= nil
+					end,
+					is_always_hidden = function(name, bufnr) -- This function defines what will never be shown, even when `show_hidden` is set
+						return false
+					end,
+					natural_order = "fast",
+					sort = { -- :help oil-columns to see which columns are sortable
+						{ "mtime", "asc" },
+						{ "type", "asc" },
+						{ "name", "asc" },
+					},
+				},
+				float = {
+					padding = 2,
+					max_width = 0.85,
+					max_height = 0.8,
+					border = "single",
+					preview_split = "left",
+				},
+				preview_win = {
+					update_on_cursor_moved = true,
+					preview_method = "fast_scratch",
+					disable_preview = function(filename)
+						return false
+					end,
+					win_options = {},
+				},
+				confirmation = {
+					border = "single",
+				},
+				progress = {
+					border = "single",
+				},
+				keymaps_help = {
+					border = "single",
+				},
 			})
 			vim.keymap.set("n", "-", "<CMD>Oil --float<CR>", { desc = "Open parent directory" })
+			-- INFO: auto-enable preview a la https://github.com/stevearc/oil.nvim/issues/87#issuecomment-2179322405
+			vim.api.nvim_create_autocmd("User", {
+				pattern = "OilEnter",
+				callback = vim.schedule_wrap(function(args)
+					local oil = require("oil")
+					if vim.api.nvim_get_current_buf() == args.data.buf and oil.get_cursor_entry() then
+						oil.open_preview()
+					end
+				end),
+			})
 		end,
 	},
 
@@ -81,6 +138,24 @@ require("lze").load({
 				},
 			})
 			require("scrollbar.handlers.gitsigns").setup()
+		end,
+	},
+
+	{
+		"nvim-ufo",
+		for_cat = "general.always",
+		event = "BufReadPost",
+		dep_of = "nvim-lspconfig",
+		after = function()
+			vim.o.foldcolumn = "0"
+			vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
+			vim.o.foldlevelstart = 99
+			vim.o.foldenable = true
+
+			vim.keymap.set("n", "zR", require("ufo").openAllFolds)
+			vim.keymap.set("n", "zM", require("ufo").closeAllFolds)
+
+			require("ufo").setup()
 		end,
 	},
 
@@ -388,6 +463,8 @@ require("lze").load({
 				local highlights = {
 					Normal = { bg = colorUtils.get_hex_of_hlgroup("Normal", "bg") },
 
+					FloatBorder = { fg = palette.base06 },
+
 					TreesitterContextBottom = { sp = "NONE" },
 					TreesitterContext = { bg = colorUtils.get_hex_of_hlgroup("Normal", "bg"), italic = true },
 					TelescopeNormal = { bg = colorUtils.get_hex_of_hlgroup("Normal", "bg") },
@@ -497,7 +574,7 @@ require("lze").load({
 					MiniStarterItemPrefix = { fg = palette.base0E },
 					MiniStarterFooter = { fg = palette.base0E },
 
-					DiffviewPanelFileName = { fg = palette.base07 },
+					DiffviewPanelFileName = { fg = palette.base06 },
 				}
 
 				for group, settings in pairs(highlights) do
