@@ -250,7 +250,7 @@
             staline-nvim
             gitsigns-nvim
             nvim-scrollbar
-            nvim-ufo
+            # nvim-ufo
           ];
           extra = with pkgs.vimPlugins; [
             debugprint-nvim

@@ -195,14 +195,11 @@ vim.api.nvim_create_user_command("ListLoadedModules", function()
 end, {})
 
 local group = vim.api.nvim_create_augroup("markdown.fold", {})
-
 vim.api.nvim_create_autocmd("FileType", {
 	group = group,
 	pattern = "markdown",
 	callback = function()
-		print("Markdown file detected, setting fold settings.")
 		vim.opt_local.foldmethod = "expr"
 		vim.opt_local.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-		print("Fold settings applied.")
 	end,
 })
