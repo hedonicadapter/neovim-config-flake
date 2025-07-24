@@ -24,15 +24,11 @@ require("lze").load({
 			vim.g.loaded_netrwPlugin = 1
 			require("oil").setup({
 				delete_to_trash = true,
-				natural_order = true,
-				is_always_hidden = function(name, _)
-					return name == ".." or name == ".git"
-				end,
 				columns = {
 					"icon",
-					"permissions",
-					"size",
-					"mtime",
+					-- "permissions",
+					-- "size",
+					-- "mtime",
 				},
 
 				watch_for_changes = true,
@@ -42,8 +38,8 @@ require("lze").load({
 						local m = name:match("^%.")
 						return m ~= nil
 					end,
-					is_always_hidden = function(name, bufnr) -- This function defines what will never be shown, even when `show_hidden` is set
-						return false
+					is_always_hidden = function(name, _)
+						return name == ".."
 					end,
 					natural_order = "fast",
 					sort = { -- :help oil-columns to see which columns are sortable

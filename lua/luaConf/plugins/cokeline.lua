@@ -11,6 +11,14 @@ return {
 
 			local bgColors = function(buffer)
 				if buffer.is_focused then
+					return palette_opaque.base01
+				else
+					return palette_opaque.base02
+				end
+			end
+
+			local fgColors = function(buffer)
+				if buffer.is_focused then
 					if buffer.diagnostics.errors ~= 0 then
 						return palette_opaque.base08
 					elseif buffer.is_modified then
@@ -26,49 +34,17 @@ return {
 					end
 				else
 					if buffer.diagnostics.errors ~= 0 then
-						return colorUtils.darkenColorIfOpaque(palette_opaque.base08, contrast)
+						return colorUtils.darkenColorIfOpaque(palette_opaque.base08, contrast * 0.3)
 					elseif buffer.is_modified then
-						return colorUtils.darkenColorIfOpaque(palette_opaque.base0B, contrast)
+						return colorUtils.darkenColorIfOpaque(palette_opaque.base0B, contrast * 0.3)
 					elseif buffer.diagnostics.warnings ~= 0 then
-						return colorUtils.darkenColorIfOpaque(palette_opaque.base09, contrast)
+						return colorUtils.darkenColorIfOpaque(palette_opaque.base09, contrast * 0.3)
 					elseif buffer.diagnostics.infos ~= 0 then
-						return colorUtils.darkenColorIfOpaque(palette_opaque.base0C, contrast)
+						return colorUtils.darkenColorIfOpaque(palette_opaque.base0C, contrast * 0.3)
 					elseif buffer.diagnostics.hints ~= 0 then
-						return colorUtils.darkenColorIfOpaque(palette_opaque.base0C, contrast)
+						return colorUtils.darkenColorIfOpaque(palette_opaque.base0C, contrast * 0.3)
 					else
-						return colorUtils.darkenColorIfOpaque(palette_opaque.base09, contrast)
-					end
-				end
-			end
-
-			local fgColors = function(buffer)
-				if buffer.is_focused then
-					if buffer.diagnostics.errors ~= 0 then
-						return colorUtils.darkenColorIfOpaque(palette_opaque.base08, contrast * 0.85)
-					elseif buffer.is_modified then
-						return colorUtils.darkenColorIfOpaque(palette_opaque.base0B, contrast * 0.85)
-					elseif buffer.diagnostics.warnings ~= 0 then
-						return colorUtils.darkenColorIfOpaque(palette_opaque.base09, contrast * 0.85)
-					elseif buffer.diagnostics.infos ~= 0 then
-						return colorUtils.darkenColorIfOpaque(palette_opaque.base0C, contrast * 0.85)
-					elseif buffer.diagnostics.hints ~= 0 then
-						return colorUtils.darkenColorIfOpaque(palette_opaque.base0C, contrast * 0.85)
-					else
-						return colorUtils.darkenColorIfOpaque(palette_opaque.base09, contrast * 0.85)
-					end
-				else
-					if buffer.diagnostics.errors ~= 0 then
-						return colorUtils.darkenColorIfOpaque(palette_opaque.base08, contrast * 0.2)
-					elseif buffer.is_modified then
-						return colorUtils.darkenColorIfOpaque(palette_opaque.base0B, contrast * 0.2)
-					elseif buffer.diagnostics.warnings ~= 0 then
-						return colorUtils.darkenColorIfOpaque(palette_opaque.base09, contrast * 0.2)
-					elseif buffer.diagnostics.infos ~= 0 then
-						return colorUtils.darkenColorIfOpaque(palette_opaque.base0C, contrast * 0.2)
-					elseif buffer.diagnostics.hints ~= 0 then
-						return colorUtils.darkenColorIfOpaque(palette_opaque.base0C, contrast * 0.2)
-					else
-						return colorUtils.darkenColorIfOpaque(palette_opaque.base09, contrast * 0.2)
+						return colorUtils.darkenColorIfOpaque(palette_opaque.base09, contrast * 0.3)
 					end
 				end
 			end
