@@ -283,6 +283,10 @@ return {
 						max_size = 30,
 						siblings = true,
 					},
+
+					filter = function(buf)
+						return vim.api.nvim_get_option_value("filetype", { buf = buf }) ~= "markdown"
+					end,
 				},
 			})
 

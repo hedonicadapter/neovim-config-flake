@@ -10,7 +10,10 @@ return {
 				file_types = { "markdown", "vimwiki", "codecompanion" },
 				render_modes = true,
 
-				heading = { border = true },
+				heading = {
+					border = true,
+					sign = false,
+				},
 				indent = {
 					enabled = true,
 					skip_heading = true,
