@@ -23,9 +23,9 @@ return {
 					end
 				else
 					if buffer.is_focused then
-						return palette_opaque.base01
-					else
 						return palette_opaque.base02
+					else
+						return palette_opaque.base01
 					end
 				end
 			end
