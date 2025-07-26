@@ -23,9 +23,9 @@ return {
 					end
 				else
 					if buffer.is_focused then
-						return palette_opaque.base04
+						return palette_opaque.base01
 					else
-						return palette_opaque.base03
+						return palette_opaque.base02
 					end
 				end
 			end
@@ -78,17 +78,17 @@ return {
 						end
 					else
 						if buffer.diagnostics.errors ~= 0 then
-							return colorUtils.darkenColorIfOpaque(palette_opaque.base08, contrast * 0.9)
+							return colorUtils.darkenColorIfOpaque(palette_opaque.base08, contrast * 0.3)
 						elseif buffer.is_modified then
-							return colorUtils.darkenColorIfOpaque(palette_opaque.base0B, contrast * 0.9)
+							return colorUtils.darkenColorIfOpaque(palette_opaque.base0B, contrast * 0.3)
 						elseif buffer.diagnostics.warnings ~= 0 then
-							return colorUtils.darkenColorIfOpaque(palette_opaque.base09, contrast * 0.9)
+							return colorUtils.darkenColorIfOpaque(palette_opaque.base09, contrast * 0.3)
 						elseif buffer.diagnostics.infos ~= 0 then
-							return colorUtils.darkenColorIfOpaque(palette_opaque.base0C, contrast * 0.9)
+							return colorUtils.darkenColorIfOpaque(palette_opaque.base0C, contrast * 0.3)
 						elseif buffer.diagnostics.hints ~= 0 then
-							return colorUtils.darkenColorIfOpaque(palette_opaque.base0C, contrast * 0.9)
+							return colorUtils.darkenColorIfOpaque(palette_opaque.base0C, contrast * 0.3)
 						else
-							return colorUtils.darkenColorIfOpaque(palette_opaque.base09, contrast * 0.9)
+							return colorUtils.darkenColorIfOpaque(palette_opaque.base09, contrast * 0.3)
 						end
 					end
 				end
