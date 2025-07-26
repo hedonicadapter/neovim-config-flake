@@ -10,6 +10,10 @@ return {
 			local comments_fg = colorUtils.get_hex_of_hlgroup("Comment", "fg")
 			local darkMode = colorUtils.is_dark_color(palette_opaque.base00)
 
+			local bold = function(buffer)
+				return buffer.is_focused
+			end
+
 			local bgColors = function(buffer)
 				if darkMode then
 					if buffer.is_focused then
@@ -60,20 +64,6 @@ return {
 				else
 					if buffer.is_focused then
 						if buffer.diagnostics.errors ~= 0 then
-							return colorUtils.darkenColorIfOpaque(palette_opaque.base08, contrast * 0.9)
-						elseif buffer.is_modified then
-							return colorUtils.darkenColorIfOpaque(palette_opaque.base0B, contrast * 0.9)
-						elseif buffer.diagnostics.warnings ~= 0 then
-							return colorUtils.darkenColorIfOpaque(palette_opaque.base09, contrast * 0.9)
-						elseif buffer.diagnostics.infos ~= 0 then
-							return colorUtils.darkenColorIfOpaque(palette_opaque.base0C, contrast * 0.9)
-						elseif buffer.diagnostics.hints ~= 0 then
-							return colorUtils.darkenColorIfOpaque(palette_opaque.base0C, contrast * 0.9)
-						else
-							return colorUtils.darkenColorIfOpaque(palette_opaque.base09, contrast * 0.9)
-						end
-					else
-						if buffer.diagnostics.errors ~= 0 then
 							return palette_opaque.base08
 						elseif buffer.is_modified then
 							return palette_opaque.base0B
@@ -85,6 +75,20 @@ return {
 							return palette_opaque.base0C
 						else
 							return palette_opaque.base09
+						end
+					else
+						if buffer.diagnostics.errors ~= 0 then
+							return colorUtils.darkenColorIfOpaque(palette_opaque.base08, contrast * 0.9)
+						elseif buffer.is_modified then
+							return colorUtils.darkenColorIfOpaque(palette_opaque.base0B, contrast * 0.9)
+						elseif buffer.diagnostics.warnings ~= 0 then
+							return colorUtils.darkenColorIfOpaque(palette_opaque.base09, contrast * 0.9)
+						elseif buffer.diagnostics.infos ~= 0 then
+							return colorUtils.darkenColorIfOpaque(palette_opaque.base0C, contrast * 0.9)
+						elseif buffer.diagnostics.hints ~= 0 then
+							return colorUtils.darkenColorIfOpaque(palette_opaque.base0C, contrast * 0.9)
+						else
+							return colorUtils.darkenColorIfOpaque(palette_opaque.base09, contrast * 0.9)
 						end
 					end
 				end
@@ -120,6 +124,7 @@ return {
 						end
 					end,
 					truncation = { priority = 1 },
+					bold = bold,
 				},
 
 				devicon_or_pick_letter = {
@@ -133,6 +138,7 @@ return {
 						return "italic,bold" or nil
 					end,
 					truncation = { priority = 1 },
+					bold = bold,
 				},
 
 				index = {
@@ -143,31 +149,25 @@ return {
 						return buffer.is_focused and palette_opaque.base07 or comments_fg
 					end,
 					truncation = { priority = 1 },
+
+					bold = bold,
 				},
 
 				filename_root = {
 					text = function(buffer)
 						return vim.fn.fnamemodify(buffer.filename, ":r")
 					end,
-					style = function(buffer)
-						return ((buffer.is_focused and buffer.diagnostics.errors ~= 0) and "bold,underline")
-							or (buffer.is_focused and "bold,italic")
-							or (buffer.diagnostics.errors ~= 0 and "underline")
-							or nil
-					end,
 					truncation = {
 						priority = 3,
 						direction = "middle",
 					},
+					bold = bold,
 				},
 
 				filename_extension = {
 					text = function(buffer)
 						local ext = vim.fn.fnamemodify(buffer.filename, ":e")
 						return ext ~= "" and "." .. ext or ""
-					end,
-					style = function(buffer)
-						return (buffer.is_focused and buffer.diagnostics.errors ~= 0 and "bold,underline") or nil
 					end,
 					truncation = {
 						priority = 2,
@@ -210,8 +210,8 @@ return {
 							end
 						end
 					end,
-					style = "bold",
 					truncation = { priority = 1 },
+					bold = bold,
 				},
 
 				close_or_unsaved = {
@@ -246,9 +246,6 @@ return {
 				default_hl = {
 					bg = bgColors,
 					fg = fgColors,
-					bold = function(buffer)
-						return buffer.is_focused
-					end,
 				},
 
 				components = {
