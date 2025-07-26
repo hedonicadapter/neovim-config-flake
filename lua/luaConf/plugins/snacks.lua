@@ -10,7 +10,7 @@ return {
 				},
 				animate = {
 					enabled = true,
-					duration = { step = 7, total = 150 },
+					duration = { step = 15, total = 300 },
 					easing = "outQuint",
 					fps = "144",
 				},

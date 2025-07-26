@@ -8,12 +8,21 @@ return {
 			local colorUtils = require("colorUtils")
 			local contrast = nixCats.extra("contrast")
 			local comments_fg = colorUtils.get_hex_of_hlgroup("Comment", "fg")
+			local darkMode = colorUtils.is_dark_color(palette_opaque.base00)
 
 			local bgColors = function(buffer)
-				if buffer.is_focused then
-					return palette_opaque.base01
+				if darkMode then
+					if buffer.is_focused then
+						return palette_opaque.base02
+					else
+						return palette_opaque.base01
+					end
 				else
-					return palette_opaque.base02
+					if buffer.is_focused then
+						return palette_opaque.base06
+					else
+						return palette_opaque.base05
+					end
 				end
 			end
 
@@ -34,17 +43,17 @@ return {
 					end
 				else
 					if buffer.diagnostics.errors ~= 0 then
-						return colorUtils.darkenColorIfOpaque(palette_opaque.base08, contrast * 0.3)
+						return colorUtils.darkenColorIfOpaque(palette_opaque.base08, contrast * 0.9)
 					elseif buffer.is_modified then
-						return colorUtils.darkenColorIfOpaque(palette_opaque.base0B, contrast * 0.3)
+						return colorUtils.darkenColorIfOpaque(palette_opaque.base0B, contrast * 0.9)
 					elseif buffer.diagnostics.warnings ~= 0 then
-						return colorUtils.darkenColorIfOpaque(palette_opaque.base09, contrast * 0.3)
+						return colorUtils.darkenColorIfOpaque(palette_opaque.base09, contrast * 0.9)
 					elseif buffer.diagnostics.infos ~= 0 then
-						return colorUtils.darkenColorIfOpaque(palette_opaque.base0C, contrast * 0.3)
+						return colorUtils.darkenColorIfOpaque(palette_opaque.base0C, contrast * 0.9)
 					elseif buffer.diagnostics.hints ~= 0 then
-						return colorUtils.darkenColorIfOpaque(palette_opaque.base0C, contrast * 0.3)
+						return colorUtils.darkenColorIfOpaque(palette_opaque.base0C, contrast * 0.9)
 					else
-						return colorUtils.darkenColorIfOpaque(palette_opaque.base09, contrast * 0.3)
+						return colorUtils.darkenColorIfOpaque(palette_opaque.base09, contrast * 0.9)
 					end
 				end
 			end
