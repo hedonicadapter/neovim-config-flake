@@ -5,14 +5,10 @@ return {
 		event = "DeferredUIEnter",
 		after = function()
 			local palette_opaque = nixCats.extra("palette_opaque")
-			local palette = nixCats.extra("palette")
 			local colorUtils = require("colorUtils")
 			local contrast = nixCats.extra("contrast")
 			local comments_fg = colorUtils.get_hex_of_hlgroup("Comment", "fg")
 			local darkMode = colorUtils.is_dark_color(palette_opaque.base00)
-
-			vim.notify(palette.base00)
-			vim.notify(tostring(darkMode))
 
 			local bgColors = function(buffer)
 				if darkMode then
