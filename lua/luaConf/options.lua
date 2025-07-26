@@ -38,6 +38,13 @@ opt.laststatus = 3 -- split border
 
 g.have_nerd_font = true
 
+vim.o.foldcolumn = "0"
+vim.opt.fillchars = { fold = " " }
+vim.opt.foldmethod = "indent"
+vim.opt.foldenable = false
+vim.opt.foldlevel = 99
+g.markdown_folding = 1
+
 if g.neovide then
 	opt.linespace = 2
 	opt.guifont = nixCats.extra("font") .. ":h16"
