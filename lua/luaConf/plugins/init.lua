@@ -137,19 +137,18 @@ require("lze").load({
 		end,
 	},
 
-	-- {
-	-- 	"nvim-ufo",
-	-- 	for_cat = "general.always",
-	-- 	event = "BufReadPost",
-	-- 	dep_of = "nvim-lspconfig",
-	-- 	after = function()
-	--
-	-- 		vim.keymap.set("n", "zR", require("ufo").openAllFolds)
-	-- 		vim.keymap.set("n", "zM", require("ufo").closeAllFolds)
-	--
-	-- 		require("ufo").setup()
-	-- 	end,
-	-- },
+	{
+		"nvim-ufo",
+		for_cat = "general.always",
+		event = "BufReadPost",
+		dep_of = "nvim-lspconfig",
+		after = function()
+			vim.keymap.set("n", "zR", require("ufo").openAllFolds)
+			vim.keymap.set("n", "zM", require("ufo").closeAllFolds)
+
+			require("ufo").setup()
+		end,
+	},
 
 	{
 		"garbage-day-nvim",
