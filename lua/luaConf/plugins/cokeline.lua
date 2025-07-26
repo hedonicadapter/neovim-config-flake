@@ -134,9 +134,6 @@ return {
 					fg = function(buffer)
 						return (buffer.is_focused and buffer.devicon.color or comments_fg)
 					end,
-					style = function(_)
-						return "italic,bold" or nil
-					end,
 					truncation = { priority = 1 },
 					bold = bold,
 				},
