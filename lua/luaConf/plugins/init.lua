@@ -118,16 +118,14 @@ require("lze").load({
 	},
 
 	{
-		"gitsigns.nvim",
+		"nvim-hlslens",
 		for_cat = "general.always",
-		event = "DeferredUIEnter",
+		event = "BufReadPost",
 		load = function(name)
 			vim.cmd.packadd(name)
-			vim.cmd.packass("nvim-hlslens")
 			vim.cmd.packadd("nvim-scrollbar")
 		end,
 		after = function()
-			require("gitsigns").setup()
 			require("scrollbar").setup({
 				hide_if_all_visible = true,
 				marks = {
@@ -138,8 +136,17 @@ require("lze").load({
 					Info = { text = { "", "" } },
 				},
 			})
-			require("scrollbar.handlers.gitsigns").setup()
 			require("scrollbar.handlers.search").setup()
+		end,
+	},
+
+	{
+		"gitsigns.nvim",
+		for_cat = "general.always",
+		on_require = "scrollbar",
+		after = function()
+			require("gitsigns").setup()
+			require("scrollbar.handlers.gitsigns").setup()
 		end,
 	},
 
