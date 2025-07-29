@@ -123,17 +123,23 @@ require("lze").load({
 		event = "DeferredUIEnter",
 		load = function(name)
 			vim.cmd.packadd(name)
+			vim.cmd.packass("nvim-hlslens")
 			vim.cmd.packadd("nvim-scrollbar")
 		end,
 		after = function()
 			require("gitsigns").setup()
 			require("scrollbar").setup({
 				hide_if_all_visible = true,
-				handle = {
-					blend = 60,
+				marks = {
+					Search = { text = { "", "" } },
+					Error = { text = { "󰰱", "󰰱" } },
+					Warn = { text = { "", "" } },
+					Hint = { text = { "󱠂", "󱠂" } },
+					Info = { text = { "", "" } },
 				},
 			})
 			require("scrollbar.handlers.gitsigns").setup()
+			require("scrollbar.handlers.search").setup()
 		end,
 	},
 
@@ -460,6 +466,8 @@ require("lze").load({
 					Normal = { bg = colorUtils.get_hex_of_hlgroup("Normal", "bg") },
 
 					FloatBorder = { fg = palette.base06 },
+
+					Search = { fg = palette.base06 },
 
 					TreesitterContextBottom = { sp = "NONE" },
 					TreesitterContext = { bg = colorUtils.get_hex_of_hlgroup("Normal", "bg"), italic = true },

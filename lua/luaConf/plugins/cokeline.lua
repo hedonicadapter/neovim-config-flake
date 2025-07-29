@@ -34,29 +34,41 @@ return {
 				if darkMode then
 					if buffer.is_focused then
 						if buffer.diagnostics.errors ~= 0 then
-							return palette_opaque.base08
+							return colorUtils.get_hex_of_hlgroup("DiagnosticVirtualTextError", "fg")
 						elseif buffer.is_modified then
 							return palette_opaque.base0B
 						elseif buffer.diagnostics.warnings ~= 0 then
-							return palette_opaque.base09
+							return colorUtils.get_hex_of_hlgroup("DiagnosticVirtualTextWarn", "fg")
 						elseif buffer.diagnostics.infos ~= 0 then
-							return palette_opaque.base0C
+							return colorUtils.get_hex_of_hlgroup("DiagnosticVirtualTextInfo", "fg")
 						elseif buffer.diagnostics.hints ~= 0 then
-							return palette_opaque.base0C
+							return colorUtils.get_hex_of_hlgroup("DiagnosticVirtualTextHint", "fg")
 						else
 							return palette_opaque.base09
 						end
 					else
 						if buffer.diagnostics.errors ~= 0 then
-							return colorUtils.darkenColorIfOpaque(palette_opaque.base08, contrast * 0.3)
+							return colorUtils.darkenColorIfOpaque(
+								colorUtils.get_hex_of_hlgroup("DiagnosticVirtualTextError", "fg"),
+								contrast * 0.3
+							)
 						elseif buffer.is_modified then
 							return colorUtils.darkenColorIfOpaque(palette_opaque.base0B, contrast * 0.3)
 						elseif buffer.diagnostics.warnings ~= 0 then
-							return colorUtils.darkenColorIfOpaque(palette_opaque.base09, contrast * 0.3)
+							return colorUtils.darkenColorIfOpaque(
+								colorUtils.get_hex_of_hlgroup("DiagnosticVirtualTextWarn", "fg"),
+								contrast * 0.3
+							)
 						elseif buffer.diagnostics.infos ~= 0 then
-							return colorUtils.darkenColorIfOpaque(palette_opaque.base0C, contrast * 0.3)
+							return colorUtils.darkenColorIfOpaque(
+								colorUtils.get_hex_of_hlgroup("DiagnosticVirtualTextInfo", "fg"),
+								contrast * 0.3
+							)
 						elseif buffer.diagnostics.hints ~= 0 then
-							return colorUtils.darkenColorIfOpaque(palette_opaque.base0C, contrast * 0.3)
+							return colorUtils.darkenColorIfOpaque(
+								colorUtils.get_hex_of_hlgroup("DiagnosticVirtualTextHint", "fg"),
+								contrast * 0.3
+							)
 						else
 							return colorUtils.darkenColorIfOpaque(palette_opaque.base09, contrast * 0.3)
 						end
@@ -64,29 +76,41 @@ return {
 				else
 					if buffer.is_focused then
 						if buffer.diagnostics.errors ~= 0 then
-							return palette_opaque.base08
+							return colorUtils.get_hex_of_hlgroup("DiagnosticVirtualTextError", "bg")
 						elseif buffer.is_modified then
 							return palette_opaque.base0B
 						elseif buffer.diagnostics.warnings ~= 0 then
-							return palette_opaque.base09
+							return colorUtils.get_hex_of_hlgroup("DiagnosticVirtualTextWarn", "fg")
 						elseif buffer.diagnostics.infos ~= 0 then
-							return palette_opaque.base0C
+							return colorUtils.get_hex_of_hlgroup("DiagnosticVirtualTextInfo", "fg")
 						elseif buffer.diagnostics.hints ~= 0 then
-							return palette_opaque.base0C
+							return colorUtils.get_hex_of_hlgroup("DiagnosticVirtualTextHint", "fg")
 						else
 							return palette_opaque.base09
 						end
 					else
 						if buffer.diagnostics.errors ~= 0 then
-							return colorUtils.darkenColorIfOpaque(palette_opaque.base08, contrast * 0.3)
+							return colorUtils.darkenColorIfOpaque(
+								colorUtils.get_hex_of_hlgroup("DiagnosticVirtualTextError", "bg"),
+								contrast * 0.3
+							)
 						elseif buffer.is_modified then
 							return colorUtils.darkenColorIfOpaque(palette_opaque.base0B, contrast * 0.3)
 						elseif buffer.diagnostics.warnings ~= 0 then
-							return colorUtils.darkenColorIfOpaque(palette_opaque.base09, contrast * 0.3)
+							return colorUtils.darkenColorIfOpaque(
+								colorUtils.get_hex_of_hlgroup("DiagnosticVirtualTextWarn", "fg"),
+								contrast * 0.3
+							)
 						elseif buffer.diagnostics.infos ~= 0 then
-							return colorUtils.darkenColorIfOpaque(palette_opaque.base0C, contrast * 0.3)
+							return colorUtils.darkenColorIfOpaque(
+								colorUtils.get_hex_of_hlgroup("DiagnosticVirtualTextInfo", "fg"),
+								contrast * 0.3
+							)
 						elseif buffer.diagnostics.hints ~= 0 then
-							return colorUtils.darkenColorIfOpaque(palette_opaque.base0C, contrast * 0.3)
+							return colorUtils.darkenColorIfOpaque(
+								colorUtils.get_hex_of_hlgroup("DiagnosticVirtualTextHint", "fg"),
+								contrast * 0.3
+							)
 						else
 							return colorUtils.darkenColorIfOpaque(palette_opaque.base09, contrast * 0.3)
 						end
@@ -183,25 +207,25 @@ return {
 					fg = function(buffer)
 						if buffer.is_focused then
 							if buffer.diagnostics.errors ~= 0 then
-								return palette_opaque.base08
+								return colorUtils.get_hex_of_hlgroup("DiagnosticVirtualTextError", "fg")
 							elseif buffer.diagnostics.warnings ~= 0 then
-								return palette_opaque.base09
+								return colorUtils.get_hex_of_hlgroup("DiagnosticVirtualTextWarn", "fg")
 							elseif buffer.diagnostics.infos ~= 0 then
-								return palette_opaque.base0C
+								return colorUtils.get_hex_of_hlgroup("DiagnosticVirtualTextInfo", "fg")
 							elseif buffer.diagnostics.hints ~= 0 then
-								return palette_opaque.base0C
+								return colorUtils.get_hex_of_hlgroup("DiagnosticVirtualTextHint", "fg")
 							else
 								return "NONE"
 							end
 						else
 							if buffer.diagnostics.errors ~= 0 then
-								return palette_opaque.base08
+								return colorUtils.get_hex_of_hlgroup("DiagnosticVirtualTextError", "fg")
 							elseif buffer.diagnostics.warnings ~= 0 then
-								return palette_opaque.base09
+								return colorUtils.get_hex_of_hlgroup("DiagnosticVirtualTextError", "fg")
 							elseif buffer.diagnostics.infos ~= 0 then
 								return palette_opaque.base04
 							elseif buffer.diagnostics.hints ~= 0 then
-								return palette_opaque.base0C
+								return colorUtils.get_hex_of_hlgroup("DiagnosticVirtualTextHint", "fg")
 							else
 								return "NONE"
 							end

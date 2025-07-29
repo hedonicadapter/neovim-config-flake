@@ -250,6 +250,7 @@
             staline-nvim
             gitsigns-nvim
             nvim-scrollbar
+            nvim-hlslens
             # nvim-ufo
           ];
           extra = with pkgs.vimPlugins; [
