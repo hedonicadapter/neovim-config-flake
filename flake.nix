@@ -251,7 +251,7 @@
             gitsigns-nvim
             nvim-scrollbar
             nvim-hlslens
-            # nvim-ufo
+            nvim-ufo
           ];
           extra = with pkgs.vimPlugins; [
             debugprint-nvim
