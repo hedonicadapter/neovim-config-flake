@@ -355,6 +355,15 @@ require("lze").load({
 	},
 
 	{
+		"nvim-bqf",
+		for_cat = "general.always",
+		ft = "qf",
+		after = function()
+			require("nvim-bqf").setup()
+		end,
+	},
+
+	{
 		"todo-comments.nvim",
 		for_cat = "general.extra",
 		event = "BufReadPost",

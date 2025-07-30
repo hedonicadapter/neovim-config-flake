@@ -156,6 +156,7 @@
             eyeliner-nvim
             dropbar-nvim # breadcrumbs
             quicker-nvim
+            nvim-bqf
           ];
           extra = [
             image-nvim
