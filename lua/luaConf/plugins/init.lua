@@ -344,10 +344,12 @@ require("lze").load({
 		after = function()
 			require("quicker").setup()
 
-			-- autoclose quickfix after selection
+			-- autoclose quickfix with Shift-Enter after selection
 			vim.api.nvim_create_autocmd("FileType", {
 				pattern = { "qf" },
-				command = [[nnoremap <buffer> <CR> <CR>:cclose<CR>]],
+				callback = function()
+					vim.api.nvim_buf_set_keymap(0, "n", "<S-CR>", "<CR>:cclose<CR>", { noremap = true, silent = true })
+				end,
 			})
 		end,
 	},
