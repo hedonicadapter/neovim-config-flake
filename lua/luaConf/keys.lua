@@ -210,7 +210,9 @@ local function jump_to_buffer_by_index(index)
 end
 
 for i = 1, 9 do
-	utils.keymap.set({ "n", "v" }, "<Leader>" .. i, function()
+	utils.keymap.set({ "n", "v" }, "<leader>" .. i, function()
 		jump_to_buffer_by_index(i)
 	end, { noremap = true, silent = true, desc = "Jump to buffer " .. i })
 end
+
+utils.keymap.set("n", "<leader>lb", "<cmd>e#<CR>", { noremap = true, desc = "Reopen last buffer" })
