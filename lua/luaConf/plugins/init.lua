@@ -438,6 +438,7 @@ require("lze").load({
 		for_cat = "general.extra",
 		event = "BufReadPost",
 		after = function()
+			local utils = require("utils")
 			local comment_highlight = vim.api.nvim_get_hl(0, { name = "Comment", link = false })
 			local original_highlight =
 				vim.api.nvim_get_hl(0, { name = "ReactiveCursorLine@preset.customCursorLine.@mode.n", link = false })
@@ -451,6 +452,13 @@ require("lze").load({
 				enabled = true,
 				highlight_group = "GitBlameReactive",
 			})
+
+			utils.keymap.set(
+				"n",
+				"<leader>gb",
+				"<cmd>GitBlameToggle<CR>",
+				{ desc = "Toggle git blame", silent = true, noremap = true }
+			)
 		end,
 	},
 
