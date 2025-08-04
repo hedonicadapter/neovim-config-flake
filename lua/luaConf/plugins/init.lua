@@ -425,6 +425,9 @@ require("lze").load({
 		on_require = "diffview.lib",
 		after = function()
 			vim.opt.fillchars:append("diff:╱")
+			require("diffview").setup({
+				enhanced_diff_hl = true,
+			})
 		end,
 	},
 	{
