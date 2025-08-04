@@ -344,6 +344,16 @@ require("lze").load({
 		after = function()
 			require("quicker").setup()
 
+			-- stolen from https://github.com/benlubas/.dotfiles/blob/main/nvim%2Fafter%2Fftplugin%2Fqf.lua
+			local del_qf_item = function()
+				local items = vim.fn.getqflist()
+				local line = vim.fn.line(".")
+				table.remove(items, line)
+				vim.fn.setqflist(items, "r")
+				vim.api.nvim_win_set_cursor(0, { line, 0 })
+			end
+			vim.keymap.set("n", "D", del_qf_item, { buffer = true, desc = "Remove entry from QF" })
+
 			-- autoclose quickfix with Shift-Enter after selection
 			vim.api.nvim_create_autocmd("FileType", {
 				pattern = { "qf" },
