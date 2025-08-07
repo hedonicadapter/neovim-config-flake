@@ -40,6 +40,14 @@ return {
 					return true
 				end,
 
+				keymap = {
+					["<C-.>"] = {
+						function(cmp)
+							cmp.show()
+						end,
+					},
+				},
+
 				signature = {
 					enabled = true,
 					window = { border = "single" },
