@@ -619,7 +619,7 @@ require("lze").load({
 					MiniStarterItemPrefix = { fg = palette.base0E },
 					MiniStarterFooter = { fg = palette.base0E },
 
-					DiffviewPanelFileName = { fg = palette.base06 },
+					DiffviewFilePanelFileName = { fg = palette.base06 },
 				}
 
 				for group, settings in pairs(highlights) do
