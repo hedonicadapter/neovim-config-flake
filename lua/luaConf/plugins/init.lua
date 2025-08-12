@@ -662,6 +662,74 @@ require("lze").load({
 					MiniStarterFooter = { fg = palette.base0E },
 
 					DiffviewFilePanelFileName = { fg = palette.base06 },
+
+					-- Additions
+					GitSignsAdd = { fg = palette.base0B },
+					GitSignsAddLn = { fg = palette.base0B },
+					GitSignsAddNr = { fg = palette.base0B },
+					GitSignsAddCul = { fg = palette.base0B },
+					GitSignsAddInline = { fg = palette.base0B, bg = palette.base01 },
+					GitSignsAddPreview = { fg = palette.base0B },
+					GitSignsStagedAdd = { fg = palette.base0B },
+					GitSignsStagedAddLn = { fg = palette.base0B },
+					GitSignsStagedAddNr = { fg = palette.base0B },
+					GitSignsStagedAddCul = { fg = palette.base0B },
+
+					-- Changes
+					GitSignsChange = { fg = palette.base0D },
+					GitSignsChangeLn = { fg = palette.base0D },
+					GitSignsChangeNr = { fg = palette.base0D },
+					GitSignsChangeCul = { fg = palette.base0D },
+					GitSignsChangeInline = { fg = palette.base0D, bg = palette.base01 },
+					GitSignsChangedelete = { fg = palette.base09 },
+					GitSignsChangedeleteLn = { fg = palette.base09 },
+					GitSignsChangedeleteNr = { fg = palette.base09 },
+					GitSignsChangedeleteCul = { fg = palette.base09 },
+					GitSignsChangeLnInline = { fg = palette.base0D, bg = palette.base01 },
+					GitSignsStagedChange = { fg = palette.base0D },
+					GitSignsStagedChangeLn = { fg = palette.base0D },
+					GitSignsStagedChangeNr = { fg = palette.base0D },
+					GitSignsStagedChangeCul = { fg = palette.base0D },
+					GitSignsStagedChangedelete = { fg = palette.base09 },
+					GitSignsStagedChangedeleteLn = { fg = palette.base09 },
+					GitSignsStagedChangedeleteNr = { fg = palette.base09 },
+					GitSignsStagedChangedeleteCul = { fg = palette.base09 },
+
+					-- Deletions
+					GitSignsDelete = { fg = palette.base08 },
+					GitSignsDeleteLn = { fg = palette.base08 },
+					GitSignsDeleteNr = { fg = palette.base08 },
+					GitSignsDeleteCul = { fg = palette.base08 },
+					GitSignsDeleteInline = { fg = palette.base08, bg = palette.base01 },
+					GitSignsDeleteVirtLn = { fg = palette.base08 },
+					GitSignsDeleteVirtLnInLine = { fg = palette.base08, bg = palette.base01 },
+					GitSignsDeleteLnInline = { fg = palette.base08, bg = palette.base01 },
+					GitSignsDeletePreview = { fg = palette.base08 },
+					GitSignsStagedDelete = { fg = palette.base08 },
+					GitSignsStagedDeleteNr = { fg = palette.base08 },
+					GitSignsStagedDeleteCul = { fg = palette.base08 },
+
+					-- Topdeletes (lines removed at file top)
+					GitSignsTopdelete = { fg = palette.base08 },
+					GitSignsTopdeleteLn = { fg = palette.base08 },
+					GitSignsTopdeleteNr = { fg = palette.base08 },
+					GitSignsTopdeleteCul = { fg = palette.base08 },
+					GitSignsStagedTopdelete = { fg = palette.base08 },
+					GitSignsStagedTopdeleteNr = { fg = palette.base08 },
+					GitSignsStagedTopdeleteCul = { fg = palette.base08 },
+
+					-- Untracked
+					GitSignsUntracked = { fg = palette.base0C },
+					GitSignsUntrackedLn = { fg = palette.base0C },
+					GitSignsUntrackedNr = { fg = palette.base0C },
+					GitSignsUntrackedCul = { fg = palette.base0C },
+					GitSignsStagedUntracked = { fg = palette.base0C },
+					GitSignsStagedUntrackedLn = { fg = palette.base0C },
+					GitSignsStagedUntrackedNr = { fg = palette.base0C },
+					GitSignsStagedUntrackedCul = { fg = palette.base0C },
+
+					-- Blame
+					GitSignsCurrentLineBlame = { fg = palette.base03, italic = true },
 				}
 
 				for group, settings in pairs(highlights) do
