@@ -139,54 +139,34 @@ require("lze").load({
 			})
 			require("scrollbar.handlers.search").setup()
 
+			local utils = require("utils")
 			require("gitsigns").setup({
-				signs = {
-					add = { text = "┃" },
-					change = { text = "┃" },
-					delete = { text = "_" },
-					topdelete = { text = "‾" },
-					changedelete = { text = "~" },
-					untracked = { text = "┆" },
-				},
-				signs_staged = {
-					add = { text = "┃" },
-					change = { text = "┃" },
-					delete = { text = "_" },
-					topdelete = { text = "‾" },
-					changedelete = { text = "~" },
-					untracked = { text = "┆" },
-				},
-				signs_staged_enable = true,
-				signcolumn = true, -- Toggle with `:Gitsigns toggle_signs`
-				numhl = false, -- Toggle with `:Gitsigns toggle_numhl`
-				linehl = false, -- Toggle with `:Gitsigns toggle_linehl`
-				word_diff = false, -- Toggle with `:Gitsigns toggle_word_diff`
-				watch_gitdir = {
-					follow_files = true,
-				},
-				auto_attach = true,
-				attach_to_untracked = false,
-				current_line_blame = false, -- Toggle with `:Gitsigns toggle_current_line_blame`
-				current_line_blame_opts = {
-					virt_text = true,
-					virt_text_pos = "eol", -- 'eol' | 'overlay' | 'right_align'
-					delay = 1000,
-					ignore_whitespace = false,
-					virt_text_priority = 100,
-					use_focus = true,
-				},
-				current_line_blame_formatter = "<author>, <author_time:%R> - <summary>",
-				sign_priority = 6,
-				update_debounce = 100,
-				status_formatter = nil, -- Use default
-				max_file_length = 40000, -- Disable if file is longer than this (in lines)
-				preview_config = {
-					-- Options passed to nvim_open_win
-					style = "minimal",
-					relative = "cursor",
-					row = 0,
-					col = 1,
-				},
+				on_attach = function(bufnr)
+					local gs = package.loaded.gitsigns
+					local map = function(mode, lhs, rhs, desc)
+						utils.keymap.set(mode, lhs, rhs, { buffer = bufnr, desc = desc })
+					end
+
+					-- Navigation
+					map("n", "<leader>gnh", gs.next_hunk, "Git Next Hunk")
+					map("n", "<leader>gph", gs.prev_hunk, "Git Prev Hunk")
+
+					-- Actions
+					map("n", "<leader>ghs", gs.stage_hunk, "Git Hunk Stage")
+					map("n", "<leader>ghu", gs.undo_stage_hunk, "Git Hunk Undo Stage")
+					map("n", "<leader>ghr", gs.reset_hunk, "Git Hunk Reset")
+					map("n", "<leader>gHR", gs.reset_buffer, "Git Reset Buffer")
+					map("n", "<leader>ghp", gs.preview_hunk, "Git Hunk Preview")
+					map("n", "<leader>gtd", gs.toggle_deleted, "Git Toggle Deleted")
+
+					-- Visual mode staging/reset
+					map("v", "<leader>ghs", function()
+						gs.stage_hunk({ vim.fn.line("."), vim.fn.line("v") })
+					end, "Git Stage Hunk (Visual)")
+					map("v", "<leader>ghr", function()
+						gs.reset_hunk({ vim.fn.line("."), vim.fn.line("v") })
+					end, "Git Reset Hunk (Visual)")
+				end,
 			})
 			require("scrollbar.handlers.gitsigns").setup()
 		end,
@@ -534,6 +514,7 @@ require("lze").load({
 			local palette = nixCats.extra("palette")
 			local palette_opaque = nixCats.extra("palette_opaque")
 			local colorUtils = require("colorUtils")
+			local contrast = nixCats.extra("contrast")
 
 			require("base16-colorscheme").setup(palette)
 
@@ -664,28 +645,37 @@ require("lze").load({
 					DiffviewFilePanelFileName = { fg = palette.base06 },
 
 					-- Additions
-					GitSignsAdd = { fg = palette.base0B },
-					GitSignsAddLn = { fg = palette.base0B },
-					GitSignsAddNr = { fg = palette.base0B },
-					GitSignsAddCul = { fg = palette.base0B },
-					GitSignsAddInline = { fg = palette.base0B, bg = palette.base01 },
-					GitSignsAddPreview = { fg = palette.base0B },
+					GitSignsAdd = { fg = colorUtils.darkenColorIfOpaque(palette.base0B, contrast) },
+					GitSignsAddLn = { fg = colorUtils.darkenColorIfOpaque(palette.base0B, contrast) },
+					GitSignsAddNr = { fg = colorUtils.darkenColorIfOpaque(palette.base0B, contrast) },
+					GitSignsAddCul = { fg = colorUtils.darkenColorIfOpaque(palette.base0B, contrast) },
+					GitSignsAddInline = {
+						fg = colorUtils.darkenColorIfOpaque(palette.base0B, contrast),
+						bg = palette.base01,
+					},
+					GitSignsAddPreview = { fg = colorUtils.darkenColorIfOpaque(palette.base0B, contrast) },
 					GitSignsStagedAdd = { fg = palette.base0B },
 					GitSignsStagedAddLn = { fg = palette.base0B },
 					GitSignsStagedAddNr = { fg = palette.base0B },
 					GitSignsStagedAddCul = { fg = palette.base0B },
 
 					-- Changes
-					GitSignsChange = { fg = palette.base0D },
-					GitSignsChangeLn = { fg = palette.base0D },
-					GitSignsChangeNr = { fg = palette.base0D },
-					GitSignsChangeCul = { fg = palette.base0D },
-					GitSignsChangeInline = { fg = palette.base0D, bg = palette.base01 },
+					GitSignsChange = { fg = colorUtils.darkenColorIfOpaque(palette.base0D, contrast) },
+					GitSignsChangeLn = { fg = colorUtils.darkenColorIfOpaque(palette.base0D, contrast) },
+					GitSignsChangeNr = { fg = colorUtils.darkenColorIfOpaque(palette.base0D, contrast) },
+					GitSignsChangeCul = { fg = colorUtils.darkenColorIfOpaque(palette.base0D, contrast) },
+					GitSignsChangeInline = {
+						fg = colorUtils.darkenColorIfOpaque(palette.base0D, contrast),
+						bg = palette.base01,
+					},
 					GitSignsChangedelete = { fg = palette.base09 },
 					GitSignsChangedeleteLn = { fg = palette.base09 },
 					GitSignsChangedeleteNr = { fg = palette.base09 },
 					GitSignsChangedeleteCul = { fg = palette.base09 },
-					GitSignsChangeLnInline = { fg = palette.base0D, bg = palette.base01 },
+					GitSignsChangeLnInline = {
+						fg = colorUtils.darkenColorIfOpaque(palette.base0D, contrast),
+						bg = palette.base01,
+					},
 					GitSignsStagedChange = { fg = palette.base0D },
 					GitSignsStagedChangeLn = { fg = palette.base0D },
 					GitSignsStagedChangeNr = { fg = palette.base0D },
@@ -696,33 +686,42 @@ require("lze").load({
 					GitSignsStagedChangedeleteCul = { fg = palette.base09 },
 
 					-- Deletions
-					GitSignsDelete = { fg = palette.base08 },
-					GitSignsDeleteLn = { fg = palette.base08 },
-					GitSignsDeleteNr = { fg = palette.base08 },
-					GitSignsDeleteCul = { fg = palette.base08 },
-					GitSignsDeleteInline = { fg = palette.base08, bg = palette.base01 },
-					GitSignsDeleteVirtLn = { fg = palette.base08 },
-					GitSignsDeleteVirtLnInLine = { fg = palette.base08, bg = palette.base01 },
-					GitSignsDeleteLnInline = { fg = palette.base08, bg = palette.base01 },
-					GitSignsDeletePreview = { fg = palette.base08 },
+					GitSignsDelete = { fg = colorUtils.darkenColorIfOpaque(palette.base08, contrast) },
+					GitSignsDeleteLn = { fg = colorUtils.darkenColorIfOpaque(palette.base08, contrast) },
+					GitSignsDeleteNr = { fg = colorUtils.darkenColorIfOpaque(palette.base08, contrast) },
+					GitSignsDeleteCul = { fg = colorUtils.darkenColorIfOpaque(palette.base08, contrast) },
+					GitSignsDeleteInline = {
+						fg = colorUtils.darkenColorIfOpaque(palette.base08, contrast),
+						bg = palette.base01,
+					},
+					GitSignsDeleteVirtLn = { fg = colorUtils.darkenColorIfOpaque(palette.base08, contrast) },
+					GitSignsDeleteVirtLnInLine = {
+						fg = colorUtils.darkenColorIfOpaque(palette.base08, contrast),
+						bg = palette.base01,
+					},
+					GitSignsDeleteLnInline = {
+						fg = colorUtils.darkenColorIfOpaque(palette.base08, contrast),
+						bg = palette.base01,
+					},
+					GitSignsDeletePreview = { fg = colorUtils.darkenColorIfOpaque(palette.base08, contrast) },
 					GitSignsStagedDelete = { fg = palette.base08 },
 					GitSignsStagedDeleteNr = { fg = palette.base08 },
 					GitSignsStagedDeleteCul = { fg = palette.base08 },
 
 					-- Topdeletes (lines removed at file top)
-					GitSignsTopdelete = { fg = palette.base08 },
-					GitSignsTopdeleteLn = { fg = palette.base08 },
-					GitSignsTopdeleteNr = { fg = palette.base08 },
-					GitSignsTopdeleteCul = { fg = palette.base08 },
+					GitSignsTopdelete = { fg = colorUtils.darkenColorIfOpaque(palette.base08, contrast) },
+					GitSignsTopdeleteLn = { fg = colorUtils.darkenColorIfOpaque(palette.base08, contrast) },
+					GitSignsTopdeleteNr = { fg = colorUtils.darkenColorIfOpaque(palette.base08, contrast) },
+					GitSignsTopdeleteCul = { fg = colorUtils.darkenColorIfOpaque(palette.base08, contrast) },
 					GitSignsStagedTopdelete = { fg = palette.base08 },
 					GitSignsStagedTopdeleteNr = { fg = palette.base08 },
 					GitSignsStagedTopdeleteCul = { fg = palette.base08 },
 
 					-- Untracked
-					GitSignsUntracked = { fg = palette.base0C },
-					GitSignsUntrackedLn = { fg = palette.base0C },
-					GitSignsUntrackedNr = { fg = palette.base0C },
-					GitSignsUntrackedCul = { fg = palette.base0C },
+					GitSignsUntracked = { fg = colorUtils.darkenColorIfOpaque(palette.base0C, contrast) },
+					GitSignsUntrackedLn = { fg = colorUtils.darkenColorIfOpaque(palette.base0C, contrast) },
+					GitSignsUntrackedNr = { fg = colorUtils.darkenColorIfOpaque(palette.base0C, contrast) },
+					GitSignsUntrackedCul = { fg = colorUtils.darkenColorIfOpaque(palette.base0C, contrast) },
 					GitSignsStagedUntracked = { fg = palette.base0C },
 					GitSignsStagedUntrackedLn = { fg = palette.base0C },
 					GitSignsStagedUntrackedNr = { fg = palette.base0C },
