@@ -14,6 +14,7 @@ o.guicursor = "n-v-c-sm-i-ci-ve:block,r-cr-o:hor20,a:blinkwait700-blinkoff400-bl
 o.cmdheight = 0
 o.sidescroll = 1
 o.sidescrolloff = 20
+o.winborder = "single"
 
 opt.autoindent = true
 opt.expandtab = true
