@@ -250,6 +250,7 @@
             toggleterm-nvim
             staline-nvim
             gitsigns-nvim
+            statuscol-nvim
             nvim-scrollbar
             nvim-hlslens
             nvim-ufo

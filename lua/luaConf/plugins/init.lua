@@ -125,6 +125,7 @@ require("lze").load({
 			vim.cmd.packadd(name)
 			vim.cmd.packadd("nvim-scrollbar")
 			vim.cmd.packadd("gitsigns.nvim")
+			vim.cmd.packadd("statuscol.nvim")
 		end,
 		after = function()
 			require("scrollbar").setup({
@@ -141,6 +142,20 @@ require("lze").load({
 
 			local utils = require("utils")
 			require("gitsigns").setup({
+				signs = {
+					add = { text = " ┊ " },
+					change = { text = " ┊ " },
+					delete = { text = "-┊ " },
+					changedelete = { text = "+┊-" },
+					untracked = { text = " ? " },
+				},
+				signs_staged = {
+					add = { text = " ┃ " },
+					change = { text = " ┃ " },
+					delete = { text = "-┃ " },
+					changedelete = { text = "+┃-" },
+					untracked = { text = " ? " },
+				},
 				on_attach = function(bufnr)
 					local gs = package.loaded.gitsigns
 					local map = function(mode, lhs, rhs, desc)
@@ -169,6 +184,116 @@ require("lze").load({
 				end,
 			})
 			require("scrollbar.handlers.gitsigns").setup()
+
+			require("statuscol").setup({
+				reculright = true,
+				thousands = " ",
+				ft_ignore = {
+					"help",
+					"toggleterm",
+				},
+				segments = {
+					{
+						sign = {
+							namespace = { "diagnostic" },
+						},
+						condition = {
+							function()
+								local clients = vim.lsp.get_clients({ bufnr = 0 })
+								local diagnostics = vim.lsp.protocol.Methods.textDocument_publishDiagnostics
+
+								for _, cfg in pairs(clients) do
+									if cfg:supports_method(diagnostics) then
+										return true
+									end
+								end
+
+								return " "
+							end,
+						},
+					},
+					{
+						text = { " " },
+					},
+					{
+						text = {
+							"%=",
+							function(args)
+								local mode = vim.fn.mode()
+								local normalized_mode = vim.fn.strtrans(mode):lower():gsub("%W", "")
+
+								-- case 1
+								if normalized_mode ~= "v" and vim.v.virtnum == 0 then
+									return require("statuscol.builtin").lnumfunc(args)
+								end
+
+								if vim.v.virtnum < 0 then
+									return "-"
+								end
+
+								local line = require("statuscol.builtin").lnumfunc(args)
+
+								if vim.v.virtnum > 0 then
+									local num_wraps = vim.api.nvim_win_text_height(args.win, {
+										start_row = args.lnum - 1,
+										end_row = args.lnum - 1,
+									})["all"] - 1
+
+									if vim.v.virtnum == num_wraps then
+										line = "└"
+									else
+										line = "├"
+									end
+								end
+
+								-- Highlight cases
+								if normalized_mode == "v" then
+									local pos_list = vim.fn.getregionpos(
+										vim.fn.getpos("v"),
+										vim.fn.getpos("."),
+										{ type = mode, eol = true }
+									)
+									local s_row, e_row = pos_list[1][1][2], pos_list[#pos_list][2][2]
+
+									if vim.v.lnum >= s_row and vim.v.lnum <= e_row then
+										return "%#" .. "CursorLineNr" .. "#" .. line .. "%*"
+									end
+								end
+
+								return vim.fn.line(".") == vim.v.lnum and "%#" .. "CursorLineNr" .. "#" .. line .. "%*"
+									or "%#" .. "LineNr" .. "#" .. line .. "%*"
+							end,
+							" ",
+						},
+						condition = {
+							function()
+								return vim.wo.number or vim.wo.relativenumber
+							end,
+						},
+					},
+					{
+						sign = {
+							namespace = { "gitsigns" },
+							maxwidth = 1,
+							colwidth = 1,
+						},
+					},
+					{
+						text = { " " },
+					},
+					{
+						text = { require("statuscol.builtin").foldfunc },
+						condition = {
+							function()
+								return vim.api.nvim_get_option_value("modifiable", { buf = 0 }) or " "
+							end,
+						},
+					},
+					{
+						text = { " " },
+					},
+				},
+			})
 		end,
 	},
 
