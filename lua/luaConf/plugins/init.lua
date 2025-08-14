@@ -141,7 +141,7 @@ require("lze").load({
 			require("scrollbar.handlers.search").setup()
 
 			local utils = require("utils")
-			require("gitsigns").setup({
+			local gitsigns = require("gitsigns").setup({
 				signs = {
 					add = { text = " ┊ " },
 					change = { text = " ┊ " },
@@ -185,115 +185,50 @@ require("lze").load({
 			})
 			require("scrollbar.handlers.gitsigns").setup()
 
-			require("statuscol").setup({
-				reculright = true,
-				thousands = " ",
-				ft_ignore = {
-					"help",
-					"toggleterm",
-				},
-				segments = {
-					{
-						sign = {
-							namespace = { "diagnostic" },
-						},
-						condition = {
-							function()
-								local clients = vim.lsp.get_clients({ bufnr = 0 })
-								local diagnostics = vim.lsp.protocol.Methods.textDocument_publishDiagnostics
-
-								for _, cfg in pairs(clients) do
-									if cfg:supports_method(diagnostics) then
-										return true
-									end
-								end
-
-								return " "
-							end,
-						},
-					},
-					{
-						text = { " " },
-					},
-					{
-						text = {
-							"%=",
-							function(args)
-								local mode = vim.fn.mode()
-								local normalized_mode = vim.fn.strtrans(mode):lower():gsub("%W", "")
-
-								-- case 1
-								if normalized_mode ~= "v" and vim.v.virtnum == 0 then
-									return require("statuscol.builtin").lnumfunc(args)
-								end
-
-								if vim.v.virtnum < 0 then
-									return "-"
-								end
-
-								local line = require("statuscol.builtin").lnumfunc(args)
-
-								if vim.v.virtnum > 0 then
-									local num_wraps = vim.api.nvim_win_text_height(args.win, {
-										start_row = args.lnum - 1,
-										end_row = args.lnum - 1,
-									})["all"] - 1
-
-									if vim.v.virtnum == num_wraps then
-										line = "└"
-									else
-										line = "├"
-									end
-								end
-
-								-- Highlight cases
-								if normalized_mode == "v" then
-									local pos_list = vim.fn.getregionpos(
-										vim.fn.getpos("v"),
-										vim.fn.getpos("."),
-										{ type = mode, eol = true }
-									)
-									local s_row, e_row = pos_list[1][1][2], pos_list[#pos_list][2][2]
-
-									if vim.v.lnum >= s_row and vim.v.lnum <= e_row then
-										return "%#" .. "CursorLineNr" .. "#" .. line .. "%*"
-									end
-								end
-
-								return vim.fn.line(".") == vim.v.lnum and "%#" .. "CursorLineNr" .. "#" .. line .. "%*"
-									or "%#" .. "LineNr" .. "#" .. line .. "%*"
-							end,
-							" ",
-						},
-						condition = {
-							function()
-								return vim.wo.number or vim.wo.relativenumber
-							end,
-						},
-					},
-					{
-						sign = {
-							namespace = { "gitsigns" },
-							maxwidth = 1,
-							colwidth = 1,
-						},
-					},
-					{
-						text = { " " },
-					},
-					{
-						text = { require("statuscol.builtin").foldfunc },
-						condition = {
-							function()
-								return vim.api.nvim_get_option_value("modifiable", { buf = 0 }) or " "
-							end,
-						},
-					},
-					{
-						text = { " " },
-					},
-				},
-			})
+			-- require("statuscol").setup({
+			-- 	reculright = true,
+			-- 	thousands = " ",
+			-- 	ft_ignore = {
+			-- 		"help",
+			-- 		"toggleterm",
+			-- 	},
+			--
+			-- 	segments = {
+			-- 		-- Line numbers
+			-- 		{
+			-- 			text = { "%l" },
+			-- 			hl = "StatusColumn",
+			-- 			minwidth = 3,
+			-- 			colwidth = 3,
+			-- 		},
+			-- 		-- Git signs from gitsigns.nvim
+			-- 		{
+			-- 			sign = function(opts)
+			-- 				local gs = vim.b.gitsigns_status_dict
+			-- 				if not gs then
+			-- 					return " "
+			-- 				end
+			--
+			-- 				-- Pull symbols from gitsigns setup
+			-- 				local signs = gitsigns.get_signs(opts.lnum) or {}
+			-- 				-- Prioritize added > changed > removed
+			-- 				if signs.added then
+			-- 					return gitsigns.config.signs.added.text
+			-- 				elseif signs.changed then
+			-- 					return gitsigns.config.signs.changed.text
+			-- 				elseif signs.removed then
+			-- 					return gitsigns.config.signs.deleted.text
+			-- 				else
+			-- 					return " "
+			-- 				end
+			-- 			end,
+			-- 			colwidth = 1,
+			-- 			hl = "StatusColumnGit",
+			-- 		},
+			-- 		-- Spacer
+			-- 		{ text = " ", hl = "StatusColumn" },
+			-- 	},
+			-- })
 		end,
 	},
 
