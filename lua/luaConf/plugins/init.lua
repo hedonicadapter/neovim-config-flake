@@ -140,21 +140,51 @@ require("lze").load({
 			})
 			require("scrollbar.handlers.search").setup()
 
+			local builtin = require("statuscol.builtin")
+			require("statuscol").setup({
+				relculright = true,
+				setopt = true,
+				segments = {
+					{ text = { " " } },
+					{ text = { builtin.lnumfunc }, click = "v:lua.ScLa" },
+					{ text = { " " } },
+					{
+						sign = {
+							namespace = { "gitsigns+" },
+							maxwidth = 2,
+							colwidth = 2,
+							auto = false,
+							fillchar = require("config.icons").statuscol,
+							fillcharhl = "StatusColumnSeparator",
+						},
+						click = "v:lua.ScSa",
+					},
+				},
+				ft_ignore = {
+					"help",
+					"vim",
+					"dashboard",
+					"Trouble",
+					"noice",
+					"toggleterm",
+				},
+			})
+
 			local utils = require("utils")
 			local gitsigns = require("gitsigns").setup({
 				signs = {
-					add = { text = " ┊", priority = 10 },
-					change = { text = " ┊", priority = 10 },
-					delete = { text = "_", priority = 10 },
-					changedelete = { text = "±┊", priority = 10 },
-					untracked = { text = " ?", priority = 10 },
+					add = { text = " ┊" },
+					change = { text = " ┊" },
+					delete = { text = "_" },
+					changedelete = { text = "±┊" },
+					untracked = { text = " ?" },
 				},
 				signs_staged = {
-					add = { text = " ┃", priority = 10 },
-					change = { text = " ┃", priority = 10 },
-					delete = { text = "_", priority = 10 },
-					changedelete = { text = "±┃", priority = 10 },
-					untracked = { text = " ?", priority = 10 },
+					add = { text = " ┃" },
+					change = { text = " ┃" },
+					delete = { text = "_" },
+					changedelete = { text = "±┃" },
+					untracked = { text = " ?" },
 				},
 				on_attach = function(bufnr)
 					local gs = package.loaded.gitsigns
@@ -184,51 +214,6 @@ require("lze").load({
 				end,
 			})
 			require("scrollbar.handlers.gitsigns").setup()
-
-			-- require("statuscol").setup({
-			-- 	reculright = true,
-			-- 	thousands = " ",
-			-- 	ft_ignore = {
-			-- 		"help",
-			-- 		"toggleterm",
-			-- 	},
-			--
-			-- 	segments = {
-			-- 		-- Line numbers
-			-- 		{
-			-- 			text = { "%l" },
-			-- 			hl = "StatusColumn",
-			-- 			minwidth = 3,
-			-- 			colwidth = 3,
-			-- 		},
-			-- 		-- Git signs from gitsigns.nvim
-			-- 		{
-			-- 			sign = function(opts)
-			-- 				local gs = vim.b.gitsigns_status_dict
-			-- 				if not gs then
-			-- 					return " "
-			-- 				end
-			--
-			-- 				-- Pull symbols from gitsigns setup
-			-- 				local signs = gitsigns.get_signs(opts.lnum) or {}
-			-- 				-- Prioritize added > changed > removed
-			-- 				if signs.added then
-			-- 					return gitsigns.config.signs.added.text
-			-- 				elseif signs.changed then
-			-- 					return gitsigns.config.signs.changed.text
-			-- 				elseif signs.removed then
-			-- 					return gitsigns.config.signs.deleted.text
-			-- 				else
-			-- 					return " "
-			-- 				end
-			-- 			end,
-			-- 			colwidth = 1,
-			-- 			hl = "StatusColumnGit",
-			-- 		},
-			-- 		-- Spacer
-			-- 		{ text = " ", hl = "StatusColumn" },
-			-- 	},
-			-- })
 		end,
 	},
 
