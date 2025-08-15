@@ -79,8 +79,7 @@ return {
 			})
 			require("treesitter-context").setup({
 				enable = true,
-				max_lines = 3,
-				separator = "_",
+				max_lines = 4,
 			})
 			if nixCats("web") then
 				require("nvim-ts-autotag").setup({})
