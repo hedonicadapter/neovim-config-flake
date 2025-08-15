@@ -146,19 +146,10 @@ require("lze").load({
 				setopt = true,
 				segments = {
 					{ text = { " " } },
-					{ text = { builtin.lnumfunc }, click = "v:lua.ScLa" },
+					{ sign = { namespace = { "diagnostic" }, maxwidth = 1 } },
+					{ text = { builtin.lnumfunc } },
 					{ text = { " " } },
-					{
-						sign = {
-							namespace = { "gitsigns+" },
-							maxwidth = 2,
-							colwidth = 2,
-							auto = false,
-							fillchar = require("config.icons").statuscol,
-							fillcharhl = "StatusColumnSeparator",
-						},
-						click = "v:lua.ScSa",
-					},
+					{ sign = { namespace = { "gitsign" }, maxwidth = 2 } },
 				},
 				ft_ignore = {
 					"help",
@@ -169,6 +160,7 @@ require("lze").load({
 					"toggleterm",
 				},
 			})
+			vim.opt.signcolumn = "auto:1-2"
 
 			local utils = require("utils")
 			local gitsigns = require("gitsigns").setup({
