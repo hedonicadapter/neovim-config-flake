@@ -143,18 +143,18 @@ require("lze").load({
 			local utils = require("utils")
 			local gitsigns = require("gitsigns").setup({
 				signs = {
-					add = { text = " ┊ " },
-					change = { text = " ┊ " },
-					delete = { text = "-┊ " },
-					changedelete = { text = "+┊-" },
-					untracked = { text = " ? " },
+					add = { text = " ┊", priority = 10 },
+					change = { text = " ┊", priority = 10 },
+					delete = { text = "_", priority = 10 },
+					changedelete = { text = "±┊", priority = 10 },
+					untracked = { text = " ?", priority = 10 },
 				},
 				signs_staged = {
-					add = { text = " ┃ " },
-					change = { text = " ┃ " },
-					delete = { text = "-┃ " },
-					changedelete = { text = "+┃-" },
-					untracked = { text = " ? " },
+					add = { text = " ┃", priority = 10 },
+					change = { text = " ┃", priority = 10 },
+					delete = { text = "_", priority = 10 },
+					changedelete = { text = "±┃", priority = 10 },
+					untracked = { text = " ?", priority = 10 },
 				},
 				on_attach = function(bufnr)
 					local gs = package.loaded.gitsigns
