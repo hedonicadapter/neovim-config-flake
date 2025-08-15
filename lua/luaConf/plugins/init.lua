@@ -145,7 +145,6 @@ require("lze").load({
 				relculright = true,
 				setopt = true,
 				segments = {
-					{ text = { " " } },
 					{ sign = { namespace = { "diagnostic" }, maxwidth = 1 } },
 					{ text = { builtin.lnumfunc } },
 					{ text = { " " } },
