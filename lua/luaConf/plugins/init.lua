@@ -562,7 +562,7 @@ require("lze").load({
 
 					Search = { fg = palette.base06 },
 
-					TreesitterContextBottom = { underline = true, sp = palette.base06 },
+					TreesitterContextBottom = { sp = "NONE" },
 					TreesitterContext = { bg = colorUtils.get_hex_of_hlgroup("Normal", "bg"), italic = true },
 					TelescopeNormal = { bg = colorUtils.get_hex_of_hlgroup("Normal", "bg") },
 					TelescopePreviewNormal = { bg = colorUtils.get_hex_of_hlgroup("Normal", "bg") },
