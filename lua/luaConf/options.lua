@@ -34,16 +34,15 @@ opt.backspace = "indent,eol,start"
 opt.clipboard:append("unnamedplus")
 opt.guifont = nixCats.extra("font")
 opt.undofile = true
-opt.fillchars:append(",eob: ")
 opt.laststatus = 3 -- split border
+opt.fillchars = { fold = " ", eob = " " }
 
 g.have_nerd_font = true
 
 vim.o.foldcolumn = "0"
-vim.opt.fillchars = { fold = " " }
-vim.opt.foldmethod = "indent"
-vim.opt.foldenable = false
-vim.opt.foldlevel = 99
+opt.foldmethod = "indent"
+opt.foldenable = false
+opt.foldlevel = 99
 g.markdown_folding = 1
 
 if g.neovide then
