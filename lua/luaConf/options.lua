@@ -35,7 +35,24 @@ opt.clipboard:append("unnamedplus")
 opt.guifont = nixCats.extra("font")
 opt.undofile = true
 opt.laststatus = 3 -- split border
-opt.fillchars = { fold = " ", eob = " " }
+opt.fillchars = {
+	fold = " ",
+	foldopen = "",
+	foldsep = " ",
+	foldclose = "",
+	eob = " ",
+}
+o.foldmethod = "expr"
+o.foldexpr = "nvim_treesitter#foldexpr()"
+vim.api.nvim_create_autocmd("LspAttach", {
+	callback = function(args)
+		local client = vim.lsp.get_client_by_id(args.data.client_id)
+		if client and client.server_capabilities.foldingRangeProvider then
+			vim.o.foldmethod = "expr"
+			vim.o.foldexpr = "v:lua.vim.lsp.foldexpr()"
+		end
+	end,
+})
 
 g.have_nerd_font = true
 
