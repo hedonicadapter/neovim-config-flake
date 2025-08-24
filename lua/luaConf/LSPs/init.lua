@@ -336,6 +336,16 @@ require("lze").load({
 		enabled = nixCats("web"),
 		lsp = {},
 	},
+	{
+		"csharp_ls",
+		enabled = nixCats("general"),
+		lsp = {},
+	},
+	{
+		"omnisharp",
+		enabled = nixCats("general"),
+		lsp = {},
+	},
 })
 
 if nixCats("infrastructure") then
