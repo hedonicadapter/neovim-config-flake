@@ -110,10 +110,12 @@
             vim-language-server
             nodePackages.bash-language-server
             yaml-language-server
+            vscode-langservers-extracted
           ]
           # Formatters & linters
           ++ [
             alejandra
+            statix
             stylua
             sqlfluff
           ]
@@ -125,6 +127,10 @@
 
         infrastructure = with pkgs; [
           kubectl
+          tflint
+          docker-compose-language-service
+          dockerfile-language-server-nodejs
+          docker-language-server
         ];
 
         web = with pkgs; [
@@ -132,7 +138,12 @@
           # prettier
         ];
 
-        go = with pkgs; [];
+        go = with pkgs; [
+          gofmt
+          golangci-lint
+          golangci-lint-langserver
+          go-tools
+        ];
       };
 
       # This is for plugins that will load at startup without using packadd:
