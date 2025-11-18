@@ -19,7 +19,6 @@ require("lze").load({
 					astro = { "prettierd" },
 					bicep = { "bicep" },
 					cs = { "csharpier" },
-					go = { "gofmt" },
 					sql = { "sqlfluff" },
 					tf = { "terraform_fmt" },
 				},

@@ -139,7 +139,6 @@
         ];
 
         go = with pkgs; [
-          gofmt
           golangci-lint
           golangci-lint-langserver
           go-tools
