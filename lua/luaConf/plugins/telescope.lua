@@ -74,7 +74,7 @@ end
 
 utils.keymap.set({ "n", "v" }, "<leader>ff", my_find_files, { noremap = true, silent = true })
 utils.keymap.set({ "n", "v" }, "<leader>lg", function()
-	my_live_grep({ default_text = utils.get_selected_text_or_cword() })
+	my_live_grep({ default_text = utils.trim(utils.get_selected_text_or_cword()) })
 end, { noremap = true, silent = true })
 
 utils.keymap.set({ "n", "v" }, "<leader>fr", ":Telescope resume<CR>", {

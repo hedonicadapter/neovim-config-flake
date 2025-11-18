@@ -32,4 +32,8 @@ M.get_selected_text_or_cword = function()
 	end
 end
 
+M.trim = function(s)
+	return (string.gsub(s, "^%s*(.-)%s*$", "%1"))
+end
+
 return M
