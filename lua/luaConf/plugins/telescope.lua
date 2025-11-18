@@ -79,7 +79,7 @@ my_live_grep = function(opts, no_ignore)
 end
 
 utils.keymap.set({ "n", "v" }, "<leader>ff", my_find_files, { noremap = true, silent = true })
-utils.keymap.set({ "n", "v" }, "<leader>lg", "my_live_grep", { noremap = true, silent = true })
+utils.keymap.set({ "n", "v" }, "<leader>lg", my_live_grep, { noremap = true, silent = true })
 
 utils.keymap.set({ "n", "v" }, "<leader>fr", ":Telescope resume<CR>", {
 	noremap = true,

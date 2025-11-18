@@ -103,7 +103,6 @@
             gnupg
             curl
             ripgrep
-            pngpaste
           ] # Language servers
           ++ [
             nil
