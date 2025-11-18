@@ -56,7 +56,6 @@ require("lze").load({
 		end,
 	},
 
-	{ "statix", enabled = true },
 	{ "eslint", enabled = nixCats("web") },
 
 	{
@@ -121,6 +120,13 @@ require("lze").load({
 	},
 	{ "golangci_lint_ls", for_cat = "go", enabled = nixCats("go") },
 
+	{
+		"statix",
+		enabled = nixCats("general"),
+		lsp = {
+			filetypes = { "nix" },
+		},
+	},
 	{
 		"nil_ls",
 		enabled = nixCats("general"),
