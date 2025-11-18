@@ -53,6 +53,12 @@ my_live_grep = function(opts, no_ignore)
 		map({ "n", "i" }, "<C-h>", function(prompt_bufnr)
 			local prompt = require("telescope.actions.state").get_current_line()
 			require("telescope.actions").close(prompt_bufnr)
+
+			-- wrap in double quotes for telescope-live-grep-args
+			if not prompt:match('^".*"$') then
+				prompt = '"' .. prompt .. '"'
+			end
+
 			no_ignore = not no_ignore
 			my_live_grep({ default_text = prompt }, no_ignore)
 		end)
