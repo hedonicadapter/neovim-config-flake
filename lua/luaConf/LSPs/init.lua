@@ -56,6 +56,9 @@ require("lze").load({
 		end,
 	},
 
+	{ "statix" },
+	{ "eslint", enabled = nixCats("web") },
+
 	{
 		"lua_ls",
 		enabled = nixCats("general"),
@@ -106,6 +109,7 @@ require("lze").load({
 			},
 		},
 	},
+
 	{
 		"gopls",
 		for_cat = "go",
@@ -115,6 +119,8 @@ require("lze").load({
 			filetypes = { "go", "gomod", "gowork", "gotmpl" },
 		},
 	},
+	{ "golangci_lint_ls", for_cat = "go", enabled = nixCats("go") },
+
 	{
 		"nil_ls",
 		enabled = nixCats("general"),
@@ -249,11 +255,6 @@ require("lze").load({
 		lsp = {},
 	},
 	{
-		"dockerls",
-		enabled = nixCats("infrastructure"),
-		lsp = {},
-	},
-	{
 		"html",
 		enabled = nixCats("web"),
 		lsp = {},
@@ -287,7 +288,22 @@ require("lze").load({
 	{
 		"terraformls",
 		enabled = nixCats("infrastructure"),
-		lsp = {},
+	},
+	{
+		"tflint",
+		enabled = nixCats("infrastructure"),
+	},
+	{
+		"docker_compose_language_service",
+		enabled = nixCats("infrastructure"),
+	},
+	{
+		"docker-language-server",
+		enabled = nixCats("infrastructure"),
+	},
+	{
+		"dockerls",
+		enabled = nixCats("infrastructure"),
 	},
 	{
 		"vimls",
