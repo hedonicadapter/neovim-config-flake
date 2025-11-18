@@ -73,9 +73,7 @@ my_live_grep = function(opts, no_ignore)
 end
 
 utils.keymap.set({ "n", "v" }, "<leader>ff", my_find_files, { noremap = true, silent = true })
-utils.keymap.set({ "n", "v" }, "<leader>lg", function()
-	my_live_grep({ default_text = utils.trim(utils.get_selected_text_or_cword()) })
-end, { noremap = true, silent = true })
+utils.keymap.set({ "n", "v" }, "<leader>lg", "my_live_grep", { noremap = true, silent = true })
 
 utils.keymap.set({ "n", "v" }, "<leader>fr", ":Telescope resume<CR>", {
 	noremap = true,
@@ -94,43 +92,21 @@ utils.keymap.set("n", "<leader>fp", "<cmd>Telescope commands<CR>", {
 
 utils.keymap.set({ "n", "v" }, "<leader>fb", "<cmd>Telescope buffers<CR>", { noremap = true, silent = true })
 
-utils.keymap.set(
-	"n",
-	"<leader>fw",
-	[[:lua require('telescope.builtin').live_grep({ default_text = vim.fn.expand('<cword>') })<CR>]],
-	{
-		noremap = true,
-		silent = true,
-		desc = "find word under cursor",
-	}
-)
+utils.keymap.set("n", "<leader>fw", function()
+	my_live_grep({ default_text = utils.trim(vim.fn.expand("<cword>")) })
+end, {
+	noremap = true,
+	silent = true,
+	desc = "find word under cursor",
+})
 
-vim.api.nvim_exec2(
-	[[
-	    function! GetVisualSelection()
-		let [lnum1, col1] = getpos("'<")[1:2]
-		let [lnum2, col2] = getpos("'>")[1:2]
-		let lines = getline(lnum1, lnum2)
-		if len(lines) == 0
-		    return ''
-		endif
-		let lines[-1] = lines[-1][: col2 - (&selection == 'inclusive' ? 1 : 2)]
-		let lines[0] = lines[0][col1 - 1:]
-		return join(lines, "\n")
-	    endfunction
-	]],
-	{ output = false }
-)
-utils.keymap.set(
-	"v",
-	"<leader>fs",
-	[[:lua require('telescope.builtin').live_grep({ default_text = vim.fn.GetVisualSelection() })<CR>]],
-	{
-		noremap = true,
-		silent = true,
-		desc = "find selection",
-	}
-)
+utils.keymap.set("v", "<leader>fs", function()
+	my_live_grep({ default_text = utils.trim(utils.get_selected_text()) })
+end, {
+	noremap = true,
+	silent = true,
+	desc = "find selection",
+})
 
 utils.keymap.set("n", "<leader>fc", "<cmd>Telescope neoclip<CR>", {
 	noremap = true,

@@ -12,24 +12,18 @@ M.set_keymap_for_all_modes = function(key, cmd)
 	end
 end
 
-M.get_selected_text_or_cword = function()
-	local mode = vim.fn.mode()
+M.get_selected_text = function()
+	local save_reg = vim.fn.getreg('"')
+	local save_reg_type = vim.fn.getregtype('"')
 
-	if mode == "v" or mode == "V" or mode == "" then
-		local save_reg = vim.fn.getreg('"')
-		local save_reg_type = vim.fn.getregtype('"')
+	vim.cmd('noau normal! "vy')
 
-		vim.cmd('noau normal! "vy')
+	local selection = vim.fn.getreg('"')
 
-		local selection = vim.fn.getreg('"')
+	vim.fn.setreg('"', save_reg, save_reg_type)
 
-		vim.fn.setreg('"', save_reg, save_reg_type)
-
-		selection = string.gsub(selection, "\n", "")
-		return selection
-	else
-		return vim.fn.expand("<cword>")
-	end
+	selection = string.gsub(selection, "\n", "")
+	return selection
 end
 
 M.trim = function(s)
