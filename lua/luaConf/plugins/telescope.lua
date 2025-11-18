@@ -51,7 +51,7 @@ my_live_grep = function(opts, no_ignore)
 	no_ignore = vim.F.if_nil(no_ignore, false)
 	opts.attach_mappings = function(_, map)
 		map({ "n", "i" }, "<C-h>", function(prompt_bufnr)
-			local prompt = utils.get_selected_text_or_cword()
+			local prompt = require("telescope.actions.state").get_current_line()
 			require("telescope.actions").close(prompt_bufnr)
 			no_ignore = not no_ignore
 			my_live_grep({ default_text = prompt }, no_ignore)
@@ -62,16 +62,20 @@ my_live_grep = function(opts, no_ignore)
 	if no_ignore then
 		opts.no_ignore = true
 		opts.hidden = true
-		opts.prompt_title = "Live Grep <ALL>"
-		require("telescope.builtin").live_grep(opts)
+		opts.prompt_title = "Live Grep <incl. HIDDEN>"
 	else
 		opts.prompt_title = "Live Grep"
-		require("telescope.builtin").live_grep(opts)
+		opts.no_ignore = false
+		opts.hidden = false
 	end
+
+	require("telescope.builtin").live_grep(opts)
 end
 
 utils.keymap.set({ "n", "v" }, "<leader>ff", my_find_files, { noremap = true, silent = true })
-utils.keymap.set({ "n", "v" }, "<leader>lg", my_live_grep, { noremap = true, silent = true })
+utils.keymap.set({ "n", "v" }, "<leader>lg", function()
+	my_live_grep({ default_text = utils.get_selected_text_or_cword() })
+end, { noremap = true, silent = true })
 
 utils.keymap.set({ "n", "v" }, "<leader>fr", ":Telescope resume<CR>", {
 	noremap = true,
