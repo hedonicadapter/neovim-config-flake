@@ -563,6 +563,7 @@ require("lze").load({
 						path = "~/vaults/work",
 					},
 				},
+				ui = { enable = false },
 			})
 		end,
 	},
