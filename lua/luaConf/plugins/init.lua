@@ -543,6 +543,31 @@ require("lze").load({
 	},
 
 	{
+		"obsidian-nvim",
+		for_cat = "general.extra",
+		event = "DeferredUIEnter",
+		after = function()
+			require("obsidian").setup({
+				completion = {
+					nvim_cmp = false,
+					blink = true,
+					min_chars = 1,
+				},
+				workspaces = {
+					{
+						name = "personal",
+						path = "~/vaults/personal",
+					},
+					{
+						name = "work",
+						path = "~/vaults/work",
+					},
+				},
+			})
+		end,
+	},
+
+	{
 		"base16-nvim",
 		for_cat = "general.extra",
 		event = "DeferredUIEnter",

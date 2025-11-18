@@ -102,6 +102,8 @@
             fd
             gnupg
             curl
+            ripgrep
+            pngpaste
           ] # Language servers
           ++ [
             nil
@@ -122,7 +124,9 @@
             dejavu_fonts
           ];
 
-        infrastructure = with pkgs; [];
+        infrastructure = with pkgs; [
+          kubectl
+        ];
 
         web = with pkgs; [
           prettierd
@@ -168,6 +172,7 @@
             pkgs.vimExtraPlugins.reactive-nvim
             hlchunk-nvim
             base16-nvim
+            obsidian-nvim
           ];
         };
 
@@ -280,9 +285,6 @@
           # <- this would be included if any of the subcategories of general are
           # libgit2
           imagemagick
-        ];
-        infrastructure = with pkgs; [
-          kubectl
         ];
       };
 
