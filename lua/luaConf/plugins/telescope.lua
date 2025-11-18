@@ -421,11 +421,14 @@ return {
 				},
 			})
 
-			-- Enable telescope extensions, if they are installed
 			pcall(require("telescope").load_extension, "fzf")
 			pcall(require("telescope").load_extension, "undo")
 			pcall(require("telescope").load_extension, "fidget")
-			pcall(require("telescope").load_extension, "live_grep_args")
+
+			pcall(function()
+				require("live_grep_args").setup()
+				require("telescope").load_extension("live_grep_args")
+			end)
 		end,
 	},
 }
