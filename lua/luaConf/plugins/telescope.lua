@@ -69,7 +69,7 @@ my_live_grep = function(opts, no_ignore)
 		opts.hidden = false
 	end
 
-	require("telescope.builtin").live_grep(opts)
+	require("telescope").extensions.live_grep_args.live_grep_args(opts)
 end
 
 utils.keymap.set({ "n", "v" }, "<leader>ff", my_find_files, { noremap = true, silent = true })
@@ -449,6 +449,7 @@ return {
 			pcall(require("telescope").load_extension, "fzf")
 			pcall(require("telescope").load_extension, "undo")
 			pcall(require("telescope").load_extension, "fidget")
+			pcall(require("telescope").load_extension, "live_grep_args")
 		end,
 	},
 }

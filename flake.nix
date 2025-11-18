@@ -237,6 +237,7 @@
             nvim-ts-context-commentstring
           ];
           telescope = with pkgs.vimPlugins; [
+            telescope-live-grep-args-nvim
             telescope-fzf-native-nvim
             telescope-ui-select-nvim
             telescope-undo-nvim
