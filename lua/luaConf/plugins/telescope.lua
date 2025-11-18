@@ -130,6 +130,7 @@ return {
 			vim.cmd.packadd("telescope-undo.nvim")
 			vim.cmd.packadd("telescope-ui-select.nvim")
 			vim.cmd.packadd("session-lens")
+			vim.cmd.packadd("telescope-live-grep-args.nvim")
 		end,
 		after = function(plugin)
 			require("telescope").setup({
@@ -424,11 +425,7 @@ return {
 			pcall(require("telescope").load_extension, "fzf")
 			pcall(require("telescope").load_extension, "undo")
 			pcall(require("telescope").load_extension, "fidget")
-
-			pcall(function()
-				require("live_grep_args").setup()
-				require("telescope").load_extension("live_grep_args")
-			end)
+			pcall(require("telescope").load_extension, "live_grep_args")
 		end,
 	},
 }
