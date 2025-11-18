@@ -56,7 +56,7 @@ require("lze").load({
 		end,
 	},
 
-	{ "statix" },
+	{ "statix", enabled = true },
 	{ "eslint", enabled = nixCats("web") },
 
 	{

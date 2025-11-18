@@ -106,6 +106,7 @@
           ] # Language servers
           ++ [
             nil
+            nixd
             lua-language-server
             vim-language-server
             nodePackages.bash-language-server
