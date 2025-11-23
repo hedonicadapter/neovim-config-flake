@@ -88,6 +88,15 @@ require("lze").load({
 	},
 
 	{
+		"fyler-nvim",
+		for_cat = "general.always",
+		cmd = "VimEnter",
+		after = function()
+			require("fyler").setup()
+		end,
+	},
+
+	{
 		"comment.nvim",
 		for_cat = "general.extra",
 		event = "DeferredUIEnter",

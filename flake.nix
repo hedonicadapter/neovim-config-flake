@@ -153,6 +153,7 @@
           # (always isnt a special name, just the one I chose for this subcategory)
           always = [
             oil-nvim
+            fyler-nvim
             nvim-lspconfig
             nvim-cokeline
             nui-nvim
