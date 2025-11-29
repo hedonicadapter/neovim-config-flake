@@ -13,10 +13,26 @@ return {
 				heading = {
 					border = true,
 					sign = false,
+					below = "▔",
+					above = "▁",
+					left_pad = 0,
+					position = "left",
 				},
 				indent = {
 					enabled = true,
 					skip_heading = true,
+				},
+				code = {
+					sign = false,
+					position = "left",
+					width = "block",
+					above = "▁",
+					below = "▔",
+					language_left = "█",
+					language_right = "█",
+					language_border = "▁",
+					left_pad = 1,
+					right_pad = 1,
 				},
 			})
 
