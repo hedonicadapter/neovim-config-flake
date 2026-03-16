@@ -118,7 +118,6 @@ autocmd("LspAttach", {
 		local lsp_buf = vim.lsp.buf
 
 		keymap.set("n", "gD", lsp_buf.declaration, opts)
-		keymap.set("n", "gd", lsp_buf.definition, opts)
 		keymap.set("n", "K", lsp_buf.hover, opts)
 		keymap.set("n", "gi", lsp_buf.implementation, opts)
 		keymap.set("n", "<C-k>", lsp_buf.signature_help, opts)
@@ -130,7 +129,6 @@ autocmd("LspAttach", {
 		keymap.set("n", "<leader>D", lsp_buf.type_definition, opts)
 		keymap.set("n", "<leader>rn", lsp_buf.rename, opts)
 		keymap.set({ "n", "v" }, "<leader>ca", lsp_buf.code_action, opts)
-		keymap.set("n", "gr", lsp_buf.references, opts)
 		keymap.set("n", "<leader>f", function()
 			lsp_buf.format({
 				async = true,
