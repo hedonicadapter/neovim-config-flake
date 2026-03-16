@@ -10,19 +10,72 @@ return {
 			local comments_fg = colorUtils.get_hex_of_hlgroup("Comment", "fg")
 			local darkMode = colorUtils.is_dark_color(palette_opaque.base00)
 
+			-- Track the last non-toggleterm buffer and use it as a proxy focus target
+			local proxy_focus_bufnr = nil
+			local last_non_toggleterm_bufnr = nil
+
+			local function is_toggleterm_buf(bufnr)
+				if not bufnr or not vim.api.nvim_buf_is_valid(bufnr) then
+					return false
+				end
+				return vim.bo[bufnr].filetype == "toggleterm"
+			end
+
+			vim.api.nvim_create_autocmd("BufEnter", {
+				callback = function(args)
+					local bufnr = args.buf
+
+					if is_toggleterm_buf(bufnr) then
+						if last_non_toggleterm_bufnr and vim.api.nvim_buf_is_valid(last_non_toggleterm_bufnr) then
+							proxy_focus_bufnr = last_non_toggleterm_bufnr
+						else
+							proxy_focus_bufnr = nil
+						end
+					else
+						last_non_toggleterm_bufnr = bufnr
+						proxy_focus_bufnr = nil
+					end
+				end,
+			})
+
+			vim.api.nvim_create_autocmd("BufLeave", {
+				callback = function(args)
+					if is_toggleterm_buf(args.buf) then
+						proxy_focus_bufnr = nil
+					end
+				end,
+			})
+
+			local function is_effectively_focused(buffer)
+				if buffer.is_focused then
+					return true
+				end
+
+				if proxy_focus_bufnr and buffer.number == proxy_focus_bufnr then
+					local current = vim.api.nvim_get_current_buf()
+					if is_toggleterm_buf(current) then
+						return true
+					end
+				end
+
+				return false
+			end
+
 			local bold = function(buffer)
-				return buffer.is_focused
+				return is_effectively_focused(buffer)
 			end
 
 			local bgColors = function(buffer)
+				local focused = is_effectively_focused(buffer)
+
 				if darkMode then
-					if buffer.is_focused then
+					if focused then
 						return palette_opaque.base02
 					else
 						return palette_opaque.base01
 					end
 				else
-					if buffer.is_focused then
+					if focused then
 						return palette_opaque.base02
 					else
 						return palette_opaque.base01
@@ -31,8 +84,10 @@ return {
 			end
 
 			local fgColors = function(buffer)
+				local focused = is_effectively_focused(buffer)
+
 				if darkMode then
-					if buffer.is_focused then
+					if focused then
 						if buffer.diagnostics.errors ~= 0 then
 							return colorUtils.get_hex_of_hlgroup("DiagnosticVirtualTextError", "fg")
 						elseif buffer.is_modified then
@@ -74,7 +129,7 @@ return {
 						end
 					end
 				else
-					if buffer.is_focused then
+					if focused then
 						if buffer.diagnostics.errors ~= 0 then
 							return colorUtils.get_hex_of_hlgroup("DiagnosticVirtualTextError", "bg")
 						elseif buffer.is_modified then
@@ -131,7 +186,7 @@ return {
 
 				lil_guy = {
 					text = function(buffer)
-						if not buffer.is_focused then
+						if not is_effectively_focused(buffer) then
 							return ""
 						elseif buffer.diagnostics.errors ~= 0 then
 							return "(٥¯ ¯) "
@@ -156,7 +211,7 @@ return {
 						return buffer.devicon.icon
 					end,
 					fg = function(buffer)
-						return (buffer.is_focused and buffer.devicon.color or comments_fg)
+						return (is_effectively_focused(buffer) and buffer.devicon.color or comments_fg)
 					end,
 					truncation = { priority = 1 },
 					bold = bold,
@@ -167,7 +222,7 @@ return {
 						return buffer.index .. " "
 					end,
 					fg = function(buffer)
-						return buffer.is_focused and palette_opaque.base07 or comments_fg
+						return is_effectively_focused(buffer) and palette_opaque.base07 or comments_fg
 					end,
 					truncation = { priority = 1 },
 
@@ -205,7 +260,7 @@ return {
 							or ""
 					end,
 					fg = function(buffer)
-						if buffer.is_focused then
+						if is_effectively_focused(buffer) then
 							if buffer.diagnostics.errors ~= 0 then
 								return colorUtils.get_hex_of_hlgroup("DiagnosticVirtualTextError", "fg")
 							elseif buffer.diagnostics.warnings ~= 0 then
@@ -244,7 +299,7 @@ return {
 							return nil
 						end
 
-						if buffer.is_focused then
+						if is_effectively_focused(buffer) then
 							return palette_opaque.base0D
 						else
 							return palette_opaque.base0D
