@@ -1,26 +1,37 @@
 return {
 	{
+		"copilot.vim",
+		for_cat = "general.extra",
+		cmd = { "Copilot" },
+		on_plugin = { "codecompanion.nvim" },
+		after = function(plugin) end,
+	},
+	{
 		"codecompanion.nvim",
 		for_cat = "general.extra",
 		on_require = { "codecompanion", "codecompanion.adapters" },
 		cmd = { "CodeCompanion", "CodeCompanionChat", "CodeCompanionCmd", "CodeCompanionActions" },
 		after = function(plugin)
 			require("codecompanion").setup({
-				strategies = {
+				interactions = {
 					chat = {
-						adapter = "openai",
+						adapter = "copilot",
+					},
+					inline = {
+						adapter = "copilot",
+					},
+					cmd = {
+						adapter = "copilot",
+					},
+					background = {
+						adapter = "copilot",
 					},
 				},
 				adapters = {
-					openai = function()
-						return require("codecompanion.adapters").extend("openai", {
-							schema = {
-								model = {
-									default = "gpt-4o",
-								},
-							},
+					copilot = function()
+						return require("codecompanion.adapters").extend("copilot", {
 							env = {
-								api_key = "cmd: gpg --batch --quiet --decrypt ~/.secrets/openai_api_key.gpg",
+								endpoint = "/responses",
 							},
 						})
 					end,

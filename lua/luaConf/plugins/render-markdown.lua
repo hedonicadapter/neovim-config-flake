@@ -3,11 +3,11 @@ return {
 		"render-markdown.nvim",
 		for_cat = "general.always",
 		event = "BufReadPost",
-		ft = { "markdown", "vimwiki", "codecompanion" },
+		ft = { "markdown", "vimwiki", "codecompanion", "Avante" },
 		after = function(plugin)
 			require("render-markdown").setup({
 				completions = { lsp = { enabled = true } },
-				file_types = { "markdown", "vimwiki", "codecompanion" },
+				file_types = { "markdown", "vimwiki", "codecompanion", "Avante" },
 				render_modes = true,
 
 				heading = {

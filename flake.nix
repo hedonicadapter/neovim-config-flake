@@ -180,7 +180,7 @@
             pkgs.awesomeNeovimPlugins.hawtkeys-nvim
             pkgs.awesomeNeovimPlugins.garbage-day-nvim
             pkgs.awesomeNeovimPlugins.tiny-code-action-nvim
-            pkgs.vimExtraPlugins.reactive-nvim
+            pkgs.awesomeNeovimPlugins.reactive-nvim
             hlchunk-nvim
             base16-nvim
             obsidian-nvim
@@ -279,6 +279,7 @@
             guess-indent-nvim
             nvim-colorizer-lua
             codecompanion-nvim
+            copilot-vim
             git-blame-nvim
             fidget-nvim
             pkgs.awesomeNeovimPlugins.tiny-glimmer-nvim
