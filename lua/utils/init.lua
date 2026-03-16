@@ -12,7 +12,10 @@ M.set_keymap_for_all_modes = function(key, cmd)
 	end
 end
 
-M.get_selected_text = function()
+M.get_selected_text = function(opts)
+	local options = opts or {}
+	local keep_newlines = options.keep_newlines
+
 	local save_reg = vim.fn.getreg('"')
 	local save_reg_type = vim.fn.getregtype('"')
 
@@ -22,7 +25,12 @@ M.get_selected_text = function()
 
 	vim.fn.setreg('"', save_reg, save_reg_type)
 
-	selection = string.gsub(selection, "\n", "")
+	if not keep_newlines then
+		selection = string.gsub(selection, "\n", "")
+	else
+		selection = string.gsub(selection, "\n$", "")
+	end
+
 	return selection
 end
 

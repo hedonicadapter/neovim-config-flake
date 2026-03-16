@@ -174,6 +174,40 @@ utils.keymap.set("n", "<leader>tt", ":ToggleTerm<CR>", {
 	silent = true,
 })
 
+utils.keymap.set({ "v", "x" }, "<leader>ts", function()
+	local ok, term_mod = pcall(require, "toggleterm.terminal")
+	if not ok then
+		vim.notify("toggleterm not available", vim.log.levels.ERROR)
+		return
+	end
+
+	local utils = require("utils")
+	local text = utils.get_selected_text({ keep_newlines = true })
+	if text == "" then
+		vim.notify("No selection to send", vim.log.levels.WARN)
+		return
+	end
+
+	local term = term_mod.get(1) or term_mod.Terminal:new({ id = 1 })
+	term:open()
+	if term.window and vim.api.nvim_win_is_valid(term.window) then
+		vim.api.nvim_set_current_win(term.window)
+	end
+
+	local job = term.job_id
+	if not job then
+		vim.notify("toggleterm job not running", vim.log.levels.ERROR)
+		return
+	end
+
+	-- Use bracketed paste so the shell inserts text without auto-executing.
+	vim.fn.chansend(job, "\x1b[200~" .. text .. "\x1b[201~")
+end, {
+	noremap = true,
+	silent = true,
+	desc = "Send selection to terminal",
+})
+
 utils.keymap.set(
 	"n",
 	"<leader>cn",
