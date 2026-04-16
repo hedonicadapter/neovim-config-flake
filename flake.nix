@@ -109,7 +109,7 @@
             nixd
             lua-language-server
             vim-language-server
-            nodePackages.bash-language-server
+            bash-language-server
             yaml-language-server
             vscode-langservers-extracted
           ]
@@ -228,7 +228,7 @@
         format = with pkgs.vimPlugins; {
           default = [conform-nvim];
           web = with pkgs; [
-            nodePackages.prettier
+            prettier
             prettierd
           ];
         };
