@@ -276,7 +276,7 @@ return {
 					},
 				},
 				dim = {
-					enabled = true,
+					enabled = false,
 
 					scope = {
 						min_size = 4,
