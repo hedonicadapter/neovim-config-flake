@@ -240,15 +240,6 @@ require("lze").load({
 	},
 
 	{
-		"hawtkeys-nvim",
-		for_cat = "general.extra",
-		event = "DeferredUIEnter",
-		after = function()
-			require("hawtkeys").setup({})
-		end,
-	},
-
-	{
 		"sniprun",
 		for_cat = "general.always",
 		event = "BufReadPost",
