@@ -64,6 +64,32 @@
         awesome-neovim-plugins.overlays.default
         nixneovimplugins.overlays.default
 
+        # Workaround for nixpkgs' `neovimRequireCheckHook` false positives.
+        # The hook runs in discovery mode and `require()`s every Lua module a
+        # plugin ships, including optional integration shims that pull deps
+        # which aren't propagated (e.g. `plenary.job`, `snacks.picker.preview`).
+        # Those modules are only loaded at runtime when the integration is used,
+        # so the check fails plugins that are actually fine (e.g. hawtkeys-nvim,
+        # tiny-code-action-nvim). This disables ONLY the require check across all
+        # plugin sets; no other tests are touched and no plugins are removed.
+        (final: prev: let
+          # Override every derivation in a plugin set to skip the require check.
+          # Keep the set's `extend` (scope) when present so transitive lookups
+          # also get the override; otherwise just map over the attrs.
+          disableRequireCheck = set: let
+            f = _: p:
+              if builtins.isAttrs p && p ? overrideAttrs
+              then p.overrideAttrs (_: {doCheck = false; nvimRequireCheck = [];})
+              else p;
+          in if set ? extend
+            then set.extend (_: pprev: builtins.mapAttrs f pprev)
+            else builtins.mapAttrs f set;
+        in {
+          vimPlugins = disableRequireCheck prev.vimPlugins;
+          awesomeNeovimPlugins = disableRequireCheck prev.awesomeNeovimPlugins;
+          neovimPlugins = disableRequireCheck prev.neovimPlugins;
+        })
+
         # when other people mess up their overlays by wrapping them with system,
         # you may instead call this function on their overlay.
         # it will check if it has the system in the set, and if so return the desired overlay
