@@ -79,9 +79,14 @@
           disableRequireCheck = set: let
             f = _: p:
               if builtins.isAttrs p && p ? overrideAttrs
-              then p.overrideAttrs (_: {doCheck = false; nvimRequireCheck = [];})
+              then
+                p.overrideAttrs (_: {
+                  doCheck = false;
+                  nvimRequireCheck = [];
+                })
               else p;
-          in if set ? extend
+          in
+            if set ? extend
             then set.extend (_: pprev: builtins.mapAttrs f pprev)
             else builtins.mapAttrs f set;
         in {
@@ -144,7 +149,7 @@
             alejandra
             statix
             stylua
-            sqlfluff
+            # sqlfluff
           ]
           # Fonts
           ++ [
