@@ -8,7 +8,10 @@ local augroup = vim.api.nvim_create_augroup
 local palette = nixCats.extra("palette")
 
 o.showmode = false
-o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
+-- Exclude `localoptions`: it persists window-local options like `statuscolumn`
+-- into the session, which auto-session restores before statuscol loads,
+-- calling get_statuscol_string() with the plugin absent (E117 on startup).
+o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal"
 o.autoread = true
 o.guicursor = "n-v-c-sm-i-ci-ve:block,r-cr-o:hor20,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor"
 o.cmdheight = 0
