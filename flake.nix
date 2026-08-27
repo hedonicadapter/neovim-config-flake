@@ -105,21 +105,30 @@
         # `*-legacy` packages; alias back to them. Force `pname` so nixCats'
         # packadd names stay `nvim-treesitter` / `nvim-treesitter-textobjects`.
         # Use `//` over the frozen `prev.vimPlugins` (not `.extend`): legacy's
-        # `withAllGrammars` reads `self.nvim-treesitter.allGrammars`, so rewiring
-        # the scope fixpoint would recurse into our grammar-less override. Apply
-        # withAllGrammars first, then rename — it builds off `self.nvim-treesitter-legacy`.
-        (final: prev: {
-          vimPlugins = prev.vimPlugins // {
-            nvim-treesitter = prev.vimPlugins.nvim-treesitter-legacy.withAllGrammars.overrideAttrs (_: {
-              pname = "nvim-treesitter";
+        # passthru closures read `self.nvim-treesitter{,-legacy}`, so rewiring the
+        # scope fixpoint would recurse into our override.
+        #
+        # `nvim-treesitter` stays the legacy *base* (not its withAllGrammars
+        # result) so its passthru survives — the neovim wrapper reads
+        # `vimPlugins.nvim-treesitter.grammarPlugins` (utils.nix). Only re-stamp
+        # `pname` on the withAllGrammars result: legacy stamps it `*-legacy`,
+        # which would otherwise break `packadd("nvim-treesitter")`.
+        (final: prev: let
+          vp = prev.vimPlugins;
+          rename = pname: p:
+            p.overrideAttrs (_: {
+              inherit pname;
               doCheck = false;
               nvimRequireCheck = [];
             });
-            nvim-treesitter-textobjects = prev.vimPlugins.nvim-treesitter-textobjects-legacy.overrideAttrs (_: {
-              pname = "nvim-treesitter-textobjects";
-              doCheck = false;
-              nvimRequireCheck = [];
+        in {
+          vimPlugins = vp // {
+            nvim-treesitter = (rename "nvim-treesitter" vp.nvim-treesitter-legacy).overrideAttrs (o: {
+              passthru = (o.passthru or {}) // {
+                withAllGrammars = rename "nvim-treesitter" vp.nvim-treesitter-legacy.withAllGrammars;
+              };
             });
+            nvim-treesitter-textobjects = rename "nvim-treesitter-textobjects" vp.nvim-treesitter-textobjects-legacy;
           };
         })
 
@@ -301,7 +310,7 @@
           treesitter = with pkgs.vimPlugins; [
             nvim-treesitter-context
             nvim-treesitter-textobjects
-            nvim-treesitter # legacy master, grammars pre-bundled via overlay
+            nvim-treesitter.withAllGrammars # legacy master (pinned via overlay)
             nvim-ts-autotag
             nvim-ts-context-commentstring
           ];
