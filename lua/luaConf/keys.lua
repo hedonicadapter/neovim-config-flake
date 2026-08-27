@@ -155,8 +155,8 @@ utils.keymap.set(
 	{ noremap = true, silent = true }
 )
 
-utils.keymap.set("n", "<leader>dn", "<cmd>lua vim.diagnostic.goto_next()<CR>")
-utils.keymap.set("n", "<leader>dp", "<cmd>lua vim.diagnostic.goto_prev()<CR>")
+utils.keymap.set("n", "<leader>dn", "<cmd>lua vim.diagnostic.jump({ count = 1, float = true })<CR>")
+utils.keymap.set("n", "<leader>dp", "<cmd>lua vim.diagnostic.jump({ count = -1, float = true })<CR>")
 
 -- credit: u/xmsxms
 utils.keymap.set("n", "<leader>bc", function()

@@ -212,10 +212,10 @@ vim.api.nvim_create_user_command("ListLoadedModules", function()
 
 	vim.api.nvim_buf_set_lines(buf, 0, -1, false, modules)
 
-	vim.api.nvim_buf_set_option(buf, "modifiable", false)
-	vim.api.nvim_buf_set_option(buf, "buftype", "nofile")
-	vim.api.nvim_buf_set_option(buf, "bufhidden", "wipe")
-	vim.api.nvim_buf_set_option(buf, "filetype", "lua")
+	vim.api.nvim_set_option_value("modifiable", false, { buf = buf })
+	vim.api.nvim_set_option_value("buftype", "nofile", { buf = buf })
+	vim.api.nvim_set_option_value("bufhidden", "wipe", { buf = buf })
+	vim.api.nvim_set_option_value("filetype", "lua", { buf = buf })
 end, {})
 
 local group = vim.api.nvim_create_augroup("markdown.fold", {})

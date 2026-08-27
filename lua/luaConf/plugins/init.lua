@@ -132,9 +132,15 @@ require("lze").load({
 		event = "BufReadPost",
 		load = function(name)
 			vim.cmd.packadd(name)
-			vim.cmd.packadd("nvim-scrollbar")
-			vim.cmd.packadd("gitsigns.nvim")
-			vim.cmd.packadd("statuscol.nvim")
+			-- Resolve real opt-dir names via packpath glob. nixpkgs renames
+			-- plugins across revisions (e.g. by-name migration), so a hardcoded
+			-- packadd like "gitsigns.nvim" can error and abort the whole chain.
+			for _, pat in ipairs({ "nvim-scrollbar*", "gitsigns*", "statuscol*" }) do
+				local dirs = vim.fn.globpath(vim.o.packpath, "pack/*/opt/" .. pat, false, true)
+				if dirs[1] then
+					vim.cmd.packadd(vim.fn.fnamemodify(dirs[1], ":t"))
+				end
+			end
 		end,
 		after = function()
 			require("scrollbar").setup({
@@ -230,14 +236,9 @@ require("lze").load({
 		end,
 	},
 
-	{
-		"garbage-day-nvim",
-		for_cat = "general.extra",
-		event = "DeferredUIEnter",
-		after = function()
-			require("garbage-day").setup({})
-		end,
-	},
+	-- garbage-day disabled: incompatible with Neovim 0.11 + native vim.lsp
+	-- (calls removed `:LspStart` and deprecated vim.lsp.stop_client()).
+	-- Re-enable once it supports the native LSP API.
 
 	{
 		"sniprun",

@@ -245,7 +245,6 @@
             image-nvim
             img-clip-nvim
             vim-wakatime
-            pkgs.awesomeNeovimPlugins.garbage-day-nvim
             pkgs.awesomeNeovimPlugins.tiny-code-action-nvim
             pkgs.awesomeNeovimPlugins.reactive-nvim
             hlchunk-nvim
