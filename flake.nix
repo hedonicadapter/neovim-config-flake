@@ -95,6 +95,34 @@
           neovimPlugins = disableRequireCheck prev.neovimPlugins;
         })
 
+        # Pin nvim-treesitter to its archived `master` branch.
+        # The `main`-branch rewrite (now the nixpkgs default) removed the
+        # `nvim-treesitter.configs` module: no `configs.setup`, no
+        # `incremental_selection`, no built-in textobjects/move. Our config
+        # calls `require("nvim-treesitter.configs").setup{}`, which now errors
+        # and aborts setup — killing <C-m> node selection, textobjects, moves,
+        # and treesitter-context init. nixpkgs keeps the master branch as the
+        # `*-legacy` packages; alias back to them. Force `pname` so nixCats'
+        # packadd names stay `nvim-treesitter` / `nvim-treesitter-textobjects`.
+        # Use `//` over the frozen `prev.vimPlugins` (not `.extend`): legacy's
+        # `withAllGrammars` reads `self.nvim-treesitter.allGrammars`, so rewiring
+        # the scope fixpoint would recurse into our grammar-less override. Apply
+        # withAllGrammars first, then rename — it builds off `self.nvim-treesitter-legacy`.
+        (final: prev: {
+          vimPlugins = prev.vimPlugins // {
+            nvim-treesitter = prev.vimPlugins.nvim-treesitter-legacy.withAllGrammars.overrideAttrs (_: {
+              pname = "nvim-treesitter";
+              doCheck = false;
+              nvimRequireCheck = [];
+            });
+            nvim-treesitter-textobjects = prev.vimPlugins.nvim-treesitter-textobjects-legacy.overrideAttrs (_: {
+              pname = "nvim-treesitter-textobjects";
+              doCheck = false;
+              nvimRequireCheck = [];
+            });
+          };
+        })
+
         # when other people mess up their overlays by wrapping them with system,
         # you may instead call this function on their overlay.
         # it will check if it has the system in the set, and if so return the desired overlay
@@ -273,7 +301,7 @@
           treesitter = with pkgs.vimPlugins; [
             nvim-treesitter-context
             nvim-treesitter-textobjects
-            nvim-treesitter.withAllGrammars
+            nvim-treesitter # legacy master, grammars pre-bundled via overlay
             nvim-ts-autotag
             nvim-ts-context-commentstring
           ];
